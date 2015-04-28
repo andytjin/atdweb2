@@ -4,8 +4,11 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
+* Er kan ingelogd worden met een klant account of 1 admin account. 
+Alle geregistreerde users worden opgeslagen in een file.
+Als je inlogd kan je nog niks doen.
+
+* 0.11
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
@@ -14,11 +17,11 @@ This README would normally document whatever steps are necessary to get your app
 * Inloggen kan met: HenkPaladijn, thema4 (ADMIN).
 * Of met: Default, a (KLANT).
 
-### Contribution guidelines ###
+### Quick todo ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* CSS
+* JSPs afmaken voor welkom pagina's
+* Functies van atd toevoegen.
 
 ### Who do I talk to? ###
 
