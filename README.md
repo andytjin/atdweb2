@@ -4,9 +4,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Er kan ingelogd worden met een klant account of 1 admin account. 
-Alle geregistreerde users worden opgeslagen in een file.
-Als je inlogd kan je nog niks doen.
+* Deze repository wordt gebruikt voor de ATD WEB opdracht van blok 4. 
 
 * 0.11
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
