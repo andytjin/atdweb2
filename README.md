@@ -6,7 +6,7 @@ This README would normally document whatever steps are necessary to get your app
 
 * Deze repository wordt gebruikt voor de ATD WEB opdracht van blok 4. 
 
-* 0.11
+* 0.20
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###

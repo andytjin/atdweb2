@@ -26,7 +26,7 @@ public class MyServletContextListener implements ServletContextListener {
         ServletContext sc = sce.getServletContext();
         Bedrijf hetBedrijf = null;
         try {
-            FileInputStream fis = new FileInputStream("C:\\Users\\maxra_000\\Desktop\\School\\bedrijf.obj");
+            FileInputStream fis = new FileInputStream("bedrijf.obj");
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object obj = ois.readObject();
             if (obj != null) {
@@ -55,7 +55,7 @@ public class MyServletContextListener implements ServletContextListener {
         Bedrijf hetBedrijf = (Bedrijf) obj;
 
         try {
-            FileOutputStream fos = new FileOutputStream("C:\\Users\\maxra_000\\Desktop\\School\\bedrijf.obj");
+            FileOutputStream fos = new FileOutputStream("bedrijf.obj");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(hetBedrijf);
             oos.close();
