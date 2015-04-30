@@ -8,12 +8,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ATD login</title>
     </head>
     <body>
-        <div class="header">
-            <h1>ATD</h1>
+        <div id="header">
+            <h1>Auto Totaal Dienst</h1>
             <div class="login">
                 <form action="LoginServlet" method="post">
                     <input type="text" name="Username" placeholder="Gebruikersnaam">
@@ -21,39 +22,54 @@
                     <input type="submit" name="button" value="Login">
                 </form>  
             </div>
-            <p class="errormessage" <%
+            <p class="errormessage" >
+               <%
                 if (request.getAttribute("loginmsgs") != null) {
                     out.println(request.getAttribute("loginmsgs"));
                 }
                %>
         </p>
     </div>
-
-    <div class="register">
+    
+    <div id="register" >
         <h2>Register</h2>
         <form action="RegisterServlet" method="post">
-            Gebruikersnaam:
+            <label class="labels">
+            Gebruikersnaam:<br/>
+            Naam:<br/>
+            Wachtwoord:<br/>
+            Bevestig wachtwoord:<br/>
+            E-mail:<br/>
+            Bevestig e-mail:<br/>
+            Telefoon nummer:<br/>
+            Adres:<br/>
+            Postcode:<br/>
+            Geboortedatum:<br/>
+            </label>
+            <label class ="inputs">
             <input type="text" name="Username"><br/>
-            Naam:
+            
             <input type="text" name="Fullname"><br/>
-            Wachtwoord:
+            
             <input type="password" name="Password"><br/>
-            Bevestig wachtwoord:
+            
             <input type="password" name="PasswordConfirm"><br/>
-            E-mail:
+            
             <input type="email" name="Email"><br/>
-            Bevestig e-mail
+            
             <input type="email" name="EmailConfirm"><br/>
-            Telefoon nummer:
+            
             <input type="text" name="Phonenumber" placeholder="0612345678"><br/>
-            Adres:
+            
             <input type="text" name="Address"><br/>
-            Postcode:
+            
             <input type="text" name="Postcode" placeholder="1234AB"><br/>
-            Geboortedatum:
+            
             <input type="date" name="DateofBirth"><br/>
             <input type="checkbox" name="Herrinnering" >Ik wil graag een herrinnerings brief ontvangen<br/>
+            </label>
             <input type="submit" name="register" value="Registreer">
+            
         </form>
     </div>
 
