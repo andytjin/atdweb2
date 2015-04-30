@@ -63,6 +63,8 @@ public class MyServletContextListener implements ServletContextListener {
             System.out.println("Saved users: " + hetBedrijf.toString());
         } catch (Exception e) {
             System.out.println("Saving gone wrong");
+            e.printStackTrace();
         }
+        
     }
 }
