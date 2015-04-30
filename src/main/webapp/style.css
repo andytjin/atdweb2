@@ -1,0 +1,72 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 29, 2015, 1:06:03 PM
+    Author     : Thijs
+*/
+@font-face {
+    font-family: Titel;
+    src: url('Fonts/KrinkesRegularPERSONAL.ttf');
+}
+
+
+body{
+    background: url(/Images/picatd.png)no-repeat left bottom fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 60%;        
+}
+
+#header {
+    width: 100%;
+    height: 100px;  
+    font-family: Titel;
+    font-size: 40px;
+    position: relative; left: 0px; top: -50px;
+    float: top;
+    background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, #4091ED),
+	color-stop(1, #5CC9FF)
+    );
+    background-image: -o-linear-gradient(bottom, #4091ED 0%, #5CC9FF 100%);
+    background-image: -moz-linear-gradient(bottom, #4091ED 0%, #5CC9FF 100%);
+    background-image: -webkit-linear-gradient(bottom, #4091ED 0%, #5CC9FF 100%);
+    background-image: -ms-linear-gradient(bottom, #4091ED 0%, #5CC9FF 100%);
+    background-image: linear-gradient(to bottom, #4091ED 0%, #5CC9FF 100%);
+    
+}
+#header h1 {
+    position: relative; left: 30px;
+}
+#header .login {
+    position: relative; top: -150px; left: -50px;   
+    float: right;
+}
+#register {
+    position: relative; left: 70%;
+ }
+
+#register h2{
+    font-family: Arial;
+    font-size: 40px;
+    display:inline-block;
+    transform:scale(2,1); /* W3C */
+    -webkit-transform:scale(2,1); /* Safari and Chrome */
+    -moz-transform:scale(2,1); /* Firefox */
+    -ms-transform:scale(2,1); /* IE 9 */
+    -o-transform:scale(2,1); /* Opera */
+    position: relative; left: 70px;
+}
+#register .labels {
+    postion: relative; float:left;
+    font-family: Arial;
+    font-size: 18px;
+    padding-right: 7px;
+}
