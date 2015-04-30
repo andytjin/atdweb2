@@ -13,5 +13,15 @@
     </head>
     <body>
         <h1>Welkom Admin</h1>
+
+
+        <div class="button">
+            <form action="LogoutServlet" method="post">
+                <input type="submit" name="button" value="log uit">
+            </form>
+            <form action="AdminpageServlet" method="post">
+                <input type="submit" name="button" value="add monteur">  
+            </form>
+        </div>
     </body>
 </html>
