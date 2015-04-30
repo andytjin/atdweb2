@@ -32,6 +32,7 @@
     </div>
     
     <div id="register" >
+        <div class ="reg">
         <h2>Register</h2>
         <form action="RegisterServlet" method="post">
             <label class="labels">
@@ -47,30 +48,22 @@
             Geboortedatum:<br/>
             </label>
             <label class ="inputs">
-            <input type="text" name="Username"><br/>
-            
-            <input type="text" name="Fullname"><br/>
-            
-            <input type="password" name="Password"><br/>
-            
-            <input type="password" name="PasswordConfirm"><br/>
-            
-            <input type="email" name="Email"><br/>
-            
-            <input type="email" name="EmailConfirm"><br/>
-            
-            <input type="text" name="Phonenumber" placeholder="0612345678"><br/>
-            
-            <input type="text" name="Address"><br/>
-            
-            <input type="text" name="Postcode" placeholder="1234AB"><br/>
-            
+            <input type="text" name="Username"><br/>            
+            <input type="text" name="Fullname"><br/>            
+            <input type="password" name="Password"><br/>            
+            <input type="password" name="PasswordConfirm"><br/>            
+            <input type="email" name="Email"><br/>            
+            <input type="email" name="EmailConfirm"><br/>            
+            <input type="text" name="Phonenumber" placeholder="0612345678"><br/>            
+            <input type="text" name="Address"><br/>            
+            <input type="text" name="Postcode" placeholder="1234AB"><br/>            
             <input type="date" name="DateofBirth"><br/>
             <input type="checkbox" name="Herrinnering" >Ik wil graag een herrinnerings brief ontvangen<br/>
             </label>
             <input type="submit" name="register" value="Registreer">
-            
+           
         </form>
+         </div>
     </div>
 
     <div class="errormessage">
@@ -82,5 +75,8 @@
             %>
         </p>
     </div>
+        <div id="infobar">
+            
+        </div>
 </body>
 </html>
