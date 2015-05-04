@@ -17,11 +17,12 @@ html {
     overflow-x: hidden;
 }
 body{
-    background: url(/Images/walpaper.jpg)no-repeat left center fixed;
+    background: url(./Images/walpaper.jpg)no-repeat left center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: 100%; 
+    
 }
 
 #header {
