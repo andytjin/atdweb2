@@ -78,7 +78,8 @@ body{
   
 }
 #register .inputs {
-   
+   position: relative;
+   left: 18%;
 }
 #infobar {
     position: relative; 
