@@ -17,7 +17,7 @@ html {
     overflow-x: hidden;
 }
 body{
-    background: url(/Images/wallpaper.jpg)no-repeat left center fixed;
+    background: url(/Images/walpaper.jpg)no-repeat left center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -48,10 +48,8 @@ body{
 }
 #register {
     position: relative; left: 75%;
-    width: 25em;
-    padding: 1em;
-      
- }
+    width: 27em;
+    }
 .reg{
     border-radius: 29px 29px 29px 29px;
     -moz-border-radius: 29px 29px 29px 29px;
@@ -60,23 +58,26 @@ body{
     -webkit-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
-    opacity: 0.7;  
-    padding: 0.5em;
- }
+    opacity: 0.8;  
+    padding: 2em;
+    }
 
 #register h2{
     font-family: Arial;
     font-size: 2em;
-    position: relative; left: 70px;
+    position: relative; left: 3.5em;
+    padding-top: -5em;
+    padding-bottom: -1em;
 }
 #register .labels {
-    postion: relative; float:left;
+    position: relative; float:left;
     font-family: Arial;
     font-size: 18px;
-    padding-right: 7px;
-  
+    padding-right: 7px;    
+    
 }
 #register .inputs {
+   text-align: center;
    
 }
 #infobar {
@@ -88,4 +89,18 @@ body{
     width: 102%;
     height: 5em;
     opacity: 0.7;
+}
+.inputs {
+    font-family: Arial;
+    font-style:oblique;
+}
+#infobar{
+    font-family: Arial;
+    font-size: 1em;
+    font-style: italic;
+    text-align: center;    
+    position: relative; top: 16.2em;
+}
+#infobar .informatie{
+    position: relative; top: 3em;
 }

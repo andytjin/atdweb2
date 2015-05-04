@@ -46,6 +46,7 @@
             Adres:<br/>
             Postcode:<br/>
             Geboortedatum:<br/>
+            
             </label>
             <label class ="inputs">
             <input type="text" name="Username"><br/>            
@@ -57,8 +58,9 @@
             <input type="text" name="Phonenumber" placeholder="0612345678"><br/>            
             <input type="text" name="Address"><br/>            
             <input type="text" name="Postcode" placeholder="1234AB"><br/>            
-            <input type="date" name="DateofBirth"><br/>
-            <input type="checkbox" name="Herrinnering" >Ik wil graag een herrinnerings brief ontvangen<br/>
+            <input type="date" name="DateofBirth"><br/><br/>
+            Ik wil graag een herrinnerings brief ontvangen<input type="checkbox" name="Herrinnering" ><br/><br/>
+            
             </label>
             <input type="submit" name="register" value="Registreer">
            
@@ -76,7 +78,9 @@
         </p>
     </div>
         <div id="infobar">
-            
+            <div class="informatie">
+           Contact: contact@infoatd.com || Tel: 0900 - 030303030 ( 10ct. p/m) || Fax: 0900-30303030 
+            </div>
         </div>
 </body>
 </html>
