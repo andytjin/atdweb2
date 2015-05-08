@@ -2,9 +2,6 @@
  * Gemaakt door: Tristan en Roger
  */
 
-
-
-
 package Domain;
 
 import java.io.Serializable;
@@ -19,6 +16,10 @@ public class Monteur implements Serializable{
 		ID = id;
 	}
 	
+        public int getID(){
+            return ID;
+        }
+        
 	public String getNaam(){
 		return naam;
 	}

@@ -47,6 +47,28 @@ body{
     position: relative; top: -150px; left: -50px;   
     float: right;
 }
+
+.navbar{
+    position: absolute;
+    left:0%; top: 2em;
+    width: 100%;
+    height: 30px;
+    background-color: #555555;
+    
+}
+.navForm{
+    position: absolute;
+    top: -10px;
+    width: 100%;
+    height: 30px;
+    display: table;
+}
+.navbutton{
+    width: 200px;
+    display: table-cell;
+    
+}
+
 #register {
     position: relative; left: 75%;
     width: 27em;

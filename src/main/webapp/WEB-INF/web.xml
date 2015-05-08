@@ -22,6 +22,16 @@
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>AdminPageServlet</servlet-name>
+        <servlet-class>Servlets.AdminPageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminPageServlet</servlet-name>
+        <url-pattern>/AdminPageServlet</url-pattern>
+    </servlet-mapping>
+    
+  
     <session-config>
         <session-timeout>
             30

@@ -13,16 +13,21 @@
         <title>ADMIN PAGE</title>
     </head>
     <body>
-        <h1>Welkom Admin</h1>
-
-
-        <div class="button">
-            <form action="LogoutServlet" method="post">
-                <input type="submit" name="button" value="log uit">
-            </form>
-            <form action="AdminpageServlet" method="post">
-                <input type="submit" name="button" value="add monteur">  
-            </form>
+        <div id="header">
+            <h1>Homepage</h1>
+            <div class="login">
+                ingelogd als: HenkPaladijn
+            </div>
+            <div class="navbar">
+                <form class="navForm" action="AdminPageServlet" method="post">
+                    <input type="submit" name="button" value="Home" class="navbutton">
+                    <input type="submit" name="button" value="add monteur" class="navbutton">  
+                    <input type="submit" name="button" value="log uit" class="navbutton">
+                    
+                </form>
+            </div>
         </div>
+
+
     </body>
 </html>

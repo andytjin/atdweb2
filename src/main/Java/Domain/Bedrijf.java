@@ -124,6 +124,23 @@ public class Bedrijf implements Serializable {
         }
     }
 
+    public void voegMonteurToe(Monteur m) {
+        if(!heeftMonteur(m.getID())){
+            alleMonteurs.add(m);
+            System.out.println("toegevoegd");
+        }
+    }
+
+    public boolean heeftMonteur(int id2) {
+        boolean b = false;
+        for (Monteur m : alleMonteurs) {
+            if (m.getID() == id2) {
+                b = true;
+            }
+        }
+        return b;
+    }
+
     public boolean heeftKlant(String kN) {
         boolean b = false;
         for (Klant k : alleKlanten) {
