@@ -10,7 +10,8 @@ public class Monteur implements Serializable{
 
 	private int ID;
 	private String naam;
-	
+	private String wachtwoord;
+        
 	public Monteur(String nm,int id){
 		naam = nm;
 		ID = id;
@@ -20,6 +21,13 @@ public class Monteur implements Serializable{
             return ID;
         }
         
+        public boolean checkPassword(String s){
+            boolean b = false;
+            if(wachtwoord.equals(s)){
+                b = true;
+            }
+            return b;
+        }
 	public String getNaam(){
 		return naam;
 	}
