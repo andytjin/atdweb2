@@ -132,8 +132,15 @@ body{
     font-size: 1em;
     font-style: italic;
     text-align: center;    
-    position: relative; top: 16.2em;
+    position: relative; top: 16.7em;
 }
 #infobar .informatie{
     position: relative; top: 3em;
+}
+.errormessage {
+    width: 20em;
+    position: relative; left: 40em; top: -7.5em;
+    font-family: Arial;
+    font-size: 0.5em;
+    color: #ffffff;
 }
