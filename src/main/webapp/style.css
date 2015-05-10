@@ -137,10 +137,16 @@ body{
 #infobar .informatie{
     position: relative; top: 3em;
 }
-.errormessage {
+.error {
     width: 20em;
     position: relative; left: 40em; top: -7.5em;
     font-family: Arial;
     font-size: 0.5em;
+    color: #ffffff;
+    opacity: 0.8;
+}
+.errormessage {
+    font-family: Arial;
+    font-size: 1em;
     color: #ffffff;
 }

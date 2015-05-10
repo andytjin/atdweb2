@@ -22,7 +22,7 @@
                     <input type="submit" name="button" value="Login">
                 </form>  
             </div>
-            <p class="errormessage" >
+            <p class="error" >
                <%
                 if (request.getAttribute("loginmsgs") != null) {
                     out.println(request.getAttribute("loginmsgs"));
@@ -63,20 +63,21 @@
             
             </label>
             <input type="submit" name="register" value="Registreer">
+            <div class="errormessage">
+              <p>
+                   <%
+                      if (request.getAttribute("msgs") != null) {
+                            out.println(request.getAttribute("msgs"));
+                     }
+                 %>
+                </p>
+            </div>
            
         </form>
          </div>
     </div>
 
-    <div class="errormessage">
-        <p>
-            <%
-                if (request.getAttribute("msgs") != null) {
-                    out.println(request.getAttribute("msgs"));
-                }
-            %>
-        </p>
-    </div>
+    
         <div id="infobar">
             <div class="informatie">
            Contact: contact@infoatd.com || Tel: 0900 - 030303030 ( 10ct. p/m) || Fax: 0900-30303030 
