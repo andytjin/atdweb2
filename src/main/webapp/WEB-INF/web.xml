@@ -31,7 +31,6 @@
         <url-pattern>/AdminPageServlet</url-pattern>
     </servlet-mapping>
     
-  
     <session-config>
         <session-timeout>
             30

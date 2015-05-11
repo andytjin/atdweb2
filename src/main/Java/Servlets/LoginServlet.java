@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("Password");
 
         String msgs = "De volgende velden zijn niet correct ingevuld<br/>";
-        RequestDispatcher rd = request.getRequestDispatcher("WelcomeKlant.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("KlantPage.jsp");
         boolean b = true;
 
         Object obj = request.getServletContext().getAttribute("bedrijf");
