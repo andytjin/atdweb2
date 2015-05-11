@@ -35,7 +35,7 @@ public class AdminPageServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminPageServlet</title>");            
+            out.println("<title>Servlet AdminPageServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AdminPageServlet at " + request.getContextPath() + "</h1>");
@@ -70,8 +70,15 @@ public class AdminPageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String button = request.getParameter("button");
         RequestDispatcher rd = request.getRequestDispatcher("AddMonteur.jsp");
+        if (button.equals("log out")) {
+            rd = request.getRequestDispatcher("index.jsp");
+        }
+        if (button.equals("Home")){
+            rd = request.getRequestDispatcher("AdminPage.jsp");
+            
+        }
         rd.forward(request, response);
     }
 

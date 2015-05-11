@@ -53,7 +53,6 @@ public class MyServletContextListener implements ServletContextListener {
         System.out.println("SAVING");
         Object obj = sce.getServletContext().getAttribute("bedrijf");
         Bedrijf hetBedrijf = (Bedrijf) obj;
-
         try {
             FileOutputStream fos = new FileOutputStream("bedrijf.obj");
             ObjectOutputStream oos = new ObjectOutputStream(fos);

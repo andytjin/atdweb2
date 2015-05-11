@@ -19,11 +19,10 @@
                 ingelogd als: HenkPaladijn
             </div>
             <div class="navbar">
-                <form class="navForm" action="AdminPageServlet" method="post">
+                <form action="AdminPageServlet" method="post" class="navForm">
                     <input type="submit" name="button" value="Home" class="navbutton">
                     <input type="submit" name="button" value="add monteur" class="navbutton">  
-                    <input type="submit" name="button" value="log uit" class="navbutton">
-                    
+                    <input type="submit" name="button" value="log out" class="navbutton">
                 </form>
             </div>
         </div>
