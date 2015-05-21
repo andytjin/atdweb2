@@ -51,8 +51,8 @@ public class Bedrijf implements Serializable {
         alleArtikelen.add(a9);
         alleArtikelen.add(a10);
 
-        Monteur m1 = new Monteur("Jurjen van Geenen", 1);
-        Monteur m2 = new Monteur("Helen Clason", 2);
+        Monteur m1 = new Monteur("Jurjen van Geenen", 1, "a");
+        Monteur m2 = new Monteur("Helen Clason", 2, "a");
         alleMonteurs.add(m1);
         alleMonteurs.add(m2);
 
@@ -125,7 +125,7 @@ public class Bedrijf implements Serializable {
     }
 
     public void voegMonteurToe(Monteur m) {
-        if(!heeftMonteur(m.getID())){
+        if (!heeftMonteur(m.getID())) {
             alleMonteurs.add(m);
             System.out.println("toegevoegd");
         }
@@ -139,6 +139,21 @@ public class Bedrijf implements Serializable {
             }
         }
         return b;
+    }
+
+    public Monteur getMonteur(String id) {
+        Monteur result = null;
+        try {
+            int ID = Integer.parseInt(id);
+            for (Monteur m : alleMonteurs) {
+                if(m.getID() == ID){
+                    result = m;
+                }
+            }
+        } catch (Exception e) {
+          // e.printStackTrace();
+        }
+        return result;
     }
 
     public boolean heeftKlant(String kN) {

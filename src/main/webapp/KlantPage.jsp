@@ -4,7 +4,7 @@
     Author     : Max
 --%>
 
-<jsp:include page="header.jsp"/>
+<jsp:include page="/Headers/klantheader.jsp"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

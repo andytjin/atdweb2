@@ -12,9 +12,10 @@ public class Monteur implements Serializable{
 	private String naam;
 	private String wachtwoord;
         
-	public Monteur(String nm,int id){
+	public Monteur(String nm,int id, String ww){
 		naam = nm;
 		ID = id;
+                wachtwoord = ww;
 	}
 	
         public int getID(){

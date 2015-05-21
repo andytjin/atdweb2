@@ -20,6 +20,7 @@
                     <input type="text" name="Username" placeholder="Gebruikersnaam">
                     <input type="password" name="Password" placeholder="Wachtwoord">
                     <input type="submit" name="button" value="Login">
+                    <input type="submit" name="button" value="Login in als monteur">
                 </form>  
             </div>
             <p class="error" >
