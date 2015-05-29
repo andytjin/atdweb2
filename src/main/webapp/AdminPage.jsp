@@ -20,9 +20,9 @@
             </div>
             <div class="navbar">
                 <form action="AdminPageServlet" method="post" class="navForm">
-                    <input type="submit" name="button" value="Home" class="navbutton">
-                    <input type="submit" name="button" value="add monteur" class="navbutton">  
-                    <input type="submit" name="button" value="log out" class="navbutton">
+                    <input type="submit" name="button" value="Home" class="navbutton"/>
+                    <input type="submit" name="button" value="add monteur" class="navbutton"/>  
+                    <input type="submit" name="button" value="log out" class="navbutton"/>
                 </form>
             </div>
         </div>

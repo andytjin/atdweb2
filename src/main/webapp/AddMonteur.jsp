@@ -18,11 +18,33 @@
         </div>
 
         <div>
-            <form action="AddMonteurServlet" method="post">
-                <input type="text" name="ID" placeholder="Monteurs ID">
-                <input type="text" name="Naam" placeholder="Naam">
-                <input type="submit" name="button" value="Voeg toe">
-                <input type="submit" name="button" value="terug">
+            <form action="AddMonteurServlet" method="post" id="klantgegevensform">
+                <table class="klantgegevenstable">
+                    <tr>
+                        <td>Monteurs ID:</td>
+                        <td><input type="text" name="ID"></td>
+                    </tr>
+                    <tr>
+                        <td>Naam:</td>
+                        <td><input type="text" name="Naam"></td>
+                    </tr>
+                    <tr>
+                        <td>Wachtwoord:</td>
+                        <td><input type="password" name="Password"></td>
+                    </tr>
+                    <tr>
+                        <td>Bevestig wachtwoord:</td>
+                        <td><input type="password" name="PasswordCheck"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" name="button" value="Voeg toe">
+                            <input type="submit" name="button" value="terug"> 
+                        </td>
+                    </tr>
+
+                </table>
             </form>
             ${msgs}
 

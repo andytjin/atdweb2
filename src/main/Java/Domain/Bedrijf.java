@@ -23,7 +23,7 @@ public class Bedrijf implements Serializable {
         //aanmaken();
     }
 
-    private void aanmaken() { //hierin worden alle arraylists vast gevuld met wat testobjecten
+    public void aanmaken() { //hierin worden alle arraylists vast gevuld met wat testobjecten
         ArtikelType at1 = new ArtikelType("Moeren");
         ArtikelType at2 = new ArtikelType("Schroeven");
         ArtikelType at3 = new ArtikelType("Deuren");
@@ -62,8 +62,8 @@ public class Bedrijf implements Serializable {
         alleKlanten.add(k1);
         alleKlanten.add(k2);
 
-        Auto aut1 = new Auto("Gallardo", "Lamborghini", k1);
-        Auto aut2 = new Auto("C1", "Citroen", k2);
+        Auto aut1 = new Auto("12-34-56", "Gallardo", "Lamborghini", k1);
+        Auto aut2 = new Auto("AB-CD-EF","C1", "Citroen", k2);
         alleAutos.add(aut1);
         alleAutos.add(aut2);
 
@@ -117,6 +117,9 @@ public class Bedrijf implements Serializable {
         alleDiensten.add(d9);
     }
 
+    public void voegAutoToe(Auto a){
+        alleAutos.add(a);
+    }
     public void voegKlantToe(Klant nweKlant) {
         if (!heeftKlant(nweKlant.getUsername())) {
             alleKlanten.add(nweKlant);
@@ -125,7 +128,7 @@ public class Bedrijf implements Serializable {
     }
 
     public void voegMonteurToe(Monteur m) {
-        if (!heeftMonteur(m.getID())) {
+        if(!heeftMonteur(m.getID())){
             alleMonteurs.add(m);
             System.out.println("toegevoegd");
         }
@@ -139,21 +142,6 @@ public class Bedrijf implements Serializable {
             }
         }
         return b;
-    }
-
-    public Monteur getMonteur(String id) {
-        Monteur result = null;
-        try {
-            int ID = Integer.parseInt(id);
-            for (Monteur m : alleMonteurs) {
-                if(m.getID() == ID){
-                    result = m;
-                }
-            }
-        } catch (Exception e) {
-          // e.printStackTrace();
-        }
-        return result;
     }
 
     public boolean heeftKlant(String kN) {
