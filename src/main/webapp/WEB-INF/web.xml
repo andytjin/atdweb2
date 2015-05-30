@@ -51,14 +51,15 @@
             30
         </session-timeout>
     </session-config>
-
     <filter>
         <filter-name>KlantFilter</filter-name>
         <filter-class>Filters.KlantSecurityFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>KlantFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
+        <servlet-name>KlantPageServlet</servlet-name>
+        <servlet-name>KlantGegevensServlet</servlet-name>
+        <servlet-name>AutoGegevensServlet</servlet-name>
     </filter-mapping>
     <filter>
         <filter-name>AdminFilter</filter-name>
