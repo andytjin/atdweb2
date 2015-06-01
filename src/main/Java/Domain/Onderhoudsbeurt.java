@@ -22,6 +22,7 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		for(GebruikteArtikelen ga : deArtikelen){
 			p += ga.getHetArtikel().getPrijs() * ga.getAantal();
                 }
+		
 		super.setNettoPrijs(p);
 	}
 	
@@ -66,6 +67,10 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	public void setDeMonteur(Monteur m){
 		deMonteur = m;
 	}
+
+    public Onderhoudsbeurt getOnderhoudsbeurt() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+}
 }
 
 

@@ -21,12 +21,6 @@
     <body>
         <form action="alleFacturenServlet" method="post">
             <div id="main2">            
-
-                <%
-                    FactuurService fService = ServiceProvider.getFactuurService();
-                    Object obj = request.getSession().getAttribute("alleFacturen");
-                %>
-
                 <c:forEach var="factuur" items="${alleFacturen}">
                     <div class="spacing">
                         <table>
@@ -51,11 +45,7 @@
                 <input type="submit" name="button" value="Haal op">
 
             </div>
-            <div id="main3">
-                <%
-                    Object object = request.getSession().getAttribute("gezochteFactuur");
-                    %>
-                
+            <div id="main3">                
                     <table>
                         <tr>
                             <td>Factuurnummer</td>
@@ -86,9 +76,7 @@
                         </tr>
                         <tr>
                             <td>${gezochteFactuur.getKlantNaam()}</td>
-
                         </tr>
-
                     </table>
                 
             </div>

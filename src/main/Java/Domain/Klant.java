@@ -1,6 +1,3 @@
-/*
- * Gemaakt door: Thijs
- */
 package Domain;
 
 import java.io.Serializable;
