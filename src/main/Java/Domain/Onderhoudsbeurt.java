@@ -1,10 +1,3 @@
-/*
- * Gemaakt door: Tristan en Roger
- */
-
-
-
-
 package Domain;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,8 +21,7 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		p = aantalBestedeUur * 50.0;
 		for(GebruikteArtikelen ga : deArtikelen){
 			p += ga.getHetArtikel().getPrijs() * ga.getAantal();
-		}
-		System.out.println("Roger is dik");
+                }
 		super.setNettoPrijs(p);
 	}
 	
@@ -73,9 +65,5 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	
 	public void setDeMonteur(Monteur m){
 		deMonteur = m;
-	}
-
-	public Onderhoudsbeurt getOnderhoudsbeurt() {
-		return this;
 	}
 }

@@ -1,10 +1,3 @@
-/*
- * Gemaakt door: Tristan en Roger
- */
-
-
-
-
 package Domain;
 
 import java.io.Serializable;
@@ -53,6 +46,4 @@ public abstract class Dienst implements Serializable{
 	public void setNettoPrijs(double p){
 		nettoPrijs = p;
 	}
-	
-	public abstract Onderhoudsbeurt getOnderhoudsbeurt();
 }
