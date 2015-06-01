@@ -13,15 +13,21 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 
 	private int aantalBestedeUur;
 	private Auto deAuto;
+        private String kenteken = deAuto.getKenteken();
 	private Monteur deMonteur;
 	private ArrayList<GebruikteArtikelen> deArtikelen = new ArrayList<GebruikteArtikelen>();
 	
-	public Onderhoudsbeurt(int dN, String Dat, Auto dA, Monteur dM){
+	public Onderhoudsbeurt(int dN, String Dat, Auto auto, Monteur dM){
 		super(dN,Dat);
-		deAuto = dA;
+		deAuto = auto;
 		deMonteur = dM;
 		aantalBestedeUur = 0;
 	}
+        public Onderhoudsbeurt(int dN, String Dat, String ken){
+            super(dN,Dat);
+            kenteken = ken;
+            aantalBestedeUur = 0;
+        }
 	
 	public void berekenPrijs() {
 		double p = 0.0;
@@ -68,4 +74,8 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	public Onderhoudsbeurt getOnderhoudsbeurt() {
 		return this;
 	}
+        
+        public String getKenteken(){
+            return kenteken;
+        }
 }

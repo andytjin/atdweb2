@@ -44,6 +44,9 @@ public class Klant implements Serializable{
         return b;
     }
 
+    public void setPassword(String ps){
+        password = ps;
+    }
     public String getEmailadres() {
         return emailadres;
     }
@@ -121,7 +124,7 @@ public class Klant implements Serializable{
     public Klant getKlant() {
         return this;
     }
-    
+   
     @Override
    public String toString(){
       String s = username;

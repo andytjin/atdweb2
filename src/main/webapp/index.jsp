@@ -20,69 +20,86 @@
                     <input type="text" name="Username" placeholder="Gebruikersnaam">
                     <input type="password" name="Password" placeholder="Wachtwoord">
                     <input type="submit" name="button" value="Login">
-                    <input type="submit" name="button" value="Login in als monteur">
+                    <input type="submit" name="button" value="Monteur login">
                 </form>  
             </div>
             <p class="error" >
-               <%
-                if (request.getAttribute("loginmsgs") != null) {
-                    out.println(request.getAttribute("loginmsgs"));
-                }
-               %>
-        </p>
-    </div>
-    
-    <div id="register" >
-        <div class ="reg">
-        <h2>Register</h2>
-        <form action="RegisterServlet" method="post">
-            <label class="labels">
-            Gebruikersnaam:<br/>
-            Naam:<br/>
-            Wachtwoord:<br/>
-            Bevestig wachtwoord:<br/>
-            E-mail:<br/>
-            Bevestig e-mail:<br/>
-            Telefoon nummer:<br/>
-            Adres:<br/>
-            Postcode:<br/>
-            Geboortedatum:<br/>
-            
-            </label>
-            <label class ="inputs">
-            <input type="text" name="Username"><br/>            
-            <input type="text" name="Fullname"><br/>            
-            <input type="password" name="Password"><br/>            
-            <input type="password" name="PasswordConfirm"><br/>            
-            <input type="email" name="Email"><br/>            
-            <input type="email" name="EmailConfirm"><br/>            
-            <input type="text" name="Phonenumber" placeholder="0612345678"><br/>            
-            <input type="text" name="Address"><br/>            
-            <input type="text" name="Postcode" placeholder="1234AB"><br/>            
-            <input type="date" name="DateofBirth"><br/><br/>
-            Ik wil graag een herrinnerings brief ontvangen<input type="checkbox" name="Herrinnering" ><br/><br/>
-            
-            </label>
-            <input type="submit" name="register" value="Registreer">
-            <div class="errormessage">
-              <p>
-                   <%
-                      if (request.getAttribute("msgs") != null) {
-                            out.println(request.getAttribute("msgs"));
-                     }
-                 %>
-                </p>
-            </div>
-           
-        </form>
-         </div>
-    </div>
+                ${loginmsgs}
+            </p>
+        </div>
 
-    
-        <div id="infobar">
-            <div class="informatie">
-           Contact: contact@infoatd.com || Tel: 0900 - 030303030 ( 10ct. p/m) || Fax: 0900-30303030 
+        <div id="register" >
+            <div class ="reg">
+                <h2>Register</h2>
+                <form action="RegisterServlet" method="post">
+                    <table>
+                        <tr>
+                            <td>Gebruikersnaam:</td>
+                            <td><input type="text" name="Username"></td>
+                        </tr>
+                        <tr>
+                            <td>Naam:</td>
+                            <td><input type="text" name="Fullname"></td>
+                        </tr>
+                        <tr>
+                            <td>Wachtwoord:</td>
+                            <td><input type="password" name="Password"></td>
+                        </tr>
+                        <tr>
+                            <td>Bevestig wachtwoord:</td>
+                            <td><input type="password" name="PasswordConfirm"></td>
+                        </tr>
+                        <tr>
+                            <td>E-mail:</td>
+                            <td><input type="email" name="Email"></td>
+                        </tr>
+                        <tr>
+                            <td>Bevestig E-mail:</td>
+                            <td><input type="email" name="EmailConfirm"></td>
+                        </tr>
+                        <tr>
+                            <td>Telefoonnummer:</td>
+                            <td><input type="text" name="Phonenumber" placeholder="0612345678"></td>
+                        </tr>
+                        <tr>
+                            <td>Adres</td>
+                            <td><input type="text" name="Address"></td>
+                        </tr>
+                        <tr>
+                            <td>Postcode:</td>
+                            <td><input type="text" name="Postcode" placeholder="1234AB"></td>
+                        </tr>
+                        <tr>
+                            <td>Geboortedatum:</td>
+                            <td><input type="date" name="DateofBirth"></td>
+                        </tr>
+                    </table>
+                    <label class="labels">
+                    </label>
+                    <label class ="inputs">
+                        Ik wil graag een herrinnerings brief ontvangen<input type="checkbox" name="Herrinnering" ><br/><br/>
+
+                    </label>
+                    <input type="submit" name="register" value="Registreer">
+                    <div class="errormessage">
+                        <p>
+                            <%
+                                if (request.getAttribute("msgs") != null) {
+                                    out.println(request.getAttribute("msgs"));
+                                }
+                            %>
+                        </p>
+                    </div>
+
+                </form>
             </div>
         </div>
-</body>
+
+
+        <div id="infobar">
+            <div class="informatie">
+                Contact: contact@infoatd.com || Tel: 0900 - 030303030 ( 10ct. p/m) || Fax: 0900-30303030 
+            </div>
+        </div>
+    </body>
 </html>
