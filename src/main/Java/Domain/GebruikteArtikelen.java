@@ -12,12 +12,23 @@ import java.io.Serializable;
 public class GebruikteArtikelen implements Serializable{
 	private int aantal;
 	private Artikel hetArtikel;
+        private int GebruikteArtikelID;
+        private static int doorteller = 0;
 	
 	public GebruikteArtikelen(int a, Artikel hA){
-		aantal = a;
+		doorteller++;
+                GebruikteArtikelID = doorteller;
+                aantal = a;
 		hetArtikel = hA;
+                
 	}
-	
+        
+        public String getArtikelID(){ return hetArtikel.getCode(); }
+        
+        public int getGebruikteArtikelID(){
+            return GebruikteArtikelID;
+        }
+        
 	public Artikel getHetArtikel(){
 		return hetArtikel;
 	}

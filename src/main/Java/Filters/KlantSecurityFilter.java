@@ -27,7 +27,6 @@ public class KlantSecurityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest r2 = (HttpServletRequest) request;
-        System.out.println("KLANT SECURIYY FILTER");
         if (r2.getSession().getAttribute("User") == null) {
             HttpServletResponse.class.cast(response).sendError(403);
         } else {

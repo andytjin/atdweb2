@@ -10,12 +10,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Onderhoudsbeurt extends Dienst implements Serializable{
-
+        
 	private int aantalBestedeUur;
 	private Auto deAuto;
 	private Monteur deMonteur;
 	private ArrayList<GebruikteArtikelen> deArtikelen = new ArrayList<GebruikteArtikelen>();
-	
+        
 	public Onderhoudsbeurt(int dN, String Dat, Auto dA, Monteur dM){
 		super(dN,Dat);
 		deAuto = dA;
@@ -33,7 +33,15 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		super.setNettoPrijs(p);
 	}
 	
-	public void voegArtikelToe(Artikel a, int n){
+        public String getKenteken(){
+            return deAuto.getKenteken();
+        }
+        
+        public int getMonteurID(){
+            return deMonteur.getID();
+        }
+        
+	public void voegArtikelToe(Artikel a, int n, int id){
 		deArtikelen.add(new GebruikteArtikelen(n, a));
 	}
 	
@@ -49,6 +57,8 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		return aantalBestedeUur;
 	}
 	
+       
+        
 	public boolean equalsDienst(Object andere){
 		boolean b = false;
 		if(andere instanceof Onderhoudsbeurt){

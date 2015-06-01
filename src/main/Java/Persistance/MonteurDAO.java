@@ -50,13 +50,18 @@ public class MonteurDAO extends BaseDAO<Monteur> {
             e.printStackTrace();
         }
     }
-    
-    public Monteur getMonteur(int id){
-        return selectMonteurs("SELECT * FROM monteur WHERE monteurID = " + id + ";").get(0);
+
+    public Monteur getMonteurByID(int id) {
+        List<Monteur> monteur = selectMonteurs("SELECT * FROM monteur WHERE monteurID = \"" + id + "\"");
+        if (monteur != null && !monteur.isEmpty()) {
+            return monteur.get(0);
+        } else {
+            return null;
+        }
     }
-    
+
     @Override
-    public void create(Monteur instance){
+    public void create(Monteur instance) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

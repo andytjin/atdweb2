@@ -7,8 +7,11 @@ import Domain.Artikel;
 import Domain.Auto;
 import Domain.Bedrijf;
 import Domain.Klant;
+import Domain.Monteur;
+import Service.ArtikelService;
 import Service.AutoService;
 import Service.KlantService;
+import Service.MonteurService;
 import Service.ServiceProvider;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -24,6 +27,8 @@ public class MyServletContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        
+       
         /*System.out.println("INITIALIZING");
          ServletContext sc = sce.getServletContext();
          Bedrijf hetBedrijf = new Bedrijf();

@@ -8,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Domain.Bedrijf"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,39 +17,38 @@
         <title>Auto settings</title>
     </head>
     <body>
-        <form action="AutoGegevensServlet" method="post" class="klantgegevenstable">
-            <input type="text" name="naam" placeholder="Auto type">
-            <input type="text" name="merk" placeholder="Automerk">
-            <input type="submit" name="button" value="Auto toevoegen">     
-        </form>
+        <table class="klantgegevenstable">
+            <form action="AutoGegevensServlet" method="post" >
+                
+                <tr>
+                    <td>Kenteken:</td>
+                    <td><input type="text" name="kenteken"></td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td><input type="text" name="naam"></td>
+                </tr>
+                <tr>
+                    <td>Merk:</td>
+                    <td><input type="text" name="merk"></td>
+                </tr>
+                <tr><td><input type="submit" name="button" value="Auto toevoegen"> </td></tr>    
+            </form>
+        </table>
 
         <table class="klantgegevenstable">
-            <%
-                Object obj = request.getServletContext().getAttribute("bedrijf");
-                Bedrijf bedrijf = null;
-                if (obj != null) {
-                    bedrijf = (Bedrijf) obj;
-                }
-                if (bedrijf != null) {
-                    ArrayList<Auto> autolijst = bedrijf.getAlleAutos();
-                    if (autolijst != null) {
-                        for (Auto a : autolijst) {
-                            %> 
-                            <tr class="autotabelrow">
-                            <form action="AutoGegevens" method="post">
-                                <td><%= a.getNaam()%> </td>
-                                <td><%= a.getMerk()%> </td>
-                                <td><input type="submit" name="button" value="Wijzig">
-                                <input type="submit" name="button" value="Verwijder"></td>
-                            </form>
-                            </tr>
-                            <%
-                        }
-                    }
-                }
-
-
-            %>
+            <tr>
+                <td>Kenteken</td>
+                <td>Merk</td>
+                <td>Type</td>
+            </tr>
+            <c:forEach items="${autos}" var="a">
+                <tr>
+                    <td><c:out value="${a.kenteken}"/></td>
+                    <td><c:out value="${a.naam}"/></td>
+                    <td><c:out value="${a.merk}"/></td>
+                </tr>
+            </c:forEach>
         </table>
     </body>
 </html>
