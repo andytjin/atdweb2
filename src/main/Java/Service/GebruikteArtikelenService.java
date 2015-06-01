@@ -16,8 +16,8 @@ import java.util.List;
 public class GebruikteArtikelenService {
     GebruikteArtikelDAO gaDAO = new GebruikteArtikelDAO();
     
-    public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga){
-            gaDAO.schrijfGebruikteArtikelNaarDatabase(ga);
+    public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga, int i){
+            gaDAO.schrijfGebruikteArtikelNaarDatabase(ga, i);
     }
     
        public GebruikteArtikelen getGebruikteArtikel(int id){
@@ -29,7 +29,7 @@ public class GebruikteArtikelenService {
     }
     
     public List<GebruikteArtikelen> getByID(int id){
-        return gaDAO.getByID(id);
+        return gaDAO.getByOnderhoudsID(id);
     }
 
 }

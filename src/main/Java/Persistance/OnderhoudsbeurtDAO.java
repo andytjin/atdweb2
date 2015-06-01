@@ -28,14 +28,14 @@ private MonteurDAO monteurdao = new MonteurDAO();
 private GebruikteArtikelDAO gebruikteartikeldao = new GebruikteArtikelDAO();
 private AutoDAO autodao = new AutoDAO();
 private List<GebruikteArtikelen> gebruikteArtikelenLijst = null;
-    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, int ga, double prijs, int bestedeuur) {
+    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, double prijs, int bestedeuur) {
            
                 try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
             // create a SQL query
-            String sql = "INSERT INTO to4.onderhoudsbeurt "
-                    + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren, nettoprijs, gebruikteartikelen)"
-                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getDatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "','" +  prijs + "','" + ga + "')";
+            String sql = "INSERT INTO atd.onderhoudsbeurt "
+                    + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren, nettoprijs)"
+                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getDatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "','" +  prijs + "')";
             stmt.executeUpdate(sql);
            
             }catch (Exception e) {
@@ -53,7 +53,7 @@ private List<GebruikteArtikelen> gebruikteArtikelenLijst = null;
     } 
     
     public List<GebruikteArtikelen> getAlleGebruikteArtikelen(int id){
-        return gebruikteartikeldao.getByID(id);
+        return gebruikteartikeldao.getByOnderhoudsID(id);
     }
     
     private List<Onderhoudsbeurt> selectOnderhoudsbeurt(String query){
@@ -69,7 +69,7 @@ private List<GebruikteArtikelen> gebruikteArtikelenLijst = null;
                 int monteurid = rs.getInt("monteurID");
                 int bestedeUur = rs.getInt("aantalbestedeuren");
                 double nettoprijs = rs.getDouble("nettoprijs");
-                int gaID = rs.getInt("gebruikteartikelen");
+               
                
                Auto au = autodao.getAutoByKenteken(kenteken); 
                Monteur mo = monteurdao.getMonteurByID(monteurid);
@@ -79,7 +79,7 @@ private List<GebruikteArtikelen> gebruikteArtikelenLijst = null;
                o.setNettoPrijs(nettoprijs);
                
                
-               gebruikteArtikelenLijst = (List<GebruikteArtikelen>) gebruikteartikeldao.getByID(gaID);
+               gebruikteArtikelenLijst = (List<GebruikteArtikelen>) gebruikteartikeldao.getByOnderhoudsID(id);
                if(gebruikteArtikelenLijst != null){
                    for(GebruikteArtikelen g : gebruikteArtikelenLijst){
                         o.voegArtikelToe(g.getHetArtikel(), g.getAantal(), id);

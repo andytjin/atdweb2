@@ -3,9 +3,11 @@ package WerkzaamhedenServlets;
 import Domain.Artikel;
 import Domain.Auto;
 import Domain.Monteur;
+import Domain.Onderhoudsbeurt;
 import Service.ArtikelService;
 import Service.AutoService;
 import Service.MonteurService;
+import Service.OnderhoudsService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.util.List;
@@ -37,15 +39,20 @@ public class HoofdSchermWerkzaamheden extends HttpServlet {
         if (knop.equals("werkzaamheidToevoegen")) {
             ArtikelService aService = ServiceProvider.getArtikelService();
             List<Artikel> lijst = aService.getAlleArtikelen();
-            request.getServletContext().setAttribute("artikel", lijst);
+            request.getSession().setAttribute("artikel", lijst);
 
             MonteurService mService = ServiceProvider.getMonteurService();
             List<Monteur> mlijst = mService.getAlleMonteurs();
-            request.getServletContext().setAttribute("monteur", mlijst);
+            request.getSession().setAttribute("monteur", mlijst);
 
             AutoService auService = ServiceProvider.getAutoService();
             List<Auto> auLijst = auService.getAlleAutos();
-            request.getServletContext().setAttribute("auto", auLijst);
+            request.getSession().setAttribute("auto", auLijst);
+            
+            OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
+            List<Onderhoudsbeurt> oLijst = oService.getAlleOnderhoudsbeurten();
+            request.getSession().setAttribute("onderhoudsbeurt", oLijst);
+            
             RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
             view.forward(request, response);
         } else {

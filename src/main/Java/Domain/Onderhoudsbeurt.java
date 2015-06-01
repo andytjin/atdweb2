@@ -29,7 +29,7 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		for(GebruikteArtikelen ga : deArtikelen){
 			p += ga.getHetArtikel().getPrijs() * ga.getAantal();
 		}
-		System.out.println("Roger is dik");
+		
 		super.setNettoPrijs(p);
 	}
 	

@@ -71,30 +71,24 @@ public class WerkzaamheidToevoegen extends HttpServlet {
         String onderhoudsbeurtID = request.getParameter("werkzaamheid");
         String datum = request.getParameter("datum");
         String nettoPrijs = request.getParameter("prijs");
-        String bestedeUur = request.getParameter("uur");
-        String ArtikelCode = request.getParameter("artikel");
+        String bestedeUur = request.getParameter("uur");        
         String kenteken = request.getParameter("auto");
-        String monteurID = request.getParameter("monteur");
-        String gaAantal = request.getParameter("ga");
-        int gAantal = 0;
+        String monteurID = request.getParameter("monteur"); 
         int ohID = 0;
-
-        if (gaAantal.equals("")) {
-            System.out.println("null");
+        int MonteurID = 0;
+        
+        if(onderhoudsbeurtID.equals("")){
+             System.out.println("onderhoudsID = null");
         } else {
-            gAantal = Integer.parseInt(gaAantal);
-        }
-
-        if (onderhoudsbeurtID.equals("")) {
-            System.out.println("null");
-        } else {
+            
             ohID = Integer.parseInt(onderhoudsbeurtID);
         }
-
-        if (monteurID != null) {
-            int MonteurID = Integer.parseInt(monteurID);
-        } else {
+     
+        
+        if (monteurID.equals("")) {
             System.out.println("MonteurID = null");
+        } else {
+            MonteurID = Integer.parseInt(monteurID);
         }
 
 //     int GAID = Integer.parseInt(gaID);
@@ -104,30 +98,15 @@ public class WerkzaamheidToevoegen extends HttpServlet {
         // monteur in monteur
         //onderhoudsbeurt bevat autoid, monteurid en gebruikte artikelen id
         // datum, aantalbestede uren, nettoprijs
-        if (knop.equals("voeg toe")) {
-            ArtikelService aService = ServiceProvider.getArtikelService();
-            GebruikteArtikelenService gaService = ServiceProvider.getGebruikteArtikelenService();
-
-            if (gAantal > 0) {
-                Artikel a = aService.getArtikelByCode(ArtikelCode);
-                GebruikteArtikelen ga = new GebruikteArtikelen(gAantal, a);
-                gaService.schrijfGebruikteArtikelNaarDatabase(ga);
-            }
-
-            //   List<GebruikteArtikelen> gaLijst = gaService.getGAList();
-            List<GebruikteArtikelen> gaLijst = gaService.getByID(ohID);
-            request.setAttribute("gaLijst", gaLijst);
-        }
+        
 
         if (knop.equals("Opslaan")) {
-            ArtikelService aService = ServiceProvider.getArtikelService();
-            Artikel a = aService.getArtikelByCode(ArtikelCode);
+            
             MonteurService mService = ServiceProvider.getMonteurService();
-            Monteur m = mService.getMonteurByID(ohID);
+            Monteur m = mService.getMonteurByID(MonteurID);
             AutoService auService = ServiceProvider.getAutoService();
             Auto au = auService.getAutoByKenteken(kenteken);
-            GebruikteArtikelenService gaS = ServiceProvider.getGebruikteArtikelenService();
-            GebruikteArtikelen ga = gaS.getGebruikteArtikel(gAantal);
+            
             OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
             Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, datum, au, m);
             if (nettoPrijs.equals("") || bestedeUur.equals("")) {
@@ -135,13 +114,18 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             } else {
                 double prijs = Double.parseDouble(nettoPrijs);
                 int uur = Integer.parseInt(bestedeUur);
-                oService.schrijfOnderhoudsbeurtNaarDatabase(o, ga.getGebruikteArtikelID(), prijs, uur);
+                oService.schrijfOnderhoudsbeurtNaarDatabase(o, prijs, uur);
+                List<Onderhoudsbeurt> oLijst = oService.getAlleOnderhoudsbeurten();
+                request.getSession().setAttribute("onderhoudsbeurt", oLijst);
             }
+            RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
+            view.forward(request, response);
 
         }
-
-        RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
-        view.forward(request, response);
+        if(knop.equals("Terug")){
+            RequestDispatcher view = request.getRequestDispatcher("/MonteurPage.jsp");
+            view.forward(request, response);
+        }
 
     }
 
