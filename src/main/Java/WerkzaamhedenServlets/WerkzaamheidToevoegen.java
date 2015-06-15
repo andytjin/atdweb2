@@ -51,7 +51,6 @@ public class WerkzaamheidToevoegen extends HttpServlet {
 
             ohID = Integer.parseInt(onderhoudsbeurtID);
         }
-
         if (monteurID.equals("")) {
             System.out.println("MonteurID = null");
         } else {
@@ -64,14 +63,13 @@ public class WerkzaamheidToevoegen extends HttpServlet {
         //auto moet in auto database
         //monteur in monteur
         //onderhoudsbeurt bevat autoid, monteurid en gebruikte artikelen id
-        //datum, aantalbestede uren, nettoprijs
-        if (knop.equals("Opslaan")) {
 
+        if (knop.equals("Opslaan")) {
             MonteurService mService = ServiceProvider.getMonteurService();
             Monteur m = mService.getMonteurByID(MonteurID);
             AutoService auService = ServiceProvider.getAutoService();
             Auto au = auService.getAutoByKenteken(kenteken);
-
+        //datum, aantalbestede uren, nettoprijs
             OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
 
             Calendar cal = Calendar.getInstance();
@@ -98,7 +96,7 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             view.forward(request, response);
 
         }
-        if (knop.equals("Terug")) {
+
             RequestDispatcher view = request.getRequestDispatcher("/MonteurPage.jsp");
             view.forward(request, response);
         }
@@ -116,3 +114,4 @@ public class WerkzaamheidToevoegen extends HttpServlet {
     }// </editor-fold>
 
 }
+

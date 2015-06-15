@@ -64,5 +64,6 @@
                 Opslaan
             </button>
         </form>
+        <jsp:include page="/GebruikteArtikelToevoegen.jsp"/>
     </body>
 </html>

@@ -35,11 +35,13 @@ public class OnderhoudsbeurtDAO extends BaseDAO<Onderhoudsbeurt> {
     public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, double prijs, int bestedeuur) {
 
         try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
             Statement stmt = con.createStatement();
             // create a SQL query
             String sql = "INSERT INTO atd.onderhoudsbeurt "
                     + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren, nettoprijs)"
-                    + " VALUES('" + o.getDienstNummer() + "','" + o.getDatum() + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "','" + prijs + "')";
+                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getDatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "','" +  prijs + "')";
+
             stmt.executeUpdate(sql);
 
         } catch (Exception e) {
