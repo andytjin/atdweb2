@@ -5,8 +5,14 @@
  */
 package ArtikelenServlets;
 
+import Domain.Artikel;
+import Domain.ArtikelType;
+import Service.ArtikelService;
+import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,34 +37,14 @@ public class ArtikelVerwijderen extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ArtikelVerwijderen</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ArtikelVerwijderen at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -72,17 +58,64 @@ public class ArtikelVerwijderen extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+            String knop = request.getParameter("knop");
+            String artikelNummer = request.getParameter("artikelNummer");
+            Scanner sc = new Scanner(artikelNummer);
+            sc.useDelimiter("\\s*,\\s*");
+            String code = sc.next();
+            String type = sc.next();
+            String aantal = sc.next();
+            String minimum = sc.next();
+            String prijs = sc.next();
+            sc.close();
+            
+            int aant = 0;
+            int min = 0;
+            double pr = 0.0;
+            
+            if (aantal.equals("")) {
+                System.out.println("aantal = null");
+            } else {
+                aant = Integer.parseInt(aantal);
+            }
 
+            if (minimum.equals("")) {
+                System.out.println("minimum = null");
+            } else {
+                min = Integer.parseInt(minimum);
+            }
+
+            if (prijs.equals("")) {
+                System.out.println("prijs = null");
+            } else {
+                pr = Double.parseDouble(prijs);
+            }
+            
+            if(knop.equals("Verwijder")){
+            ArtikelService as = ServiceProvider.getArtikelService();
+             
+            
+            ArtikelType hetType = new ArtikelType(code);
+            Artikel a = new Artikel(code, min, aant, pr, hetType);
+            
+          //  as.schrijfArtikelTypeNaarDatabase(artikelType);
+            
+            as.verwijderArtikelType(hetType);
+            as.verwijderArtikel(a);
+            RequestDispatcher view = request.getRequestDispatcher("/ArtikelVerwijderen.jsp");
+            view.forward(request, response);
+        }
+        
+        if(knop.equals("Terug")){
+           RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermWerkzaamheden.jsp");
+           view.forward(request, response);    
+        }
+            
+    }
+}
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-}
+   

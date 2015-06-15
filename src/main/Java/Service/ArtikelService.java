@@ -28,6 +28,18 @@ public class ArtikelService {
     public void schrijfArtikelTypeNaarDatabase(String atp){    
         atpDAO.schrijfArtikelTypeNaarDatabase(atp);
     }
+    
+    public void WijzigArtikel(Artikel a){
+        at.WijzigArtikel(a);
+    }
+    
+    public void verwijderArtikel(Artikel a){
+           at.VerwijderArtikel(a); 
+    }
+        
+    public void verwijderArtikelType(ArtikelType atp){    
+        atpDAO.VerwijderArtikelType(atp);
+    }
    
     public List<Artikel> getAlleArtikelen(){
         return at.getAll();

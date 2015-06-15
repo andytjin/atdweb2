@@ -6,9 +6,11 @@ package Persistance;
 
 import Domain.Artikel;
 import Domain.ArtikelType;
+import static Persistance.BaseDAO.DB_URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,41 @@ public class ArtikelDAO extends BaseDAO<Artikel>{
              e.printStackTrace();
         }
     }
+    
+    public void WijzigArtikel(Artikel a) {
+           
+                try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            Statement stmt = con.createStatement();
+            // create a SQL query
+            String sql = "UPDATE atd.artikel "
+                    + "SET code = '" + a.getCode() + "', aantal = '" + a.getAantal() + "', minimum = '" + 
+                    a.getMinimum() + "', prijs = '" + a.getPrijs() + "'"
+                    + " WHERE code = '" + a.getCode() + "'";
+            stmt.executeUpdate(sql);
+           
+            }catch (Exception e) {
+             e.printStackTrace();
+        }
+    }
+    
+    public boolean VerwijderArtikel(Artikel a) {
+		boolean result = false;
+		boolean Artikel = getArtikelByCode(a.getCode()) != null;
+		
+		if (Artikel) {
+			String query = "UPDATE atd.artikel SET reference=NULL; DELETE FROM artikel WHERE code = '" +a.getCode() + "'"; 
+					
+			try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+				
+				Statement stmt = con.createStatement();
+				stmt.executeUpdate(query);// 1 row updated!
+				
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+		return result;
+	}
     
     public Artikel getArtikelByCode(String cd){
        List<Artikel> artikel = selectArtikel("SELECT * FROM artikel WHERE code = \"" + cd + "\"");

@@ -5,8 +5,12 @@
  */
 package ArtikelenServlets;
 
+import Domain.Artikel;
+import Service.ArtikelService;
+import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,15 +36,6 @@ public class HoofdSchermArtikelen extends HttpServlet {
      */
 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -66,17 +61,21 @@ public class HoofdSchermArtikelen extends HttpServlet {
             }
             
             if(knop.equals("wijzigArtikel")){
+                ArtikelService aService = ServiceProvider.getArtikelService();
+                List<Artikel> lijst = aService.getAlleArtikelen();
+                request.getSession().setAttribute("artikel", lijst);
                 RequestDispatcher view = request.getRequestDispatcher("/ArtikelWijzigen.jsp");
                 view.forward(request, response);
             }
             
             if(knop.equals("verwijderArtikel")){
+                ArtikelService aService = ServiceProvider.getArtikelService();
+                List<Artikel> lijst = aService.getAlleArtikelen();
+                request.getSession().setAttribute("artikel", lijst);
                 RequestDispatcher view = request.getRequestDispatcher("/ArtikelVerwijderen.jsp");
                 view.forward(request, response);
             }
-            
-            
-    }
+          }
 
     /**
      * Returns a short description of the servlet.

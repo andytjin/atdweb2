@@ -55,6 +55,7 @@ public class ArtikelToevoegen extends HttpServlet {
         String prijs = request.getParameter("prijs");
         String knop = request.getParameter("knop");
         
+        
         int aant = 0;
         int min = 0;
         double pr = 0.0;
