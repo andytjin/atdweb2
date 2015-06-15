@@ -2,6 +2,7 @@ package Domain;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 public class TankDienst extends Dienst implements Serializable{
 

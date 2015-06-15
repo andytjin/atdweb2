@@ -17,8 +17,8 @@ import java.util.List;
 public class OnderhoudsService {
     OnderhoudsbeurtDAO onderhoudsbeurtdao = new OnderhoudsbeurtDAO();
     
-    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, double prijs, int besteedeuur){
-        onderhoudsbeurtdao.schrijfOnderhoudsbeurtNaarDatabase(o, prijs, besteedeuur);
+    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, int besteedeuur){
+        onderhoudsbeurtdao.schrijfOnderhoudsbeurtNaarDatabase(o, besteedeuur);
     }
     
     public List<Onderhoudsbeurt> getAlleOnderhoudsbeurten(){

@@ -20,8 +20,6 @@
             <input type="text" name="werkzaamheid"><br/>
             <label>Datum:</label>
             <input type="date" name="datum"><br/>
-            <label>NettoPrijs:</label>
-            <input type="text" name="prijs"><br/>
             <label>aantal besteden uur:</label>
             <input type="text" name="uur"><br/>
             <label>Auto ID:</label>
@@ -37,26 +35,6 @@
                     <option value="${Monteur.ID}">${Monteur.ID}</option>
                 </c:forEach>
             </select>
-            <label>ArtikelID:</label>
-            <select name="artikel" id="artikel">
-                <c:forEach var="Artikel" items="${artikel}">
-                    <option value="${Artikel.code}">${Artikel.code}</option>
-                </c:forEach>
-            </select>
-            <label>aantal Gebruikte artikelen:</label>
-            <input type="text" name="ga"><br/>
-            <button name="knop" value="voeg toe" type="submit">
-                voeg toe
-            </button>
-            <label>Toegevoegde gebruikte artikelen</label>
-            <table>
-                <c:forEach var="GebruikteArtikelen" items="${gaLijst}">
-                    <tr>
-                        <td>ArtikelCode:<c:out value="${GebruikteArtikelen.hetArtikel.code}"/></td>
-                        <td>aantal:<c:out value="${GebruikteArtikelen.aantal}"/></td>
-                    </tr>
-                </c:forEach>
-            </table>
             <button name="knop" value="Terug" type="submit"><br>
                 Terug
             </button>

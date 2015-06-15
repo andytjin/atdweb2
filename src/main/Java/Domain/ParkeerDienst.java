@@ -2,6 +2,7 @@ package Domain;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ParkeerDienst extends Dienst implements Serializable{
 

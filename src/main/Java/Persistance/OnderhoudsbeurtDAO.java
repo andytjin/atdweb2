@@ -15,9 +15,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.sql.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,15 +34,15 @@ public class OnderhoudsbeurtDAO extends BaseDAO<Onderhoudsbeurt> {
     private AutoDAO autodao = new AutoDAO();
     private List<GebruikteArtikelen> gebruikteArtikelenLijst = null;
 
-    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, double prijs, int bestedeuur) {
+    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, int bestedeuur) {
 
         try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
 
             Statement stmt = con.createStatement();
             // create a SQL query
             String sql = "INSERT INTO atd.onderhoudsbeurt "
-                    + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren, nettoprijs)"
-                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getDatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "','" +  prijs + "')";
+                    + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren)"
+                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getSQLdatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "')";
 
             stmt.executeUpdate(sql);
 
@@ -74,19 +76,19 @@ public class OnderhoudsbeurtDAO extends BaseDAO<Onderhoudsbeurt> {
                 String kenteken = rs.getString("kenteken");
                 int monteurid = rs.getInt("monteurID");
                 int bestedeUur = rs.getInt("aantalbestedeuren");
-                double nettoprijs = rs.getDouble("nettoprijs");
+               
 
                 Auto au = autodao.getAutoByKenteken(kenteken);
                 Monteur mo = monteurdao.getMonteurByID(monteurid);
 
-                Calendar cal = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
-                try{
-                    cal.setTime(sdf.parse(datum));
+                Calendar date = Calendar.getInstance();
+                DateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                try {
+                date.setTime(sdf.parse(datum));
                 }catch(Exception e){
                     e.printStackTrace();
                 }
-                Onderhoudsbeurt o = new Onderhoudsbeurt(id, cal, au, mo);
+                Onderhoudsbeurt o = new Onderhoudsbeurt(id, date, au, mo);
                 o.setAantalBestedeUur(bestedeUur);
 
                 gebruikteArtikelenLijst = (List<GebruikteArtikelen>) gebruikteartikeldao.getByOnderhoudsID(id);
