@@ -63,13 +63,12 @@ public class WerkzaamheidToevoegen extends HttpServlet {
         //auto moet in auto database
         //monteur in monteur
         //onderhoudsbeurt bevat autoid, monteurid en gebruikte artikelen id
-
         if (knop.equals("Opslaan")) {
             MonteurService mService = ServiceProvider.getMonteurService();
             Monteur m = mService.getMonteurByID(MonteurID);
             AutoService auService = ServiceProvider.getAutoService();
             Auto au = auService.getAutoByKenteken(kenteken);
-        //datum, aantalbestede uren, nettoprijs
+            //datum, aantalbestede uren, nettoprijs
             OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
 
             Calendar cal = Calendar.getInstance();
@@ -79,9 +78,9 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
-            System.out.println("TEST : "  + datum);
-            
+
+            System.out.println("TEST : " + datum);
+
             Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, cal, au, m);
             if (nettoPrijs.equals("") || bestedeUur.equals("")) {
                 System.out.println("velden zijn leeg");
@@ -97,21 +96,8 @@ public class WerkzaamheidToevoegen extends HttpServlet {
 
         }
 
-            RequestDispatcher view = request.getRequestDispatcher("/MonteurPage.jsp");
-            view.forward(request, response);
-        }
-
+        RequestDispatcher view = request.getRequestDispatcher("/MonteurPage.jsp");
+        view.forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
-
