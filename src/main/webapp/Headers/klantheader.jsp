@@ -17,11 +17,11 @@
            <div class="navbar">
                 <form action="KlantPageServlet" method="post" class="navForm">
                     <input type="submit" name="button" value="Home" class="navbutton5">
-                    <input type="submit" name="button" value="afspraak"class="navbutton5">
-                    <input type="submit" name="button" value="garage"class="navbutton5">
+                    <input type="submit" name="button" value="afspraak" class="navbutton5">
+                    <input type="submit" name="button" value="garage" class="navbutton5">
                     <input type="submit" name="button" value="factuur" class="navbutton5">
-                    <input type="submit" name="button" value="mijn account"class="navbutton5">
-                    <input type="submit" name="button" value="log out"class="navbutton5" >
+                    <input type="submit" name="button" value="mijn account" class="navbutton5">
+                    <input type="submit" name="button" value="log out" class="navbutton5" >
                 </form>
             </div>
         </div>

@@ -3,7 +3,8 @@
     Created on : May 21, 2015, 2:42:38 PM
     Author     : Max
 --%>
-<jsp:include page="/Headers/monteurheader.jsp"/>
+<jsp:include page="Headers/monteurheader.jsp"/>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

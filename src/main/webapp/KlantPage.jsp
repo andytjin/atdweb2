@@ -3,8 +3,7 @@
     Created on : Apr 24, 2015, 3:54:15 PM
     Author     : Max
 --%>
-
-<jsp:include page="Headers/klantheader.jsp"/>
+<jsp:include page="/Headers/klantheader.jsp"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
