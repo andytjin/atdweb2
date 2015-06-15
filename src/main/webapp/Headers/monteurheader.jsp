@@ -18,7 +18,7 @@
                 <form action="MonteurPageServlet" method="post" class="navForm">
                     <input type="submit" name="button" value="Home" class="navbutton5">
                     <input type="submit" name="button" value="Onderhoudsbeurt" class="navbutton5">
-                    
+                    <input type="submit" name="button" value="Artikelen" class="navbutton5">
                 </form>
             </div>
         </div>

@@ -75,9 +75,7 @@ public class HoofdSchermArtikelen extends HttpServlet {
                 view.forward(request, response);
             }
             
-            if(knop.equals("terug")){
-                
-            }
+            
     }
 
     /**
