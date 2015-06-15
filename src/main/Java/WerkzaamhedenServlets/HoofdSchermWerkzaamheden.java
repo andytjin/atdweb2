@@ -37,15 +37,15 @@ public class HoofdSchermWerkzaamheden extends HttpServlet {
         if (knop.equals("werkzaamheidToevoegen")) {
             ArtikelService aService = ServiceProvider.getArtikelService();
             List<Artikel> lijst = aService.getAlleArtikelen();
-            request.getServletContext().setAttribute("artikel", lijst);
+            request.getSession().setAttribute("artikel", lijst);
 
             MonteurService mService = ServiceProvider.getMonteurService();
             List<Monteur> mlijst = mService.getAlleMonteurs();
-            request.getServletContext().setAttribute("monteur", mlijst);
+            request.getSession().setAttribute("monteur", mlijst);
 
             AutoService auService = ServiceProvider.getAutoService();
             List<Auto> auLijst = auService.getAlleAutos();
-            request.getServletContext().setAttribute("auto", auLijst);
+            request.getSession().setAttribute("auto", auLijst);
             RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
             view.forward(request, response);
         } else {

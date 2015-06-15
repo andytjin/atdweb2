@@ -3,18 +3,6 @@
  */
 package listeners;
 
-import Domain.Artikel;
-import Domain.Auto;
-import Domain.Bedrijf;
-import Domain.Klant;
-import Domain.Monteur;
-import Service.ArtikelService;
-import Service.AutoService;
-import Service.KlantService;
-import Service.MonteurService;
-import Service.ServiceProvider;
-import java.util.List;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 

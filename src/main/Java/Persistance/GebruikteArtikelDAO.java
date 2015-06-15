@@ -22,23 +22,27 @@ import java.util.List;
  */
 public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
     private ArtikelDAO artikeldao = new ArtikelDAO();
-    public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga) {
+    public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga, int i) {
            
                 try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
             // create a SQL query
-            String sql = "INSERT INTO to4.gebruikteartikelen "
-                    + "(gebruikteartikelenID, aantal, artikel)"
-                    + " VALUES('" + ga.getGebruikteArtikelID() + "','" + ga.getAantal()  + "','" + ga.getArtikelID() + "')";
+            List<GebruikteArtikelen> lijst = selectGebruikteArtikel("select * from gebruikteartikelen");
+            String sql = "INSERT INTO atd.gebruikteartikelen "
+                    + "(gebruikteartikelenID, aantal, artikel, onderhoudsbeurtID)"
+                    + " VALUES('" + (lijst.size() + 2) + "','" + ga.getAantal()  + "','" + ga.getArtikelID()+ "','" + i + "')";
             stmt.executeUpdate(sql);
-           
+            
             }catch (Exception e) {
              e.printStackTrace();
         }
     }
     
-    public List<GebruikteArtikelen> getByID(int id) {
-        List<GebruikteArtikelen> artikel = selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE gebruikteartikelenID = \"" + id + "\"");
+    
+    
+    
+    public List<GebruikteArtikelen> getByOnderhoudsID(int id) {
+        List<GebruikteArtikelen> artikel = selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE onderhoudsbeurtID = \"" + id + "\"");
         if(artikel != null && !artikel.isEmpty()){
             return artikel;
         } else {
@@ -65,6 +69,7 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
                 int id = rs.getInt("gebruikteartikelenID");
                 int aantal = rs.getInt("aantal"); 
                 String artikelcode = rs.getString("artikel");
+                int OHid = rs.getInt("onderhoudsbeurtID");
                 
                 Artikel a = artikeldao.getArtikelByCode(artikelcode);
                 GebruikteArtikelen ga = new GebruikteArtikelen(aantal, a);

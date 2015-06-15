@@ -1,20 +1,21 @@
 package Domain;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 public class TankDienst extends Dienst implements Serializable{
 
     private GebruikteArtikelen hetBrandstofType;
 
-    public TankDienst(int dN, String Dat, Artikel bs, int i) {
+    public TankDienst(int dN, Calendar Dat, Artikel bs, int i) {
         super(dN, Dat);
         hetBrandstofType = new GebruikteArtikelen(i, bs);
     }
-
-    public void berekenPrijs() {
+    @Override
+    public double prijs() {
         double p = 0.0;
         p = hetBrandstofType.getAantal() * hetBrandstofType.getHetArtikel().getPrijs();
-        super.setNettoPrijs(p);
+        return p;
     }
 
     public int getAantalLiter() {

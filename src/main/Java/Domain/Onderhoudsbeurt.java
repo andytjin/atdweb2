@@ -1,6 +1,7 @@
 package Domain;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Onderhoudsbeurt extends Dienst implements Serializable{
         
@@ -9,20 +10,20 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	private Monteur deMonteur;
 	private ArrayList<GebruikteArtikelen> deArtikelen = new ArrayList<GebruikteArtikelen>();
         
-	public Onderhoudsbeurt(int dN, String Dat, Auto dA, Monteur dM){
+	public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA, Monteur dM){
 		super(dN,Dat);
 		deAuto = dA;
 		deMonteur = dM;
 		aantalBestedeUur = 0;
 	}
-	
-	public void berekenPrijs() {
+	@Override
+	public double prijs() {
 		double p = 0.0;
 		p = aantalBestedeUur * 50.0;
 		for(GebruikteArtikelen ga : deArtikelen){
 			p += ga.getHetArtikel().getPrijs() * ga.getAantal();
                 }
-		super.setNettoPrijs(p);
+		return p;
 	}
 	
         public String getKenteken(){

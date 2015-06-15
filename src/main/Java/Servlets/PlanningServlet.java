@@ -93,7 +93,7 @@ public class PlanningServlet extends HttpServlet {
 
         Klant k = (Klant) request.getSession().getAttribute("User");
         String knop = request.getParameter("button");
-        RequestDispatcher rd = request.getRequestDispatcher("Onderhoudsbeurt.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("Planning.jsp");
 
         if (knop.equals("Get Autos")) {
             alleAutos = (List<Auto>)as.getAutoByKlant(k);
