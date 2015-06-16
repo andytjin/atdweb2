@@ -28,7 +28,7 @@ import java.util.Locale;
  *
  * @author andy
  */
-public class OnderhoudsbeurtDAO extends BaseDAO<Onderhoudsbeurt> {
+public class PlanningDAO extends BaseDAO<Onderhoudsbeurt> {
 
     private MonteurDAO monteurdao = new MonteurDAO();
     private GebruikteArtikelDAO gebruikteartikeldao = new GebruikteArtikelDAO();
@@ -136,7 +136,8 @@ public class OnderhoudsbeurtDAO extends BaseDAO<Onderhoudsbeurt> {
 
     public void create(int dnr, String dat, String ken) {
         try (Connection con = getConnection()) {
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO Onderhoudsbeurt" + "(onderhoudsbeurtID, datum, kenteken)" + "VALUES(\"" + dnr + "\", \"" + dat + "\", \"" + ken + "\")");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO Onderhoudsbeurt" + "(onderhoudsbeurtID, datum, kenteken)"
+                    + "VALUES(\"" + dnr + "\", \"" + dat + "\", \"" + ken + "\")");
             int i = stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

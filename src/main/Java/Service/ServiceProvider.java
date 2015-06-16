@@ -16,7 +16,7 @@ public class ServiceProvider {
     static OnderhoudsService oService = new OnderhoudsService();
     static GebruikteArtikelenService gaService = new GebruikteArtikelenService();
     static FactuurService fService = new FactuurService();
-    static OnderhoudsbeurtService obService = new OnderhoudsbeurtService();
+    static PlanningService obService = new PlanningService();
     
     public static KlantService getKlantService() {
         return kService;
@@ -46,7 +46,7 @@ public class ServiceProvider {
         return fService;
     }
     
-    public static OnderhoudsbeurtService getOnderhoudsbeurtService(){
+    public static PlanningService getOnderhoudsbeurtService(){
         return obService;
     }
 }

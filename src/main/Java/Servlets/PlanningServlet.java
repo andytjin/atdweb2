@@ -11,7 +11,7 @@ import Domain.Klant;
 import Domain.Onderhoudsbeurt;
 import Persistance.AutoDAO;
 import Service.AutoService;
-import Service.OnderhoudsbeurtService;
+import Service.PlanningService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -86,41 +86,60 @@ public class PlanningServlet extends HttpServlet {
         String error = "";
         //Auto selecteren
         AutoService as = ServiceProvider.getAutoService();
-        OnderhoudsbeurtService os = ServiceProvider.getOnderhoudsbeurtService();
+        PlanningService os = ServiceProvider.getOnderhoudsbeurtService();
         Onderhoudsbeurt ob = null;
         Auto auto = null;
         List<Auto> alleAutos = null;
 
         Klant k = (Klant) request.getSession().getAttribute("User");
         String knop = request.getParameter("button");
-        RequestDispatcher rd = request.getRequestDispatcher("Planning.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("Onderhoudsbeurt.jsp");
 
-        if (knop.equals("Get Autos")) {
-            alleAutos = (List<Auto>)as.getAutoByKlant(k);
-            //System.out.println(alleAutos.get(1));
-            request.getSession().setAttribute("Autos", alleAutos);
-        }
         String dat = request.getParameter("SelectedDate");
-        System.out.println(dat);
+        
         if (knop.equals("Akkoord")) {
-            alleAutos = (List<Auto>)request.getSession().getAttribute("Autos");
             try {
+                alleAutos = null;
+                Object o = request.getSession().getAttribute("Autos");
+                if (o != null) {
+                    alleAutos = (List<Auto>) o;
+                    System.out.println("Alle autos is NIET null");
+                } else {
+                    System.out.println("Alle autos is null");
+                }
+                //System.out.println(alleAutos.size());
                 String selectedAuto = request.getParameter("autoradios");
                 if (!selectedAuto.equals("")) {
                     System.out.println("geselecteerde auto: " + selectedAuto);
-                    
-                    int i = Integer.parseInt(selectedAuto.charAt(4) + "") - 1;
-                    auto = alleAutos.get(i);
+
+                    for (Auto a : alleAutos) {
+                        if (a.getKenteken().equals(selectedAuto)) {
+                            auto = a;
+                            System.out.println("auto gevonden");
+                        }
+                    }
+
                 }
             } catch (Exception e) {
                 error = "U heeft nog geen autos toegevoegd aan dit account";
             }
 
             if (auto != null) {
-                int dnr = os.getHighestDNr() + 1;
-                os.addOnderhoudsbeurt(dnr, dat, auto.getKenteken());
-                rd = request.getRequestDispatcher("KlantPage.jsp");
-                
+                //System.out.println("auto is NIET null!!");
+                //TODO
+                int dnr = 1;
+                //System.out.println(os.getHighestDNr());
+                try {
+                    System.out.println(dat);
+                    dnr = os.getHighestDNr() + 1;
+                    System.out.println("--------dit is de try!!!!!");
+                    os.addOnderhoudsbeurt(dnr, dat, auto.getKenteken());
+                    rd = request.getRequestDispatcher("KlantPage.jsp");
+                } catch (Exception e) {
+                    System.out.println("dit is de catch!!!!!--------");
+                    //e.printStackTrace();
+                }
+
                 //request.getSession().setAttribute("SelectedAuto", auto);
             } else {
                 System.out.println("FOUT!");
@@ -129,8 +148,7 @@ public class PlanningServlet extends HttpServlet {
         }
 
         if (knop.equals("Auto Toevoegen")) {
-            rd = request.getRequestDispatcher("KlantSettings.jsp");
-            request.setAttribute("PageName", "Klant Settings");
+            rd = request.getRequestDispatcher("Autosettings.jsp");
         }
         if (knop.equals("Terug")) {
             rd = request.getRequestDispatcher("KlantPage.jsp");

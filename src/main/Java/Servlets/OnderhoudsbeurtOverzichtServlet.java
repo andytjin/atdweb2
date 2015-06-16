@@ -9,7 +9,7 @@ import Domain.Auto;
 import Domain.Klant;
 import Domain.Onderhoudsbeurt;
 import Service.AutoService;
-import Service.OnderhoudsbeurtService;
+import Service.PlanningService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,7 +85,7 @@ public class OnderhoudsbeurtOverzichtServlet extends HttpServlet {
         List<Onderhoudsbeurt> alleOnderhoudsbeurten = null;
         //Klant k = (Klant) request.getSession().getAttribute("User");
         AutoService as = ServiceProvider.getAutoService();
-        OnderhoudsbeurtService os = ServiceProvider.getOnderhoudsbeurtService();
+        PlanningService os = ServiceProvider.getOnderhoudsbeurtService();
         RequestDispatcher rd = request.getRequestDispatcher("Onderhoudsbeurt.jsp");
         
         String selectedAuto = request.getParameter("autos");

@@ -1,15 +1,15 @@
 package Service;
 
 import Domain.Onderhoudsbeurt;
-import Persistance.OnderhoudsbeurtDAO;
+import Persistance.PlanningDAO;
 import java.util.List;
 
 /**
  *
  * @author freekvdp
  */
-public class OnderhoudsbeurtService {
-    private OnderhoudsbeurtDAO oDAO = new OnderhoudsbeurtDAO();
+public class PlanningService {
+    private PlanningDAO oDAO = new PlanningDAO();
     
     public Onderhoudsbeurt getOnderhoudsbeurt(int dn){
         return oDAO.getOnderhoudsbeurt(dn);
