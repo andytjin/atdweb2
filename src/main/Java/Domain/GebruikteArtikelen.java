@@ -6,7 +6,7 @@ public class GebruikteArtikelen implements Serializable{
 	private int aantal;
 	private Artikel hetArtikel;
         private int GebruikteArtikelID;
-        private static int doorteller = 0;
+        private static int doorteller;
 	
 	public GebruikteArtikelen(int a, Artikel hA){
 		doorteller++;

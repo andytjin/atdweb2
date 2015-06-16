@@ -1,6 +1,7 @@
 package Domain;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Calendar;
 
 public abstract class Dienst implements Serializable{
@@ -38,6 +39,10 @@ public abstract class Dienst implements Serializable{
 	public Calendar getDatum(){
 		return datum;
 	}
+        
+        public java.sql.Date getSqlDatum(){
+            return new Date(getDatum().getTimeInMillis());
+        }
 	
 	public abstract String getNaam();
 }

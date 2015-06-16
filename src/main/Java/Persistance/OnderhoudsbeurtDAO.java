@@ -40,7 +40,7 @@ public class OnderhoudsbeurtDAO extends BaseDAO<Onderhoudsbeurt> {
             // create a SQL query
             String sql = "INSERT INTO atd.onderhoudsbeurt "
                     + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren, nettoprijs)"
-                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getDatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "','" +  prijs + "')";
+                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getSqlDatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "','" +  prijs + "')";
 
             stmt.executeUpdate(sql);
 

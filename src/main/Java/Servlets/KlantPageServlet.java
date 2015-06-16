@@ -4,6 +4,7 @@ import Domain.Auto;
 import Domain.Klant;
 import Service.AutoService;
 import Service.FactuurService;
+import Service.ParkeerplaatsService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.util.List;
@@ -39,11 +40,18 @@ public class KlantPageServlet extends HttpServlet {
         }
        if(button.equals("afspraak")){
             request.setAttribute("PageName", "Afspraak");
-            rd = request.getRequestDispatcher("/Onderhoudsbeurt.jsp");
+            rd = request.getRequestDispatcher("/Planning.jsp");
+//            AutoService as = ServiceProvider.getAutoService();
+//            Object obj = request.getSession().getAttribute("User");
+//            Klant k = (Klant) obj;
+//            List<Auto> lijst = as.getAutoByKlant(k);
+//            request.getSession().setAttribute("autos", lijst);
         }
         if(button.equals("garage")){
+            ParkeerplaatsService pps = ServiceProvider.getParkeerPlaatsService();
+            request.setAttribute("bezettePlaatsen", pps.getAantalBezet());
             request.setAttribute("PageName", "Garage");
-            System.out.println("IMPLEMENTEER GARAGE");
+            rd = request.getRequestDispatcher("/Garage.jsp");
         }
         if(button.equals("mijn account")){
             AutoService as = ServiceProvider.getAutoService();

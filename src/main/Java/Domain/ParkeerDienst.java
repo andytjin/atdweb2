@@ -36,9 +36,6 @@ public class ParkeerDienst extends Dienst implements Serializable{
 		return "Geen monteur";
 	}
 	
-	public Onderhoudsbeurt getOnderhoudsbeurt() {
-		return null;
-	}
 	public int getAantalUur() {
 		return aantalUur;
 	}

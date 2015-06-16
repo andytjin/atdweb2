@@ -17,6 +17,8 @@ public class ServiceProvider {
     static GebruikteArtikelenService gaService = new GebruikteArtikelenService();
     static FactuurService fService = new FactuurService();
     static OnderhoudsbeurtService obService = new OnderhoudsbeurtService();
+    static ParkeerService psService = new ParkeerService();
+    static ParkeerplaatsService ppsService = new ParkeerplaatsService();
     
     public static KlantService getKlantService() {
         return kService;
@@ -48,5 +50,13 @@ public class ServiceProvider {
     
     public static OnderhoudsbeurtService getOnderhoudsbeurtService(){
         return obService;
+    }
+    
+    public static ParkeerService getParkeerService(){
+        return psService;
+    }
+    
+    public static ParkeerplaatsService getParkeerPlaatsService(){
+        return ppsService;
     }
 }

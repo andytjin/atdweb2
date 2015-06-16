@@ -93,7 +93,7 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             }
             RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
             view.forward(request, response);
-
+            
         }
 
         RequestDispatcher view = request.getRequestDispatcher("/MonteurPage.jsp");
