@@ -7,6 +7,7 @@
 <%@page import="java.util.List"%>
 <%@page import="Domain.Auto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,39 +18,12 @@
         <h1>Planning</h1>
         Selecteer hieronder de Auto voor een Afspraak:<br/>
         <form action="PlanningServlet" method="post">
-            <input type="submit" name="button" value ="Get Autos" />
             <div>
-                <%
-                    String melding = "";
-                    List<Auto> alleAutos = (List<Auto>) request.getSession().getAttribute("Autos");
-                    String autonaam = "";
-                    /*
-                     Object Obj = request.getSession().getAttribute("Autos");
-                     if (Obj != null) {
-                     alleAutos = (List<Auto>) Obj;
-                     } else {
-                     melding = "Klik hieronder om uw auto toe te voegen";
-                     }
-                     */
-                    if (alleAutos != null) {
-                        int i = 1;
-                        for (Auto a : alleAutos) {
-                            autonaam = "auto" + i;
-                %>
-                <input type="radio" name="autoradios" value= "<%= autonaam%>" />
-                <%
-                            out.println(a.getNaam());
-                            i++;
-                        }
-                    }
-                %>
+                <c:forEach var = "autos" items="${Autos}">
+                    <input type="radio" name="autos" value= "${autos.kenteken}" >${autos.kenteken} , ${autos.merk}
+                </c:forEach>
                 <br/>
                 <div>
-                    <%
-                        if (!melding.equals("")) {
-                            out.println(melding);
-                        }
-                    %>
                     <br/>
                     <br/>
                     <input type="date" name ="SelectedDate" />
