@@ -13,14 +13,16 @@
         <title>Hoofdscherm Werkzaamheden</title>
     </head>
     <body>
-        <form action="HoofdSchermWerkzaamheden" method="post">
-        <input type="submit" name="button" value="Toevoegen">
-        <br>
-        <input type="submit" name="button" value="wijzigen">
-        <br>
-        <input type="submit" name="button" value="verwijderen">
-        <br>
-        <input type="submit" name="button" value="Overzicht">
-        </form>
+        <div id ="main">
+            <form action="HoofdSchermWerkzaamheden" method="post">
+                <input type="submit" name="button" value="Toevoegen">
+                <br>
+                <input type="submit" name="button" value="wijzigen">
+                <br>
+                <input type="submit" name="button" value="verwijderen">
+                <br>
+                <input type="submit" name="button" value="Overzicht">
+            </form>
+        </div>
     </body>
 </html>

@@ -3,8 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ArtikelenServlets;
+package GebruikteArtikelServlet;
 
+import Domain.Artikel;
+import Domain.GebruikteArtikelen;
+import Service.ArtikelService;
+import Service.GebruikteArtikelenService;
+import Service.OnderhoudsService;
+import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -18,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andy
  */
-@WebServlet(name = "HoofdSchermArtikelen", urlPatterns = {"/HoofdSchermArtikelen"})
-public class HoofdSchermArtikelen extends HttpServlet {
+@WebServlet(name = "GebruikteArtikelToevoegen", urlPatterns = {"/GebruikteArtikelToevoegen"})
+public class GebruikteArtikelToevoegen extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,7 +36,7 @@ public class HoofdSchermArtikelen extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
+  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -44,7 +50,7 @@ public class HoofdSchermArtikelen extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
+       
     }
 
     /**
@@ -58,24 +64,40 @@ public class HoofdSchermArtikelen extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
             String knop = request.getParameter("knop");
+            String onderhoudsbeurtID = request.getParameter("onderhoudsbeurt");
+            String artikelID = request.getParameter("artikel");
+            String aantalArt = request.getParameter("ga");
             
-            if(knop.equals("nieuwArtikel")){
-                RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
-                view.forward(request, response);
-            }
+            int ohID = 0;
+            int aantalGA = 0;
             
-            if(knop.equals("wijzigArtikel")){
-                RequestDispatcher view = request.getRequestDispatcher("/ArtikelWijzigen.jsp");
-                view.forward(request, response);
-            }
+            if (onderhoudsbeurtID.equals("")) {
+            System.out.println("onderhoudsID = null");
+        } else {
+
+            ohID = Integer.parseInt(onderhoudsbeurtID);
+        }
+        
+        
+        if (aantalArt.equals("")) {
+            System.out.println("MonteurID = null");
+        } else {
+            aantalGA = Integer.parseInt(aantalArt);
+        }
+        
+        if(knop.equals("voeg toe")){
             
-            if(knop.equals("verwijderArtikel")){
-                RequestDispatcher view = request.getRequestDispatcher("/ArtikelVerwijderen.jsp");
-                view.forward(request, response);
-            }
+            ArtikelService aService = ServiceProvider.getArtikelService();
+            Artikel a = aService.getArtikelByCode(artikelID);
+            GebruikteArtikelen ga = new GebruikteArtikelen(aantalGA, a);
+            GebruikteArtikelenService gService = ServiceProvider.getGebruikteArtikelenService();
             
-            
+            gService.schrijfGebruikteArtikelNaarDatabase(ga,ohID);
+        }
+          RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
+          view.forward(request, response);  
     }
 
     /**
@@ -83,9 +105,5 @@ public class HoofdSchermArtikelen extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+  
 }

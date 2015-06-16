@@ -8,8 +8,10 @@ import Service.MonteurService;
 import Service.OnderhoudsService;
 import Service.ServiceProvider;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,10 +40,10 @@ public class WerkzaamheidToevoegen extends HttpServlet {
         String knop = request.getParameter("knop");
         String onderhoudsbeurtID = request.getParameter("werkzaamheid");
         String datum = request.getParameter("datum");
-        String nettoPrijs = request.getParameter("prijs");
         String bestedeUur = request.getParameter("uur");
         String kenteken = request.getParameter("auto");
         String monteurID = request.getParameter("monteur");
+      
         int ohID = 0;
         int MonteurID = 0;
 
@@ -71,29 +73,29 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             //datum, aantalbestede uren, nettoprijs
             OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
 
-            Calendar cal = Calendar.getInstance();
+            Calendar date = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             try {
-                cal.setTime(sdf.parse(datum));
+                date.setTime(sdf.parse(datum));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             System.out.println("TEST : " + datum);
 
-            Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, cal, au, m);
-            if (nettoPrijs.equals("") || bestedeUur.equals("")) {
+            Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, date, au, m);
+            if (bestedeUur.equals("")) {
                 System.out.println("velden zijn leeg");
             } else {
-                double prijs = Double.parseDouble(nettoPrijs);
+              
                 int uur = Integer.parseInt(bestedeUur);
-                oService.schrijfOnderhoudsbeurtNaarDatabase(o, prijs, uur);
+                oService.schrijfOnderhoudsbeurtNaarDatabase(o,uur);
                 List<Onderhoudsbeurt> oLijst = oService.getAlleOnderhoudsbeurten();
                 request.getSession().setAttribute("onderhoudsbeurt", oLijst);
             }
             RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
             view.forward(request, response);
-            
+
         }
 
         RequestDispatcher view = request.getRequestDispatcher("/MonteurPage.jsp");

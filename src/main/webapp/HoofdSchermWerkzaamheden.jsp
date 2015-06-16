@@ -13,22 +13,26 @@
         <title>Hoofdscherm werkzaamheden</title>
     </head>
     <body>
-        <form action="HoofdSchermWerkzaamheden" method="post">
-        <button name="knop" value="werkzaamheidOverzicht" type="submit">
-                Werkzaamheid Overzicht
-        </button>
-        <button name="knop" value="werkzaamheidToevoegen" type="submit">
-                Werkzaamheid Toevoegen
-        </button>
-        <button name="knop" value="werkzaamheidWijzigen" type="submit">
-                Werkzaamheid Wijzigen
-        </button>
-        <button name="knop" value="werkzaamheidVerwijderen" type="submit">
-                Werkzaamheid verwijderen
-        </button>
-        <button name="knop" value="terug" type="submit">
-                Terug
-        </button>
-        </form>
+        <div id="mainmonteur">
+            <form action="HoofdSchermWerkzaamheden" method="post">   
+                <div class="hswerkzaamheden">
+                    <button name="knop" value="werkzaamheidOverzicht" type="submit" class="navbuttonmonteurHS">
+                        Werkzaamheid Overzicht
+                    </button>
+                    <button name="knop" value="werkzaamheidToevoegen" type="submit" class="navbuttonmonteurHS">
+                        Werkzaamheid Toevoegen
+                    </button>
+                    <button name="knop" value="werkzaamheidWijzigen" type="submit" class="navbuttonmonteurHS">
+                        Werkzaamheid Wijzigen
+                    </button>
+                    <button name="knop" value="werkzaamheidVerwijderen" type="submit" class="navbuttonmonteurHS">
+                        Werkzaamheid verwijderen
+                    </button>
+                    <button name="knop" value="terug" type="submit" class="navbuttonmonteurHS">
+                        Terug
+                    </button>
+                </div>
+            </form>
+        </div>
     </body>
 </html>
