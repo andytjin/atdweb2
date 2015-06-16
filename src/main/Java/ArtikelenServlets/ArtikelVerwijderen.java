@@ -7,10 +7,16 @@ package ArtikelenServlets;
 
 import Domain.Artikel;
 import Domain.ArtikelType;
+import Domain.GebruikteArtikelen;
+import Domain.Onderhoudsbeurt;
 import Service.ArtikelService;
+import Service.GebruikteArtikelenService;
+import Service.OnderhoudsService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,16 +65,25 @@ public class ArtikelVerwijderen extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             String knop = request.getParameter("knop");
+            String message = "";
             String artikelNummer = request.getParameter("artikelNummer");
+            String code = "";
+            String type = "";
+            String aantal = "";
+            String minimum = "";
+            String prijs = "";
+            try{
             Scanner sc = new Scanner(artikelNummer);
             sc.useDelimiter("\\s*,\\s*");
-            String code = sc.next();
-            String type = sc.next();
-            String aantal = sc.next();
-            String minimum = sc.next();
-            String prijs = sc.next();
+            code = sc.next();
+            type = sc.next();
+            aantal = sc.next();
+            minimum = sc.next();
+            prijs = sc.next();
             sc.close();
-            
+            } catch(NoSuchElementException e){
+                e.printStackTrace();
+            }
             int aant = 0;
             int min = 0;
             double pr = 0.0;
@@ -90,26 +105,41 @@ public class ArtikelVerwijderen extends HttpServlet {
             } else {
                 pr = Double.parseDouble(prijs);
             }
+            if(knop.equals("Terug")){
+             RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermArtikelen.jsp");
+             view.forward(request, response);    
+            }
+            
             
             if(knop.equals("Verwijder")){
             ArtikelService as = ServiceProvider.getArtikelService();
-             
             
             ArtikelType hetType = new ArtikelType(code);
             Artikel a = new Artikel(code, min, aant, pr, hetType);
+       //     GebruikteArtikelen ga = as.getGA(code);
             
           //  as.schrijfArtikelTypeNaarDatabase(artikelType);
             
-            as.verwijderArtikelType(hetType);
-            as.verwijderArtikel(a);
+          //  as.verwijderArtikelType(hetType);
+            try{
+            if(as.verwijderArtikel(a)){
+                ArtikelService aService = ServiceProvider.getArtikelService();
+                List<Artikel> lijst = aService.getAlleArtikelen();
+                request.getSession().setAttribute("artikel", lijst);
+                System.out.println("verwijderen is gelukt");
+                message = "Artikel is met succes verwijderd";
+                request.setAttribute("error", message);
+            } else{
+                message = "Artikel wordt al gebruikt in een onderhoudsbeurt";
+                request.setAttribute("error", message);
+            }
+            }catch(Exception e){
+            }
             RequestDispatcher view = request.getRequestDispatcher("/ArtikelVerwijderen.jsp");
             view.forward(request, response);
         }
         
-        if(knop.equals("Terug")){
-           RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermWerkzaamheden.jsp");
-           view.forward(request, response);    
-        }
+        
             
     }
 }

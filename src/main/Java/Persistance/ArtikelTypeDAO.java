@@ -21,87 +21,85 @@ import java.util.List;
  * @author andy
  */
 public class ArtikelTypeDAO extends BaseDAO<ArtikelType> {
-    
-     public void schrijfArtikelTypeNaarDatabase(String atp) {
-           
-                try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+    public void schrijfArtikelTypeNaarDatabase(String atp) {
+
+        try {
+            Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             Statement stmt = con.createStatement();
             // create a SQL query
             String sql = "INSERT INTO atd.artikeltype "
                     + "(artikeltype)"
                     + " VALUES('" + atp + "')";
             stmt.executeUpdate(sql);
-           
-            }catch (Exception e) {
-             e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    
-     
+
     public void WijzigArtikelType(Artikel a) {
-           
-                try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
             // create a SQL query
             String sql = "UPDATE atd.artikel "
-                    + "SET code = '" + a.getCode() + "', aantal = '" + a.getAantal() + "', minimum = '" + 
-                    a.getMinimum() + "', prijs = '" + a.getPrijs() + "', artikeltype = '" + a.getType() + "'"
+                    + "SET code = '" + a.getCode() + "', aantal = '" + a.getAantal() + "', minimum = '"
+                    + a.getMinimum() + "', prijs = '" + a.getPrijs() + "', artikeltype = '" + a.getType() + "'"
                     + " WHERE code = '" + a.getCode() + "'";
             stmt.executeUpdate(sql);
-           
-            }catch (Exception e) {
-             e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } 
-    
+    }
+
     public boolean VerwijderArtikelType(ArtikelType at) {
-		boolean result = false;
-		boolean ArtikelType = getByType(at.getType()) != null;
-		
-		if (ArtikelType) {
-			String query = "DELETE FROM artikeltype WHERE artikeltype = '" +at.getType() +"'"; 
-					
-			try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
-				
-				Statement stmt = con.createStatement();
-				stmt.executeUpdate(query);// 1 row updated!
-				
-			} catch (SQLException sqle) {
-				sqle.printStackTrace();
-			}
-		}
-		return result;
-	}  
-     
+        boolean result = false;
+        boolean ArtikelType = getByType(at.getType()) != null;
+
+        if (ArtikelType) {
+            String query = "DELETE FROM artikeltype WHERE artikeltype = '" + at.getType() + "'";
+
+            try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate(query);// 1 row updated!
+
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        return result;
+    }
+
     public ArtikelType getByType(String tp) {
         List<ArtikelType> artikeltype = selectArtikelType("SELECT * FROM artikeltype WHERE artikeltype = \"" + tp + "\"");
-        if(artikeltype != null && !artikeltype.isEmpty()){
+        if (artikeltype != null && !artikeltype.isEmpty()) {
             return artikeltype.get(0);
         } else {
             return null;
-        }     
-    }  
-   
-    private List<ArtikelType> selectArtikelType(String query){
+        }
+    }
+
+    private List<ArtikelType> selectArtikelType(String query) {
         List<ArtikelType> results = new ArrayList<ArtikelType>();
-        try(Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)){
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 String type = rs.getString("artikeltype");
                 ArtikelType tp = new ArtikelType(type);
                 results.add(tp);
             }
             stmt.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return results;
-    } 
-     
-     
+    }
 
     @Override
     public void create(ArtikelType instance) {
@@ -120,7 +118,7 @@ public class ArtikelTypeDAO extends BaseDAO<ArtikelType> {
 
     @Override
     public List<ArtikelType> getAll() {
-       return selectArtikelType("SELECT * FROM artikeltype");
+        return selectArtikelType("SELECT * FROM artikeltype");
     }
-    
+
 }

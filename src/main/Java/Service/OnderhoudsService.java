@@ -25,5 +25,9 @@ public class OnderhoudsService {
         return onderhoudsbeurtdao.getAlleOnderhoudsbeurten();
     }
     
+    /*public Onderhoudsbeurt getOnderhoudsbeurt(String code){
+        return onderhoudsbeurtdao.
+    }*/
+    
 }   
 

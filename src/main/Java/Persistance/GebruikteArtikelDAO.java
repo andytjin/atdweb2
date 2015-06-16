@@ -8,6 +8,7 @@ package Persistance;
 import Domain.Artikel;
 import Domain.ArtikelType;
 import Domain.GebruikteArtikelen;
+import Domain.Onderhoudsbeurt;
 import static Persistance.BaseDAO.DB_URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
     private ArtikelDAO artikeldao = new ArtikelDAO();
+   
     public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga, int i) {
            
                 try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
@@ -59,7 +61,9 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
         }  
     }
     
-    private List<GebruikteArtikelen> selectGebruikteArtikel(String query){
+   
+    
+    public List<GebruikteArtikelen> selectGebruikteArtikel(String query){
         List<GebruikteArtikelen> results = new ArrayList<GebruikteArtikelen>();
         try(Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)){
             Statement stmt = con.createStatement();
@@ -73,7 +77,7 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
                 
                 Artikel a = artikeldao.getArtikelByCode(artikelcode);
                 GebruikteArtikelen ga = new GebruikteArtikelen(aantal, a);
-                
+                ga.setOnderhoudsbeurtid(OHid);
                 results.add(ga);
             }
             stmt.close();

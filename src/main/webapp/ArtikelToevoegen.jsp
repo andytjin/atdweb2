@@ -3,6 +3,7 @@
     Created on : 13-mei-2015, 17:26:58
     Author     : andy
 --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/Headers/monteurheader.jsp"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,10 +15,20 @@
     </head>
     <body>
         <form action="ArtikelToevoegen" method="post">
+        <label>Artikel Type toevoegen</label>
+        
+        <input type="text" name="artikelType"><br/>
+        <button name="knop" value="voeg toe" type="submit">
+                voeg toe
+        </button><br>
         <label>Artikel nummer:</label>
         <input type="text" name="artikelNummer"><br/>
         <label>Artikel Type</label>
-        <input type="text" name="artikelType"><br/>
+        <select name="artikeltype" >
+                <c:forEach var="ArtikelType" items="${artikeltype}">
+                    <option value="${ArtikelType.type}">${ArtikelType.type}</option>
+                </c:forEach>
+        </select>
         <label>Aantal artikelen:</label>
         <input type="text" name="aantal"><br/>
         <label>Minimum:</label>
@@ -30,6 +41,7 @@
         <button name="knop" value="Opslaan" type="submit"><br>
                 Opslaan
         </button>
+        <label>${error}</label>
         </form>
     </body>
 </html>

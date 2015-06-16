@@ -32,12 +32,13 @@
         <input type="text" id="minimum" readonly/><br/>
         <label>Prijs:</label>
         <input type="text" id="prijs" readonly/><br/>
-        <button name="knop" value="Terug" type="submit"><br>
+        <button name="knop" value="Terug" type="submit">
                 Terug
-        </button>
-        <button name="knop" value="Verwijder" type="submit"><br>
+        </button><br>
+        <button name="knop" value="Verwijder" type="submit">
                 Verwijder
         </button>
+        <label>${error}</label>
         </form>
     </body>
 </html>

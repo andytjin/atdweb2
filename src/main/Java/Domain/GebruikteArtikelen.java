@@ -7,7 +7,8 @@ public class GebruikteArtikelen implements Serializable{
 	private Artikel hetArtikel;
         private int GebruikteArtikelID;
         private static int doorteller = 0;
-	
+	private int Onderhoudsbeurtid;
+        
 	public GebruikteArtikelen(int a, Artikel hA){
 		doorteller++;
                 GebruikteArtikelID = doorteller;
@@ -15,6 +16,15 @@ public class GebruikteArtikelen implements Serializable{
 		hetArtikel = hA;
                 
 	}
+        
+        public int getOnderhoudsbeurtid(){
+            return Onderhoudsbeurtid;
+        }
+        
+        public void setOnderhoudsbeurtid(int id){
+            Onderhoudsbeurtid = id;
+        }
+        
         
         public String getArtikelID(){ return hetArtikel.getCode(); }
         

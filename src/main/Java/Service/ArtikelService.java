@@ -6,8 +6,10 @@ package Service;
 
 import Domain.Artikel;
 import Domain.ArtikelType;
+import Domain.GebruikteArtikelen;
 import Persistance.ArtikelDAO;
 import Persistance.ArtikelTypeDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public class ArtikelService {
    
    
    
-   public void schrijfArtikelNaarDatabase(Artikel a){
+   public void schrijfArtikelNaarDatabase(Artikel a) throws SQLException {
            at.schrijfArtikelNaarDatabase(a); 
     }
         
@@ -33,8 +35,12 @@ public class ArtikelService {
         at.WijzigArtikel(a);
     }
     
-    public void verwijderArtikel(Artikel a){
-           at.VerwijderArtikel(a); 
+    public boolean verwijderArtikel(Artikel a){
+        boolean result = false;
+          if(at.VerwijderArtikel(a)){
+              result = true;
+          } 
+          return result;
     }
         
     public void verwijderArtikelType(ArtikelType atp){    
@@ -47,6 +53,14 @@ public class ArtikelService {
     
     public Artikel getArtikelByCode(String code){
         return at.getArtikelByCode(code);
+    }
+    
+    public String getErrorMessage(){
+        return at.getErrorMessage();
+    }
+    
+    public List<ArtikelType> getAlleTypen(){
+        return atpDAO.getAll();
     }
    
 }

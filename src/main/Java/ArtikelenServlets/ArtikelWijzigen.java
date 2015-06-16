@@ -12,6 +12,7 @@ import Service.ServiceProvider;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,20 +52,31 @@ public class ArtikelWijzigen extends HttpServlet {
             String aantal = request.getParameter("aantal");
             String minimum = request.getParameter("minimum");
             String prijs = request.getParameter("prijs");
+            String code = "";
+            String type = "";
             
             int aant = 0;
             int min = 0;
             double pr = 0.0;
-            
+            try{
             Scanner sc = new Scanner(artikelNummer);
             sc.useDelimiter("\\s*,\\s*");
-            String code = sc.next();
-            String type = sc.next();
-            
+            code = sc.next();
+            type = sc.next();
+            String a = sc.next();
+            String m = sc.next();
+            String p = sc.next();
             sc.close();
+            } catch(NoSuchElementException e){
+                e.printStackTrace();
+            }
             System.out.println(code);
             
-            
+            if (artikelType.equals("")) {
+                System.out.println("artikeltype = null");
+            } else {
+                System.out.println("jojo");
+            }
             if (aantal.equals("")) {
                 System.out.println("aantal = null");
             } else {
@@ -83,6 +95,11 @@ public class ArtikelWijzigen extends HttpServlet {
                 pr = Double.parseDouble(prijs);
             }
             
+            if(knop.equals("Terug")){
+             RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermArtikelen.jsp");
+            view.forward(request, response);    
+            }
+            
             if(knop.equals("Opslaan")){
             ArtikelService as = ServiceProvider.getArtikelService();
              
@@ -97,10 +114,7 @@ public class ArtikelWijzigen extends HttpServlet {
             view.forward(request, response);
         }
         
-        if(knop.equals("Terug")){
-           RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermWerkzaamheden.jsp");
-           view.forward(request, response);    
-        }
+        
     }
 
     /**

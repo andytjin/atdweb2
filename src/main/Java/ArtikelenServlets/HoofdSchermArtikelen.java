@@ -6,6 +6,7 @@
 package ArtikelenServlets;
 
 import Domain.Artikel;
+import Domain.ArtikelType;
 import Service.ArtikelService;
 import Service.ServiceProvider;
 import java.io.IOException;
@@ -56,6 +57,9 @@ public class HoofdSchermArtikelen extends HttpServlet {
             String knop = request.getParameter("knop");
             
             if(knop.equals("nieuwArtikel")){
+                ArtikelService aService = ServiceProvider.getArtikelService();
+                List<ArtikelType> typenLijst = aService.getAlleTypen();
+                request.getSession().setAttribute("artikeltype", typenLijst);
                 RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
                 view.forward(request, response);
             }
@@ -71,7 +75,9 @@ public class HoofdSchermArtikelen extends HttpServlet {
             if(knop.equals("verwijderArtikel")){
                 ArtikelService aService = ServiceProvider.getArtikelService();
                 List<Artikel> lijst = aService.getAlleArtikelen();
+                
                 request.getSession().setAttribute("artikel", lijst);
+                
                 RequestDispatcher view = request.getRequestDispatcher("/ArtikelVerwijderen.jsp");
                 view.forward(request, response);
             }

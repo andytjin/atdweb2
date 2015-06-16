@@ -64,7 +64,7 @@ public class OnderhoudsbeurtDAO extends BaseDAO<Onderhoudsbeurt> {
         return gebruikteartikeldao.getByOnderhoudsID(id);
     }
 
-    private List<Onderhoudsbeurt> selectOnderhoudsbeurt(String query) {
+    public List<Onderhoudsbeurt> selectOnderhoudsbeurt(String query) {
         List<Onderhoudsbeurt> results = new ArrayList<Onderhoudsbeurt>();
         try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();

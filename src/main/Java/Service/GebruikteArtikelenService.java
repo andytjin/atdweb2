@@ -20,8 +20,8 @@ public class GebruikteArtikelenService {
             gaDAO.schrijfGebruikteArtikelNaarDatabase(ga, i);
     }
     
-       public GebruikteArtikelen getGebruikteArtikel(int id){
-        return gaDAO.getGebruikteArtikel(id);
+    public GebruikteArtikelen getGebruikteArtikel(int id){
+      return gaDAO.getGebruikteArtikel(id);
     }
     
     public List<GebruikteArtikelen> getGAList(){
@@ -31,5 +31,7 @@ public class GebruikteArtikelenService {
     public List<GebruikteArtikelen> getByID(int id){
         return gaDAO.getByOnderhoudsID(id);
     }
+    
+    
 
 }
