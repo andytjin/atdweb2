@@ -7,6 +7,7 @@
 <%@page import="java.util.List"%>
 <%@page import="Domain.Auto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="Headers/klantheader.jsp"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +15,7 @@
         <title>Planning</title>
     </head>
     <body>
+        <div id="mainmonteur">
         <h1>Planning</h1>
         Selecteer hieronder de Auto voor een Afspraak:<br/>
         <form action="PlanningServlet" method="post">
@@ -61,5 +63,6 @@
                 </div>
             </div>
         </form>
+        </div>
     </body>
 </html>

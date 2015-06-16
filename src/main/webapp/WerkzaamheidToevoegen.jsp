@@ -16,32 +16,50 @@
     </head>
     <body>
         <form action="WerkzaamheidToevoegen" method="post">
-            <label>onderhoudsbeurt ID:</label>
-            <input type="text" name="werkzaamheid"><br/>
-            <label>Datum:</label>
-            <input type="date" name="datum"><br/>
-            <label>aantal besteden uur:</label>
-            <input type="text" name="uur"><br/>
-            <label>Auto ID:</label>
-            <select name="auto" id="auto">
-                <c:forEach var="Auto" items="${auto}">
-                    <option value="${Auto.kenteken}">${Auto.kenteken}</option>
-                </c:forEach>
-            </select>
-
-            <label>Monteur: ID</label>
-            <select name="monteur" id="monteur">
-                <c:forEach var="Monteur" items="${monteur}">
-                    <option value="${Monteur.ID}">${Monteur.ID}</option>
-                </c:forEach>
-            </select>
-            <button name="knop" value="Terug" type="submit"><br>
-                Terug
-            </button>
-            <button name="knop" value="Opslaan" type="submit"><br>
-                Opslaan
-            </button>
+            <div id="main2">
+                <table>
+                    <tr>
+                        <td><label>onderhoudsbeurt ID:</label></td>
+                        <td><input type="text" name="werkzaamheid"><br/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Datum:</label></td>
+                        <td><input type="date" name="datum"><br/></td>
+                    </tr>
+                    <tr>
+                        <td><label>aantal besteden uur:</label></td>
+                        <td><input type="text" name="uur"><br/></td>
+                    </tr>          
+                    <tr>
+                        <td><label>Auto ID:</label></td>
+                        <td><select name="auto" id="auto">
+                                <c:forEach var="Auto" items="${auto}">
+                                    <option value="${Auto.kenteken}">${Auto.kenteken}</option>
+                                </c:forEach>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Monteur: ID</label></td>
+                        <td><select name="monteur" id="monteur">
+                                <c:forEach var="Monteur" items="${monteur}">
+                                    <option value="${Monteur.ID}">${Monteur.ID}</option>
+                                </c:forEach>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button name="knop" value="Terug" type="submit"><br>
+                                Terug
+                            </button>
+                            <button name="knop" value="Opslaan" type="submit"><br>
+                                Opslaan
+                            </button></td>
+                    </tr>
+                </table>
+            </div>
         </form>
-        <jsp:include page="/GebruikteArtikelToevoegen.jsp"/>
+        <div id="main3">
+            <jsp:include page="/GebruikteArtikelToevoegen.jsp"/>
+        </div>
     </body>
 </html>

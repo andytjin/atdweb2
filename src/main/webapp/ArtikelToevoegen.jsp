@@ -13,23 +13,40 @@
         <title>Artikel Toevoegen</title>
     </head>
     <body>
-        <form action="ArtikelToevoegen" method="post">
-        <label>Artikel nummer:</label>
-        <input type="text" name="artikelNummer"><br/>
-        <label>Artikel Type</label>
-        <input type="text" name="artikelType"><br/>
-        <label>Aantal artikelen:</label>
-        <input type="text" name="aantal"><br/>
-        <label>Minimum:</label>
-        <input type="text" name="minimum"><br/>
-        <label>Prijs:</label>
-        <input type="text" name="prijs"><br/>
-        <button name="knop" value="Terug" type="submit"><br>
-                Terug
-        </button>
-        <button name="knop" value="Opslaan" type="submit"><br>
-                Opslaan
-        </button>
-        </form>
+        <div id="main" style="height: 10em; left: 37.5%; ">
+            <form action="ArtikelToevoegen" method="post">
+                <table>
+                    <tr>
+                        <td><label>Artikel nummer:</label></td>
+                        <td><input type="text" name="artikelNummer"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Artikel Type</label></td>
+                        <td><input type="text" name="artikelType"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Aantal artikelen:</label></td>
+                        <td><input type="text" name="aantal"><br/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Minimum:</label></td>
+                        <td><input type="text" name="minimum"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Prijs:</label></td>
+                        <td><input type="text" name="prijs"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button name="knop" value="Terug" type="submit"><br>
+                                Terug
+                            </button>
+                            <button name="knop" value="Opslaan" type="submit"><br>
+                                Opslaan
+                            </button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </body>
 </html>

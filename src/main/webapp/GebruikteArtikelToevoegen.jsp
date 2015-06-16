@@ -15,32 +15,41 @@
     </head>
     <body>
         <form action="GebruikteArtikelToevoegen" method="post">
-        <label>OnderhoudsbeurtID</label>
-        <select name="onderhoudsbeurt" id="onderhoudsbeurt">
-            <c:forEach var="Onderhoudsbeurt" items="${onderhoudsbeurt}">
-             <option value="${Onderhoudsbeurt.dienstNummer}">${Onderhoudsbeurt.dienstNummer}</option>
-            </c:forEach>
-        </select>
-        <label>ArtikelID:</label>
-        <select name="artikel" id="artikel">
-            <c:forEach var="Artikel" items="${artikel}">
-             <option value="${Artikel.code}">${Artikel.code}</option>
-            </c:forEach>
-        </select>
-        <label>aantal Gebruikte artikelen:</label>
-        <input type="text" name="ga"><br/>
-        <button name="knop" value="voeg toe" type="submit">
-                voeg toe
-        </button>
-        <label>Toegevoegde gebruikte artikelen</label> 
-        <table>
-            <c:forEach var="GebruikteArtikelen" items="${gaLijst}">
+            <table>
                 <tr>
-               <td>ArtikelCode:<c:out value="${GebruikteArtikelen.hetArtikel.code}"/></td>
-               <td>aantal:<c:out value="${GebruikteArtikelen.aantal}"/></td>
+                    <td><label>OnderhoudsbeurtID</label></td>
+                    <td><select name="onderhoudsbeurt" id="onderhoudsbeurt">
+                            <c:forEach var="Onderhoudsbeurt" items="${onderhoudsbeurt}">
+                                <option value="${Onderhoudsbeurt.dienstNummer}">${Onderhoudsbeurt.dienstNummer}</option>
+                            </c:forEach>
+                        </select></td>
                 </tr>
-           </c:forEach>
-        </table>
+                <tr>
+                    <td><label>ArtikelID:</label></td>
+                    <td><select name="artikel" id="artikel">
+                            <c:forEach var="Artikel" items="${artikel}">
+                                <option value="${Artikel.code}">${Artikel.code}</option>
+                            </c:forEach>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td><label>aantal Gebruikte artikelen:</label></td>
+                    <td><input type="text" name="ga"><br/></td>
+                    <td><button name="knop" value="voeg toe" type="submit">
+                    voeg toe
+                        </button></td>
+                </tr>
+                <tr>
+                    <td><label>Toegevoegde gebruikte artikelen</label> </td>
+
+                <td><c:forEach var="GebruikteArtikelen" items="${gaLijst}">
+
+                    ArtikelCode:<c:out value="${GebruikteArtikelen.hetArtikel.code}"/>
+                    aantal:<c:out value="${GebruikteArtikelen.aantal}"/>
+
+                    </c:forEach></td>
+                </tr>
+            </table>
         </form>
     </body>
 </html>
