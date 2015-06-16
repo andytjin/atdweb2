@@ -2,6 +2,7 @@ package Domain;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ParkeerDienst extends Dienst implements Serializable{
 
@@ -36,6 +37,9 @@ public class ParkeerDienst extends Dienst implements Serializable{
 		return "Geen monteur";
 	}
 	
+	public Onderhoudsbeurt getOnderhoudsbeurt() {
+		return null;
+	}
 	public int getAantalUur() {
 		return aantalUur;
 	}

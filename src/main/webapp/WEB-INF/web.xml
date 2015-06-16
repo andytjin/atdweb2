@@ -12,6 +12,10 @@
         <servlet-name>GarageServlet</servlet-name>
         <servlet-class>Servlets.GarageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlanningServlet</servlet-name>
+        <servlet-class>Servlets.PlanningServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>GarageServlet</servlet-name>
         <url-pattern>/GarageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlanningServlet</servlet-name>
+        <url-pattern>/PlanningServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

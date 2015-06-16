@@ -2,7 +2,6 @@ package Domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Onderhoudsbeurt extends Dienst implements Serializable{
         
@@ -68,10 +67,6 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	public void setDeMonteur(Monteur m){
 		deMonteur = m;
 	}
-
-    public Onderhoudsbeurt getOnderhoudsbeurt() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-}
 }
 
 

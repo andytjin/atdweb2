@@ -14,11 +14,11 @@
     <form action="GarageServlet" method="post">
         Voor hoeveel uur wilt u een parkeerplek reserveren:</br>
         <input type="number" name="aantaluur"></br>
-        
+
         <input type="submit" name="button" value="Reserveer">
     </form>
-    
-    <c:forEach var="i" begin="0" end="24">
+    ${msgs}</br>
+    <c:forEach var="i" begin="1" end="5">
         <c:choose>
             <c:when test="${i < bezettePlaatsen}">
                 | x 
@@ -28,9 +28,55 @@
             </c:otherwise>
         </c:choose> 
     </c:forEach>
-        
-    </head>
-    <body>
-        
-    </body>
+    </br>
+
+    <c:forEach var="i" begin="6" end="10">
+        <c:choose>
+            <c:when test="${i < bezettePlaatsen}">
+                | x
+            </c:when>
+            <c:otherwise>
+                | o
+            </c:otherwise>    
+        </c:choose>
+    </c:forEach>
+    </br>
+    <c:forEach var="i" begin="11" end="15">
+        <c:choose>
+            <c:when test="${i < bezettePlaatsen}">
+                | x
+            </c:when>
+            <c:otherwise>
+                | o
+            </c:otherwise>    
+        </c:choose>
+    </c:forEach>
+    </br>
+    <c:forEach var="i" begin="16" end="20">
+        <c:choose>
+            <c:when test="${i < bezettePlaatsen}">
+                | x
+            </c:when>
+            <c:otherwise>
+                | o
+            </c:otherwise>    
+        </c:choose>
+    </c:forEach>
+    </br>
+    <c:forEach var="i" begin="21" end="25">
+        <c:choose>
+            <c:when test="${i < bezettePlaatsen}">
+                | x
+            </c:when>
+            <c:otherwise>
+                | o
+            </c:otherwise>    
+        </c:choose>
+    </c:forEach>
+
+
+</head>
+<body>
+
+</body>
 </html>
