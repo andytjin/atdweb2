@@ -23,13 +23,12 @@ public class MonteurService {
         mDAO.create(id, naam, pass);
     }
 
-    public List<Monteur> getAlleMonteurs() {
-        return mDAO.getAll();
+    public Monteur getMonteurByID(int id) {
+        return mDAO.getMonteurByID(id);
     }
 
-    public Monteur getMonteur(int id) {
-
-        return mDAO.getMonteur(id);
+    public List<Monteur> getAlleMonteurs() {
+        return mDAO.getAll();
     }
 
 }

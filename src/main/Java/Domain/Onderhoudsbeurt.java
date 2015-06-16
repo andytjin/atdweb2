@@ -10,24 +10,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Onderhoudsbeurt extends Dienst implements Serializable{
-
+        
 	private int aantalBestedeUur;
 	private Auto deAuto;
-        private String kenteken = deAuto.getKenteken();
 	private Monteur deMonteur;
 	private ArrayList<GebruikteArtikelen> deArtikelen = new ArrayList<GebruikteArtikelen>();
-	
-	public Onderhoudsbeurt(int dN, String Dat, Auto auto, Monteur dM){
+        
+	public Onderhoudsbeurt(int dN, String Dat, Auto dA, Monteur dM){
 		super(dN,Dat);
-		deAuto = auto;
+		deAuto = dA;
 		deMonteur = dM;
 		aantalBestedeUur = 0;
 	}
-        public Onderhoudsbeurt(int dN, String Dat, String ken){
-            super(dN,Dat);
-            kenteken = ken;
-            aantalBestedeUur = 0;
-        }
 	
 	public void berekenPrijs() {
 		double p = 0.0;
@@ -39,7 +33,15 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		super.setNettoPrijs(p);
 	}
 	
-	public void voegArtikelToe(Artikel a, int n){
+        public String getKenteken(){
+            return deAuto.getKenteken();
+        }
+        
+        public int getMonteurID(){
+            return deMonteur.getID();
+        }
+        
+	public void voegArtikelToe(Artikel a, int n, int id){
 		deArtikelen.add(new GebruikteArtikelen(n, a));
 	}
 	
@@ -55,6 +57,8 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		return aantalBestedeUur;
 	}
 	
+       
+        
 	public boolean equalsDienst(Object andere){
 		boolean b = false;
 		if(andere instanceof Onderhoudsbeurt){
@@ -74,8 +78,8 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	public Onderhoudsbeurt getOnderhoudsbeurt() {
 		return this;
 	}
-        
-        public String getKenteken(){
-            return kenteken;
+        public String toString(){
+            String s = "";
+            return s;
         }
 }

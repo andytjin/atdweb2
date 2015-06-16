@@ -31,6 +31,9 @@ public class AdminPageServlet extends HttpServlet {
         if (button.equals("Home")){
             rd = request.getRequestDispatcher("AdminPage.jsp"); 
         }
+        if(button.equals("Factuur")){
+            rd = request.getRequestDispatcher("FactuurOverzichtBeheerder.jsp");
+        }
         rd.forward(request, response);
     }
 }

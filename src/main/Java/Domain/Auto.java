@@ -35,11 +35,4 @@ public class Auto implements Serializable {
     public String getDeEigenaarsNaam() {
         return deEigenaar.getNaam();
     }
-    
-    public String getDeEigenaarUName(){
-        return deEigenaar.getUsername();
-    }
-    public String toString(){
-        return merk;
-    }
 }

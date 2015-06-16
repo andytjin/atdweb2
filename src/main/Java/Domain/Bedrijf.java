@@ -24,7 +24,7 @@ public class Bedrijf implements Serializable {
     }
 
     public void aanmaken() { //hierin worden alle arraylists vast gevuld met wat testobjecten
-        ArtikelType at1 = new ArtikelType("Moeren");
+       /* ArtikelType at1 = new ArtikelType("Moeren");
         ArtikelType at2 = new ArtikelType("Schroeven");
         ArtikelType at3 = new ArtikelType("Deuren");
         ArtikelType at4 = new ArtikelType("Auto-onderdelen");
@@ -114,7 +114,7 @@ public class Bedrijf implements Serializable {
         alleDiensten.add(d6);
         alleDiensten.add(d7);
         alleDiensten.add(d8);
-        alleDiensten.add(d9);
+        alleDiensten.add(d9);*/
     }
 
     public void voegAutoToe(Auto a){

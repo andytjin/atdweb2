@@ -14,61 +14,55 @@
     </head>
     <body>
         <div id="main">
-
-            <form action="ZoekKlantServlet" method="post">
-
-                <table>
-                    <tr>
-                        <td>Klantnaam:</td>
-                        <td>
-                            <select name="klant" id="klant">
-                                <c:forEach var="Klant" items="${klanten}">                                    
-                                    <option value="${Klant.username}">${Klant.username}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                        <td><input type="submit" name="button" value="Zoek factuur"></td>
-                    </tr>
-                </table>    
-                <c:forEach var="factuur" items="${klantFactuur}">
+            
+                <form action="ZoekKlantServlet" method="post">
+                    
                     <table>
-                        <tr style="background-color:#ffffff; font-weight: bold;">
-                            <td>Factuurnummer</td>
-                            <td>Factuurdatum</td>
-                            <td>Vervaldatum</td>
+                        <tr>
+                            <td>Klantnaam:</td>
+                            <td><input type="text" name="klant" ></td>
+                            <td><input type="submit" name="button" value="Zoek factuur"></td>
                         </tr>
-                        <tr style="background-color:#33ccff;">
-                            <td>${factuur.factuurNummer}</td>
-                            <td>${factuur.factuurDatum}</td>
-                            <td>${factuur.vervalDatum}</td>
-                        </tr>
-                        <tr style="background-color:#ffffff; font-weight: bold;">
-                            <td>Brutoprijs</td>
-                            <td>Betaald?</td>
-                        </tr>
-                        <tr style="background-color:#33ccff;">
-                            <td>${factuur.brutoPrijs}</td>
-                            <td>${factuur.isBetaald()}</td>
-                        </tr>
-                        <tr style="background-color:#ffffff; font-weight: bold;">
-                            <td>Omschrijving</td>
-                        </tr>
-                        <tr style="background-color:#33ccff;">
-                            <td>${factuur.omschrijving}</td>
-                        </tr>
-                        <tr style="background-color:#ffffff; font-weight: bold;">
-                            <td>Klant</td>
-                        </tr>
-                        <tr style="background-color:#33ccff;">
-                            <td>${factuur.getKlantNaam()}</td>
+                    </table>    
+                    <c:forEach var="factuur" items="${klantFactuur}">
+                        <table>
+                            <tr style="background-color:#ffffff; font-weight: bold;">
+                                <td>Factuurnummer</td>
+                                <td>Factuurdatum</td>
+                                <td>Vervaldatum</td>
+                            </tr>
+                            <tr style="background-color:#33ccff;">
+                                <td>${factuur.factuurNummer}</td>
+                                <td>${factuur.factuurDatum}</td>
+                                <td>${factuur.vervalDatum}</td>
+                            </tr>
+                            <tr style="background-color:#ffffff; font-weight: bold;">
+                                <td>Brutoprijs</td>
+                                <td>Betaald?</td>
+                            </tr>
+                            <tr style="background-color:#33ccff;">
+                                <td>${factuur.brutoPrijs}</td>
+                                <td>${factuur.isBetaald()}</td>
+                            </tr>
+                            <tr style="background-color:#ffffff; font-weight: bold;">
+                                <td>Omschrijving</td>
+                            </tr>
+                            <tr style="background-color:#33ccff;">
+                                <td>${factuur.omschrijving}</td>
+                            </tr>
+                            <tr style="background-color:#ffffff; font-weight: bold;">
+                                <td>Klant</td>
+                            </tr>
+                            <tr style="background-color:#33ccff;">
+                                <td>${factuur.getKlantNaam()}</td>
 
-                        </tr>
+                            </tr>
 
-                    </table>
-                </c:forEach>
-            </form>
-        </div>
-
+                        </table>
+                    </c:forEach>
+                </form>
+            </div>
+        
         <div id="alleFactures">
             <form action="ForwardServlet" method="post">
                 <table>
@@ -110,14 +104,8 @@
                         <td><input type ="text" style="height: 150px; width: 150px;" name ="Omschrijving"> </td>
                     </tr>
                     <tr>
-                    <tr>
-                        <td>Klant:</td>
-                        <td><select name="klant" id="klant">
-                                <c:forEach var="Klant" items="${klanten}">                                    
-                                    <option value="${Klant.username}">${Klant.username}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
+                        <td>Klantnaam:</td>
+                        <td><input type="text" name="Klantnaam"></td>
                     </tr>
                     <tr>
                         <td>Aanmaken:</td>

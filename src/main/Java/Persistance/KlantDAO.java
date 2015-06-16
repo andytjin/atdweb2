@@ -17,7 +17,6 @@ import java.util.List;
  * @author Max
  */
 public class KlantDAO extends BaseDAO<Klant> {
-    
 
     public KlantDAO() {
         super();
@@ -53,6 +52,7 @@ public class KlantDAO extends BaseDAO<Klant> {
     public void create(String uName, String nm, String pass, String ad, String gd, String tel, String pc, String email, boolean wh) {
         try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             String query = "INSERT INTO klant VALUES(\"" + uName + "\", \"" + nm + "\", \"" + pass + "\", \"" + ad + "\",  \"" + gd + "\", \"" + tel + "\", \"" + pc + "\", \"" + email + "\", " + wh + ")";
+
             PreparedStatement pstmt = con.prepareStatement(query);
             int i = pstmt.executeUpdate();
         } catch (Exception e) {

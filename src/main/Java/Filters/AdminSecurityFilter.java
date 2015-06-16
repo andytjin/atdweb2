@@ -21,13 +21,14 @@ public class AdminSecurityFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest r2 = (HttpServletRequest) request;
-        Klant k = (Klant) r2.getSession().getAttribute("User");
+        HttpServletRequest r3 = (HttpServletRequest) request;
+        chain.doFilter(request, response);
+        Klant k = (Klant) r3.getSession().getAttribute("User");
         if(!k.getUsername().equals("HenkPaladijn")){
             System.out.println("Geen Admin");
-            r2.getRequestDispatcher("index.jsp").forward(request, response);
+            r3.getRequestDispatcher("index.jsp").forward(request, response);
         }else{
-            chain.doFilter(request, response);
+           
         }
     }
 

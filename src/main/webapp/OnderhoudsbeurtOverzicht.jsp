@@ -1,28 +1,27 @@
 <%-- 
-    Document   : Planning
-    Created on : 27-mei-2015, 12:51:35
+    Document   : OnderhoudsbeurtOverzicht
+    Created on : 3-jun-2015, 18:32:04
     Author     : freekvdp
 --%>
 
-<%@page import="java.util.List"%>
-<%@page import="Domain.Auto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Planning</title>
+        <title>Onderhoudsbeurt Overzicht</title>
     </head>
     <body>
-        <h1>Planning</h1>
-        Selecteer hieronder de Auto voor een Afspraak:<br/>
+        <h1>Onderhoudsbeurt Overzicht</h1>
+        
         <form action="PlanningServlet" method="post">
             <div>
+                <table>
                 <c:forEach var = "autos" items="${Autos}">
-                    <input type="radio" name="autos" value= "${autos.kenteken}" >${autos.kenteken} , ${autos.merk}
+                    <input type="button" name="autoradios" value= "${autos.kenteken}" >${autos.kenteken} , ${autos.merk}
                 </c:forEach>
                 <br/>
+                </table>
                 <div>
                     <br/>
                     <br/>

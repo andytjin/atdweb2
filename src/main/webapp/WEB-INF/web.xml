@@ -4,21 +4,22 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>Servlets.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MonteurPageServlet</servlet-name>
+        <servlet-class>Servlets.MonteurPageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>KlantGegevensServlet</servlet-name>
         <servlet-class>Servlets.KlantSettings.KlantGegevensServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>AutoGegevensServlet</servlet-name>
         <servlet-class>Servlets.KlantSettings.AutoGegevensServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>Servlets.RegisterServlet</servlet-class>
@@ -27,7 +28,6 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>AdminPageServlet</servlet-name>
         <servlet-class>Servlets.AdminPageServlet</servlet-class>
@@ -36,7 +36,6 @@
         <servlet-name>AdminPageServlet</servlet-name>
         <url-pattern>/AdminPageServlet</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>KlantGegevensServlet</servlet-name>
         <url-pattern>/KlantGegevensServlet</url-pattern>
@@ -45,20 +44,40 @@
         <servlet-name>AutoGegevensServlet</servlet-name>
         <url-pattern>/AutoGegevensServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>alleFacturenServlet</servlet-name>
+        <servlet-class>Servlets.alleFacturenServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>alleFacturenServlet</servlet-name>
+        <url-pattern>/alleFacturenServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>FactuurServlet</servlet-name>
+        <servlet-class>Servlets.FactuurServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FactuurServlet</servlet-name>
+        <url-pattern>/FactuurServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MonteurPageServlet</servlet-name>
+        <url-pattern>/MonteurPageServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-
     <filter>
         <filter-name>KlantFilter</filter-name>
         <filter-class>Filters.KlantSecurityFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>KlantFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
+        <servlet-name>KlantPageServlet</servlet-name>
+        <servlet-name>KlantGegevensServlet</servlet-name>
+        <servlet-name>AutoGegevensServlet</servlet-name>
     </filter-mapping>
     <filter>
         <filter-name>AdminFilter</filter-name>
