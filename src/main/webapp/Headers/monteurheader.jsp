@@ -15,9 +15,9 @@
         <div id="header">
             <h1>Homepage</h1>
            <div class="navbar">
-                <form action="KlantPageServlet" method="post" class="navForm">
+                <form action="MonteurPageServlet" method="post" class="navForm">
                     <input type="submit" name="button" value="Home" class="navbutton5">
-                    <input type="submit" name="button" value="AANPASSEN IN MONTEURHEADER.JSP" class="navbutton5">
+                    <input type="submit" name="button" value="Onderhoudsbeurt" class="navbutton5">
                     
                 </form>
             </div>
