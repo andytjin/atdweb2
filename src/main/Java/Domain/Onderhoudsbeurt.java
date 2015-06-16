@@ -1,13 +1,8 @@
-/*
- * Gemaakt door: Tristan en Roger
- */
-
-
-
-
 package Domain;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Onderhoudsbeurt extends Dienst implements Serializable{
         
@@ -16,21 +11,20 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	private Monteur deMonteur;
 	private ArrayList<GebruikteArtikelen> deArtikelen = new ArrayList<GebruikteArtikelen>();
         
-	public Onderhoudsbeurt(int dN, String Dat, Auto dA, Monteur dM){
+	public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA, Monteur dM){
 		super(dN,Dat);
 		deAuto = dA;
 		deMonteur = dM;
 		aantalBestedeUur = 0;
 	}
-	
-	public void berekenPrijs() {
+	@Override
+	public double prijs() {
 		double p = 0.0;
 		p = aantalBestedeUur * 50.0;
 		for(GebruikteArtikelen ga : deArtikelen){
 			p += ga.getHetArtikel().getPrijs() * ga.getAantal();
-		}
-		System.out.println("Roger is dik");
-		super.setNettoPrijs(p);
+                }
+		return p;
 	}
 	
         public String getKenteken(){
@@ -75,11 +69,14 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		deMonteur = m;
 	}
 
-	public Onderhoudsbeurt getOnderhoudsbeurt() {
-		return this;
-	}
-        public String toString(){
-            String s = "";
-            return s;
-        }
+    public Onderhoudsbeurt getOnderhoudsbeurt() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 }
+}
+
+
+
+
+
+
+

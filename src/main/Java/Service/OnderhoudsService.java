@@ -8,6 +8,7 @@ package Service;
 import Domain.GebruikteArtikelen;
 import Domain.Onderhoudsbeurt;
 import Persistance.OnderhoudsbeurtDAO;
+import java.util.List;
 
 /**
  *
@@ -16,8 +17,12 @@ import Persistance.OnderhoudsbeurtDAO;
 public class OnderhoudsService {
     OnderhoudsbeurtDAO onderhoudsbeurtdao = new OnderhoudsbeurtDAO();
     
-    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, int ga, double prijs, int besteedeuur){
-        onderhoudsbeurtdao.schrijfOnderhoudsbeurtNaarDatabase(o, ga, prijs, besteedeuur);
+    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, int besteedeuur){
+        onderhoudsbeurtdao.schrijfOnderhoudsbeurtNaarDatabase(o, besteedeuur);
+    }
+    
+    public List<Onderhoudsbeurt> getAlleOnderhoudsbeurten(){
+        return onderhoudsbeurtdao.getAlleOnderhoudsbeurten();
     }
     
 }   

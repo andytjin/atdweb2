@@ -48,7 +48,7 @@ body{
     float: right;
 }
 
-.navbar{
+.navbar{   
     position: absolute;
     left:0%; top: 2em;
     width: 100%;
@@ -74,8 +74,26 @@ body{
     border-color: #2b2b2b;
     height:30px;
 }
-.navbutton5{
+.navbutton5{    
     width: 16.666%;
+    display: table-cell;
+    background: #2b2b2b;
+    color: #ffffff;
+    font-size: 15px;
+    border-color: #2b2b2b;
+    height:30px;
+}
+.navbuttonmonteur{    
+    width: 33.333%;
+    display: table-cell;
+    background: #2b2b2b;
+    color: #ffffff;
+    font-size: 15px;
+    border-color: #2b2b2b;
+    height:30px;
+}
+.navbuttonmonteurHS{    
+    width: 60%;
     display: table-cell;
     background: #2b2b2b;
     color: #ffffff;
@@ -88,6 +106,14 @@ body{
     background: #4e4e4e;
 }
 .navbutton5:hover{
+    opacity: 1.0;
+    background: #4e4e4e;
+}
+.navbuttonmonteur:hover{
+    opacity: 1.0;
+    background: #4e4e4e;
+}
+.navbuttonmonteurHS:hover{
     opacity: 1.0;
     background: #4e4e4e;
 }
@@ -218,6 +244,21 @@ body{
     height: 35em;
     opacity: 0.9;
 }
+#mainmonteur {
+    font-family: Arial;
+    border-radius: 29px 29px 29px 29px;
+    -moz-border-radius: 29px 29px 29px 29px;
+    -webkit-border-radius: 29px 29px 29px 29px;
+    background-color: #555555;
+    -webkit-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    padding: 2em;
+    position: absolute; top: 20%; left: 37.5%;
+    width: 25em;
+    height: 35em;
+    opacity: 0.9;
+}
 #factuuraanmaken{
     font-family: Arial;
     border-radius: 29px 29px 29px 29px;
@@ -278,4 +319,10 @@ body{
     width: 50em;
     height: 35em;
     opacity: 0.9;
+}
+.hswerkzaamheden {
+    position: relative; left: 4em; top: 6.5em;    
+}
+.hswerkzaamheden button{
+    margin: 20px;
 }

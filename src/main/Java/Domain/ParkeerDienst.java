@@ -1,31 +1,31 @@
-/*
- * Gemaakt door: Tristan en Roger
- */
-
-
-
-
 package Domain;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ParkeerDienst extends Dienst implements Serializable{
 
 	private int aantalUur;
 	private ParkeerPlaats deParkeerPlaats;
-
-	public ParkeerDienst(int dN, String dat,int n){
+        private double basisTarief = 10;
+        
+	public ParkeerDienst(int dN, Calendar dat,int n){
 		super(dN,dat);
 		aantalUur = n;
 	}
+        
 	public void setAantalUur(int aU){
 		 aantalUur = aU;
 	}
-	public void berekenPrijs(){
+        
+        @Override
+	public double prijs(){
 		double p = 0.0;
 		p = aantalUur * 5.0;	
-		super.setNettoPrijs(p);
+		return p + basisTarief;
 	}
+        
 	public boolean equalsDienst(Object andere){
 		boolean b = false;
 		if(andere instanceof ParkeerDienst){

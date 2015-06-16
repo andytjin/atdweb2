@@ -1,10 +1,3 @@
-/*
- * Gemaakt door: Tristan en Roger
- */
-
-
-
-
 package Domain;
 
 import java.io.Serializable;
@@ -15,7 +8,7 @@ public class Artikel implements Serializable{
 	private ArtikelType hetType;
 	private int aantal,minimum;
 	private double prijs;
-
+        
 	public Artikel(String s, int min, int a, double pr, ArtikelType at){
 		code = s;
 		minimum = min;

@@ -1,39 +1,34 @@
-/*
- * Gemaakt door: Tristan en Roger
- */
-
-
-
-
 package Domain;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.sql.Date;
 
 public abstract class Dienst implements Serializable{
 
 	private int dienstNummer;
-	private String datum;
-	private double nettoPrijs;
-	private Factuur deBetaling;
+	private Calendar datum;
+	//private double nettoPrijs;
+	private Factuur deFactuur;
  
-	public Dienst(int dN, String dat){
+	public Dienst(int dN, Calendar dat){
 		dienstNummer = dN;
 		datum = dat;
 	}
 	
 	public void setDeBetaling(Factuur f){
-		deBetaling = f;
+		deFactuur = f;
 	}
 	
 	public Factuur getDeBetaling(){
-		return deBetaling;
+		return deFactuur;
 	}
 	
 	public String getKlantNaam(){
-		return deBetaling.getKlantNaam();
+		return deFactuur.getKlantNaam();
 	}
 	
-	public abstract void berekenPrijs();
+	public abstract double prijs();
 	
 	public abstract boolean equalsDienst(Object andere);
 	
@@ -41,18 +36,13 @@ public abstract class Dienst implements Serializable{
 		return dienstNummer;
 	}
 	
-	public String getDatum(){
+	public Calendar getDatum(){
 		return datum;
 	}
+        
+        public java.sql.Date getSQLdatum(){
+            return new Date(getDatum().getTimeInMillis());
+        }
 	
 	public abstract String getNaam();
-	
-	public double getNettoPrijs(){
-		return nettoPrijs;
-	}
-	public void setNettoPrijs(double p){
-		nettoPrijs = p;
-	}
-	
-	public abstract Onderhoudsbeurt getOnderhoudsbeurt();
 }

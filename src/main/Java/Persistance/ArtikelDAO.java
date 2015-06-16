@@ -24,7 +24,7 @@ public class ArtikelDAO extends BaseDAO<Artikel>{
                 try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
             // create a SQL query
-            String sql = "INSERT INTO to4.artikel "
+            String sql = "INSERT INTO atd.artikel "
                     + "(code, aantal, minimum, prijs, artikeltype)"
                     + " VALUES('" + a.getCode() + "','" + a.getAantal()  + "','" + a.getMinimum() +"','" + a.getPrijs() + "','" + a.getType() + "')";
             stmt.executeUpdate(sql);
