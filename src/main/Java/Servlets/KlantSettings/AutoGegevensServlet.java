@@ -56,7 +56,7 @@ public class AutoGegevensServlet extends HttpServlet {
                 Klant k = null;
                 if (object != null) {
                     k = (Klant) object;
-                    Auto a = new Auto(kenteken, type, merk, k);
+                    Auto a = new Auto(kenteken.toUpperCase(), type, merk, k);
                     as.create(a);
                     System.out.println("Auto toegevoegd");
                 } else {

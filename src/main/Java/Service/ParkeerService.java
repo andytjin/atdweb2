@@ -22,4 +22,8 @@ public class ParkeerService {
     public void create(ParkeerDienst pd){
         pDao.create(pd);
     }
+
+    public void clearDBofOldFiles() {
+        pDao.checkDates();
+    }
 }

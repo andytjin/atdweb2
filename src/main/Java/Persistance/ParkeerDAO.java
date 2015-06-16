@@ -53,7 +53,7 @@ public class ParkeerDAO extends BaseDAO<ParkeerDienst> {
         String query = "select * from parkeerdienst order by parkeerdienstID DESC;";
         List<ParkeerDienst> result = selectParkeerDienst(query);
         int i = 0;
-        if(result != null){
+        if(!result.isEmpty()){
             i = result.get(0).getDienstNummer();
         }
         return i;
@@ -76,7 +76,16 @@ public class ParkeerDAO extends BaseDAO<ParkeerDienst> {
 
     @Override
     public void delete(ParkeerDienst instance) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "DELETE FROM parkeerdienst WHERE parkeerdienstID = "+instance.getDienstNummer() + ";";
+        try(Connection con = getConnection()){
+            PreparedStatement stmt = con.prepareCall(query);
+            int i = stmt.executeUpdate();
+            if(i == 1){
+                System.out.println("Parkeerdienst: " + instance.getDienstNummer() + " is verwijderd");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -87,6 +96,19 @@ public class ParkeerDAO extends BaseDAO<ParkeerDienst> {
     @Override
     public List<ParkeerDienst> getAll() {
         return selectParkeerDienst("SELET * FROM parkeerdienst");
+    }
+
+    public void checkDates() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String datum = sdf.format(cal.getTime());
+        
+        
+        String query = "select * from parkeerdienst where datum < date('" + datum + "');";
+        List<ParkeerDienst> lijst = selectParkeerDienst(query);
+        for(ParkeerDienst p : lijst){
+            delete(p);
+        }
     }
 
 }

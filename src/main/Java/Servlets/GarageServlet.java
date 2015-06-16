@@ -33,8 +33,13 @@ public class GarageServlet extends HttpServlet {
 
         String sAantal = request.getParameter("aantaluur");
         int aantal = Integer.parseInt(sAantal);
+       
+        
         ParkeerService ps = ServiceProvider.getParkeerService();
         ParkeerplaatsService pps = ServiceProvider.getParkeerPlaatsService();
+        
+        ps.clearDBofOldFiles();
+        
         int maxAantal = 25;
         int huidigAantal = pps.getAantalBezet();
 
@@ -53,7 +58,9 @@ public class GarageServlet extends HttpServlet {
         if (b) {
             pps.setHuidigBezet(huidigAantal + 1);
             int id = ps.getHoogsteParkeerNummer() + 1;
-            ParkeerDienst pd = new ParkeerDienst(id, Calendar.getInstance(), aantal);
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DATE)+ (int) aantal / 24);
+            ParkeerDienst pd = new ParkeerDienst(id, cal, aantal);
             ps.create(pd);
             msgs = "U heeft plaats " + plaatsen[huidigAantal] + " gereserveerd voor " + aantal + " uur"; 
         }
