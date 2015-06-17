@@ -20,14 +20,14 @@
                     var target = $(this).attr("href");
                     $("html, body").stop().animate({
                         scrollLeft: $(target).offset().left,
-                        scrollTop: $(target).offset().top
+                        
                     }, 1000);
                 });
             });
         </script>
         <title>ATD</title>
     </head>
-    <body id="scrollableBody">
+    <body id="scrollableBody" class="content">
         <div id="header">
             <h1>Homepage</h1>
 

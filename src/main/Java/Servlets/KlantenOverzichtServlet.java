@@ -7,6 +7,7 @@ import Domain.Klant;
 import Service.KlantService;
 import Service.ServiceProvider;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.mail.BodyPart;
@@ -45,15 +46,25 @@ public class KlantenOverzichtServlet extends HttpServlet {
 
         if (button.equals("Zoek klant")) {
             KlantService ks = ServiceProvider.getKlantService();
+            List<Klant> lijst = new ArrayList<Klant>();
+            if(uname.equals("")){
+                lijst = ks.getAlleKlanten();
+            }else{
+            
             Klant k = ks.getKlant(uname);
-
+            
+            lijst.add(k);
+            }
+            
+            request.setAttribute("KlantenLijst", lijst);
+            
         } else {
             KlantService ks = ServiceProvider.getKlantService();
             List<Klant> lijst = ks.getAlleKlanten();
             for (Klant k : lijst) {
                 if (k.isWiltHerinnering()) {
                     Properties props = System.getProperties();
-                    props.put("mail.smtp.starttls.enable", true); // added this line
+                    props.put("mail.smtp.starttls.enable", true);
                     props.put("mail.smtp.host", "smtp.gmail.com");
                     props.put("mail.smtp.user", "username");
                     props.put("mail.smtp.password", "password");
@@ -65,45 +76,34 @@ public class KlantenOverzichtServlet extends HttpServlet {
 
                     System.out.println("Port: " + session.getProperty("mail.smtp.port"));
 
-                    // Create the email addresses involved
                     try {
                         InternetAddress from = new InternetAddress("to4henkpaladijn@gmail.com");
                         message.setSubject("Yes we can");
                         message.setFrom(from);
                         message.addRecipients(Message.RecipientType.TO, InternetAddress.parse("maxraadgever@gmail.com"));
-
-                        // Create a multi-part to combine the parts
                         Multipart multipart = new MimeMultipart("alternative");
 
-                        // Create your text message part
                         BodyPart messageBodyPart = new MimeBodyPart();
                         messageBodyPart.setText("some text to send");
 
-                        // Add the text part to the multipart
                         multipart.addBodyPart(messageBodyPart);
 
-                        // Create the html part
                         messageBodyPart = new MimeBodyPart();
                         String htmlMessage = "Our html text";
                         messageBodyPart.setContent(htmlMessage, "text/html");
 
-                        // Add html part to multi part
                         multipart.addBodyPart(messageBodyPart);
 
-                        // Associate multi-part with message
                         message.setContent(multipart);
 
-                        // Send message
                         Transport transport = session.getTransport("smtp");
                         transport.connect("smtp.gmail.com", "to4henkpaladijn", "themaopdracht4");
                         System.out.println("Transport: " + transport.toString());
                         transport.sendMessage(message, message.getAllRecipients());
 
                     } catch (AddressException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     } catch (MessagingException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
