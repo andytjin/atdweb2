@@ -245,7 +245,7 @@ body{
     position: relative; left: 85%;
 }
 
-#main {
+.main {
     font-family: Arial;
     border-radius: 29px 29px 29px 29px;
     -moz-border-radius: 29px 29px 29px 29px;
