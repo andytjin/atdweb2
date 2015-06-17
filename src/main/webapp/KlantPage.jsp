@@ -27,7 +27,7 @@
         </script>
         <title>ATD</title>
     </head>
-    <body>
+    <body id="scrollableBody">
         <div id="header">
             <h1>Homepage</h1>
 
