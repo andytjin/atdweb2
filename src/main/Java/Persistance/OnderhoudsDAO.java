@@ -119,7 +119,7 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
                 Monteur mo = monteurdao.getMonteurByID(monteurid);
 
                 Calendar date = Calendar.getInstance();
-                DateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     date.setTime(sdf.parse(datum));
                 } catch (Exception e) {
