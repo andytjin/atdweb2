@@ -22,6 +22,8 @@ body{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: 100%; 
+}
+#scrollableBody{
     width: 600%;
 }
 
@@ -387,4 +389,32 @@ body{
     box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     opacity: 0.9;  
     padding: 2em;
+}
+
+.tabelDiv{
+    position: relative; left: 10em; 
+    font-family: Arial;
+    display: inline-block;
+    border-radius: 29px 29px 29px 29px;
+    -moz-border-radius: 29px 29px 29px 29px;
+    -webkit-border-radius: 29px 29px 29px 29px;
+    background-color: #a2a2a2;
+    -webkit-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    opacity: 0.9;  
+    padding: 2em; 
+}
+
+#tabel{
+    border-collapse: collapse;
+}
+#tabel .head{
+    font-weight: bold;  
+}
+#tabel .info{
+    border: 1px;
+}
+#tabel .info td{
+    border: 1px solid black;
 }

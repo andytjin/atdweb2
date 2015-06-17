@@ -1,6 +1,10 @@
 package Servlets;
 
+import Domain.Klant;
+import Service.KlantService;
+import Service.ServiceProvider;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +37,12 @@ public class AdminPageServlet extends HttpServlet {
         }
         if(button.equals("Factuur")){
             rd = request.getRequestDispatcher("FactuurOverzichtBeheerder.jsp");
+        }
+        if(button.equals("Klanten")){
+            rd = request.getRequestDispatcher("KlantenOverzicht.jsp");
+            KlantService ks = ServiceProvider.getKlantService();
+            List<Klant> lijst = ks.getAlleKlanten();
+            request.setAttribute("KlantenLijst", lijst);
         }
         rd.forward(request, response);
     }
