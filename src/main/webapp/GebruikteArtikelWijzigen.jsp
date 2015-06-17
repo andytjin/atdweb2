@@ -19,7 +19,7 @@
         <label>GebruikteArtikelenID</label>
         
         <select name="gebruikteartikelen" id="gebruikteartikelen" onchange="fillGebruikteArtikelen()">
-            <option>Selecteer GebruikteArtikelID</option>
+            <option disabled Selected>Selecteer GebruikteArtikelID</option>
             <c:forEach var="GebruikteArtikelen" items="${gebruikteartikelen}">
              <option value="${GebruikteArtikelen.gebruikteArtikelId},${GebruikteArtikelen.onderhoudsBeurtId},${GebruikteArtikelen.hetArtikel.code},${GebruikteArtikelen.aantal}">${GebruikteArtikelen.gebruikteArtikelId}</option>
             </c:forEach>

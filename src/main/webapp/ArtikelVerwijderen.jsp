@@ -18,7 +18,7 @@
         <form action="ArtikelVerwijderen" method="post">
         <label>Selecteer ArtikelID:</label>
         <select name="artikelNummer" id="artikel" onchange="fillArtikelVerwijderen()" >
-            <option>Selecteer ArtikelID</option>
+            <option disabled Selected>Selecteer ArtikelID</option>
             <c:forEach var="Artikel" items="${artikel}">
              <option value="${Artikel.code},${Artikel.hetType.type},${Artikel.aantal},${Artikel.minimum},${Artikel.prijs}">${Artikel.code}</option>
             </c:forEach>

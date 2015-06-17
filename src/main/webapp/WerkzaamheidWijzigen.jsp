@@ -20,7 +20,7 @@
         <form action="WerkzaamheidWijzigen" method="post"> 
             <label>Selecteer OnderhoudsbeurtID</label>
             <select name="onderhoudsbeurtID" id="onderhoudsbeurtID" onchange="fillOnderhoudsbeurt()">
-                <option>Selecteer OnderhoudsbeurtID</option>
+                <option disabled Selected>Selecteer OnderhoudsbeurtID</option>
                 <c:forEach var="Onderhoudsbeurt" items="${onderhoudsbeurt}">
                  <option value="${Onderhoudsbeurt.dienstNummer},${Onderhoudsbeurt.calendarNaarString},${Onderhoudsbeurt.deAuto.kenteken},${Onderhoudsbeurt.deMonteur.ID},${Onderhoudsbeurt.aantalBestedeUur}">${Onderhoudsbeurt.dienstNummer}</option>
                 </c:forEach>
@@ -34,7 +34,7 @@
             <label>Auto ID:</label>
             <select name="auto" id="auto">
                 <c:forEach var="Auto" items="${auto}">
-                    <option>Selecteer Kenteken</option>
+                    <option disabled Selected>Selecteer Kenteken</option>
                     <option value="${Auto.kenteken}">${Auto.kenteken}</option>
                 </c:forEach>
             </select>
@@ -42,7 +42,7 @@
             <label>Monteur: ID</label>
             <select name="monteur" id="monteur">
                 <c:forEach var="Monteur" items="${monteur}">
-                    <option>Selecteer MonteurID</option>
+                    <option disabled Selected>Selecteer MonteurID</option>
                     <option value="${Monteur.ID}">${Monteur.ID}</option>
                 </c:forEach>
             </select>

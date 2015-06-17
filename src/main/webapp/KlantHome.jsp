@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body class="content">
+    <body id="scrollableBody" class="content">
 
         <div class="homepageATDinfo">
             <h1>Welkom bij ATD</h1>
