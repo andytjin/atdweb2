@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -59,6 +60,44 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
         }
     }
 
+    public void WijzigOnderhoudsbeurt(Onderhoudsbeurt o, int uur) {
+
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            Statement stmt = con.createStatement();
+            // create a SQL query
+            String sql = "UPDATE atd.onderhoudsbeurt "
+                    + "SET onderhoudsbeurtID = '" + o.getDienstNummer() + "', datum = '" + o.getSQLdatum() + "', kenteken = '" + o.getKenteken() +
+                    "', monteurID = '" + o.getMonteurID() + "', aantalbestedeuren = '" + uur + "'"
+                    + " WHERE onderhoudsbeurtID = '" + o.getDienstNummer() + "'";
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public boolean VerwijderOnderhoudsbeurt(Onderhoudsbeurt o) {
+        boolean result = false;
+        boolean Onderhoudsbeurt = getOnderhoudsbeurt(o.getDienstNummer()) != null;
+
+        if (Onderhoudsbeurt) {
+            String query = "DELETE FROM onderhoudsbeurt WHERE onderhoudsbeurtID = " + o.getDienstNummer();
+
+            try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+                Statement stmt = con.createStatement();
+                if (stmt.executeUpdate(query) == 1) {
+                    result = true;
+                }
+
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    
     public List<GebruikteArtikelen> getAlleGebruikteArtikelen(int id) {
         return gebruikteartikeldao.getByOnderhoudsID(id);
     }
