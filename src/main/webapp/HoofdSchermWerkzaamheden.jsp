@@ -26,9 +26,6 @@
         <button name="knop" value="werkzaamheidVerwijderen" type="submit">
                 Werkzaamheid verwijderen
         </button>
-        <button name="knop" value="terug" type="submit">
-                Terug
-        </button>
         </form>
     </body>
 </html>

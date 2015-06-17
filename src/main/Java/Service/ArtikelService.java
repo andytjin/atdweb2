@@ -35,13 +35,13 @@ public class ArtikelService {
         at.WijzigArtikel(a);
     }
     
-    public boolean verwijderArtikel(Artikel a){
-        boolean result = false;
-          if(at.VerwijderArtikel(a)){
-              result = true;
-          } 
-          return result;
-    }
+public boolean verwijderArtikel(Artikel a){
+    boolean result = false;
+      if(at.VerwijderArtikel(a)){
+          result = true;
+      } 
+      return result;
+}
         
     public void verwijderArtikelType(ArtikelType atp){    
         atpDAO.VerwijderArtikelType(atp);

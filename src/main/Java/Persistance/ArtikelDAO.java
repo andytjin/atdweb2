@@ -58,7 +58,7 @@ public class ArtikelDAO extends BaseDAO<Artikel> {
             // create a SQL query
             String sql = "UPDATE atd.artikel "
                     + "SET code = '" + a.getCode() + "', aantal = '" + a.getAantal() + "', minimum = '"
-                    + a.getMinimum() + "', prijs = '" + a.getPrijs() + "'"
+                    + a.getMinimum() + "', prijs = '" + a.getPrijs() + "', artikeltype = '" + a.getType() + "'" 
                     + " WHERE code = '" + a.getCode() + "'";
             stmt.executeUpdate(sql);
 

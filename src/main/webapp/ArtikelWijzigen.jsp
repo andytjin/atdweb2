@@ -24,7 +24,12 @@
             </c:forEach>
         </select>
         <label>Artikel type:</label>
-        <input type="text" name="artikelType" id="artikelType" readonly/>
+        <select name="artikelType" id="artikelType" >
+            <option>Selecteer ArtikelID</option>
+            <c:forEach var="ArtikelType" items="${artikeltype}">
+             <option value="${ArtikelType.type}">${ArtikelType.type}</option>
+            </c:forEach>
+        </select>
         <br/>
         <label>Aantal artikelen:</label>
         <input type="text" name="aantal" id="aantal" /><br/>

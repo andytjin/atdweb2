@@ -68,6 +68,8 @@ public class HoofdSchermArtikelen extends HttpServlet {
                 ArtikelService aService = ServiceProvider.getArtikelService();
                 List<Artikel> lijst = aService.getAlleArtikelen();
                 request.getSession().setAttribute("artikel", lijst);
+                List<ArtikelType> typenLijst = aService.getAlleTypen();
+                request.getSession().setAttribute("artikeltype", typenLijst);
                 RequestDispatcher view = request.getRequestDispatcher("/ArtikelWijzigen.jsp");
                 view.forward(request, response);
             }

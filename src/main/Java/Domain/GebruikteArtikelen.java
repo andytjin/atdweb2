@@ -5,31 +5,32 @@ import java.io.Serializable;
 public class GebruikteArtikelen implements Serializable{
 	private int aantal;
 	private Artikel hetArtikel;
-        private int GebruikteArtikelID;
+        private int gebruikteArtikelId;
         private static int doorteller = 0;
-	private int Onderhoudsbeurtid;
+	private int onderhoudsBeurtId;
         
 	public GebruikteArtikelen(int a, Artikel hA){
-		doorteller++;
-                GebruikteArtikelID = doorteller;
                 aantal = a;
 		hetArtikel = hA;
                 
 	}
         
-        public int getOnderhoudsbeurtid(){
-            return Onderhoudsbeurtid;
+        public int getOnderhoudsBeurtId(){
+            return onderhoudsBeurtId;
         }
         
-        public void setOnderhoudsbeurtid(int id){
-            Onderhoudsbeurtid = id;
+        public void setOnderhoudsBeurtId(int id){
+            onderhoudsBeurtId = id;
         }
         
+        public void setGebruikteArtikelId(int id){
+            gebruikteArtikelId = id;
+        }
         
         public String getArtikelID(){ return hetArtikel.getCode(); }
         
-        public int getGebruikteArtikelID(){
-            return GebruikteArtikelID;
+        public int getGebruikteArtikelId(){
+            return gebruikteArtikelId;
         }
         
 	public Artikel getHetArtikel(){

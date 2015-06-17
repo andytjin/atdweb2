@@ -6,6 +6,7 @@
 package Service;
 
 import Domain.GebruikteArtikelen;
+import Domain.Onderhoudsbeurt;
 import Persistance.GebruikteArtikelDAO;
 import java.util.List;
 
@@ -32,6 +33,15 @@ public class GebruikteArtikelenService {
         return gaDAO.getByOnderhoudsID(id);
     }
     
+    public void wijzigGebruikteArtikel(GebruikteArtikelen ga, int onderhoudsID, int gaID){
+        gaDAO.WijzigGebruikteArtikel(ga, onderhoudsID, gaID);
+    }
     
-
+    public boolean VerwijderGebruikteArtikel(Onderhoudsbeurt o){
+        boolean result = false;
+          if(gaDAO.VerwijderGebruikteArtikelen(o)){
+              result = true;
+          } 
+          return result;
+    }
 }

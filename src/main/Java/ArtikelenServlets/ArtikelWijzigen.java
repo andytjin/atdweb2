@@ -12,6 +12,7 @@ import Service.ServiceProvider;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import javax.servlet.RequestDispatcher;
@@ -75,7 +76,7 @@ public class ArtikelWijzigen extends HttpServlet {
             if (artikelType.equals("")) {
                 System.out.println("artikeltype = null");
             } else {
-                System.out.println("jojo");
+                System.out.println(artikelType);
             }
             if (aantal.equals("")) {
                 System.out.println("aantal = null");
@@ -113,6 +114,7 @@ public class ArtikelWijzigen extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("/ArtikelWijzigen.jsp");
             view.forward(request, response);
         }
+        
         
         
     }
