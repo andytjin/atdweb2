@@ -14,11 +14,22 @@
     </head>
     <body>
         <div id="header">
-            <h1>Monteur toevoegen</h1>
+            <h1>Homepage</h1>
+            <div class="login">
+                ingelogd als: HenkPaladijn
+            </div>
+            <div class="navbar">
+                <form action="AdminPageServlet" method="post" class="navForm">
+                    <input type="submit" name="button" value="Home" class="navbutton"/>
+                    <input type="submit" name="button" value="add monteur" class="navbutton"/>  
+                    <input type="submit" name="button" value="Factuur" class="navbutton"/>
+                    <input type="submit" name="button" value="log out" class="navbutton"/>
+                </form>
+            </div>
         </div>
-
+        
         <div>
-            <form action="AddMonteurServlet" method="post" id="klantgegevensform">
+            <form action="AddMonteurServlet" method="post" class="content">
                 <table class="klantgegevenstable">
                     <tr>
                         <td>Monteurs ID:</td>

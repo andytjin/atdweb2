@@ -13,16 +13,20 @@
         <title>Hoofscherm Artrikelen</title>
     </head>
     <body>
-        <form action="HoofdSchermArtikelen" method="post">
-        <button name="knop" value="nieuwArtikel" type="submit">
-               Nieuw Artikel
-        </button>
-        <button name="knop" value="wijzigArtikel" type="submit">
-               Wijzig Artikel
-        </button>
-        <button name="knop" value="verwijderArtikel" type="submit">
-               Verwijder Artikel
-        </button>
-        </form>
+        <div id="mainmonteur">
+            <form action="HoofdSchermArtikelen" method="post">
+                <div class="hswerkzaamheden">
+                    <button name="knop" value="nieuwArtikel" type="submit" class="navbuttonmonteurHS">
+                        Nieuw Artikel
+                    </button>
+                    <button name="knop" value="wijzigArtikel" type="submit" class="navbuttonmonteurHS">
+                        Wijzig Artikel
+                    </button>
+                    <button name="knop" value="verwijderArtikel" type="submit" class="navbuttonmonteurHS">
+                        Verwijder Artikel
+                    </button>
+                </div>
+            </form>
+        </div>
     </body>
 </html>
