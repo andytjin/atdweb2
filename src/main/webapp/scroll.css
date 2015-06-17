@@ -1,0 +1,29 @@
+/*
+Licsense Header
+*/
+/* 
+    Created on : Jun 16, 2015, 4:52:06 PM
+    Author     : Max
+*/
+
+body { 
+    width: 600%;
+} 
+.panel { 
+    width: 930px; 
+    float: left; 
+    padding-left: 30px; 
+    padding-right: 1040px; 
+    margin-top: 45px;
+}
+
+ul#banner { 
+    position: fixed; 
+    left: 0px;
+    right: 0px;
+    line-height: 45px; 
+    margin: 0 30px; 
+    padding: 0; } 
+ul#banner li { 
+    display: inline;   
+} 

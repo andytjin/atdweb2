@@ -62,7 +62,7 @@ public class KlantPageServlet extends HttpServlet {
             request.getSession().setAttribute("autos", lijst);
             rd = request.getRequestDispatcher("/KlantSettings.jsp");
         }
-        if(button.equals("log out")){
+        if(button.equals("Log uit")){
             request.setAttribute("PageName", "Auto Totaal Dienst");
             request.getSession().setAttribute("User", null);
             rd = request.getRequestDispatcher("/index.jsp");

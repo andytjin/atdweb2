@@ -3,12 +3,17 @@
  */
 package Servlets;
 
+import Domain.Auto;
 import Domain.Klant;
 import Domain.Monteur;
+import Service.AutoService;
+import Service.FactuurService;
 import Service.KlantService;
 import Service.MonteurService;
+import Service.ParkeerplaatsService;
 import Service.ServiceProvider;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +60,14 @@ public class LoginServlet extends HttpServlet {
                         rd = request.getRequestDispatcher("/AdminPage.jsp");
                     }
                     request.getSession().setAttribute("User", k);
+                    AutoService as = ServiceProvider.getAutoService();
+                    ParkeerplaatsService pps = ServiceProvider.getParkeerPlaatsService();
+                    request.setAttribute("bezettePlaatsen", pps.getAantalBezet());
+                    List<Auto> lijst = as.getAutoByKlant(k);
+                    request.setAttribute("PageName", "Account Settings");
+                    request.getSession().setAttribute("autos", lijst);
+                    FactuurService fService = ServiceProvider.getFactuurService();
+                    request.getSession().setAttribute("klantenfacturen", fService.getAlleFacturen(k.getUsername()));
                     request.setAttribute("PageName", "Homepage");
                 } else {
                     b = false;
