@@ -49,6 +49,17 @@ public class ParkeerDAO extends BaseDAO<ParkeerDienst> {
         return results;
     }
 
+    public ParkeerDienst getParkeerDienstByID(int id){
+        String query = "select * from parkeerdienst where parkeerdienstID = " + id + ";";
+        List<ParkeerDienst> results = selectParkeerDienst(query);
+        ParkeerDienst deDienst = null;
+        if(!results.isEmpty()){
+            
+            deDienst = results.get(0);
+        }
+        return deDienst;
+    }
+    
     public int getMaxParkeerID(){
         String query = "select * from parkeerdienst order by parkeerdienstID DESC;";
         List<ParkeerDienst> result = selectParkeerDienst(query);
