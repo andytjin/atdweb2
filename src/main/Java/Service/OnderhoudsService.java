@@ -8,6 +8,7 @@ package Service;
 
 import Domain.Onderhoudsbeurt;
 import Persistance.OnderhoudsDAO;
+import Persistance.OnderhoudsbeurtDAO;
 import java.util.List;
 
 /**
@@ -25,4 +26,24 @@ public class OnderhoudsService {
         return onderhoudsbeurtdao.getAlleOnderhoudsbeurten();
     }
     
+
+    public void wijzigOnderhoudsbeurt(Onderhoudsbeurt o, int uur){
+        onderhoudsbeurtdao.WijzigOnderhoudsbeurt(o, uur);
+    }
+    /*public Onderhoudsbeurt getOnderhoudsbeurt(String code){
+        return onderhoudsbeurtdao.
+    }*/
+    
+    public boolean VerwijderOnderhoudsbeurt(Onderhoudsbeurt o){
+        boolean result = false;
+          if(onderhoudsbeurtdao.VerwijderOnderhoudsbeurt(o)){
+              result = true;
+          } 
+          return result;
+    }
+    
 }   
+
+
+  
+

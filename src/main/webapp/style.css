@@ -23,6 +23,7 @@ body{
     -o-background-size: cover;
     background-size: 100%; 
 }
+
 #scrollableBody{
     width: 600%;
 }
@@ -418,3 +419,4 @@ body{
 #tabel .info td{
     border: 1px solid black;
 }
+

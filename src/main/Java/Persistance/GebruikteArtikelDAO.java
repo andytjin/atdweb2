@@ -8,10 +8,12 @@ package Persistance;
 import Domain.Artikel;
 import Domain.ArtikelType;
 import Domain.GebruikteArtikelen;
+import Domain.Onderhoudsbeurt;
 import static Persistance.BaseDAO.DB_URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
  */
 public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
     private ArtikelDAO artikeldao = new ArtikelDAO();
+   
     public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga, int i) {
            
                 try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
@@ -50,6 +53,14 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
         }  
     } 
     
+    public GebruikteArtikelen getGaByOnderhoudsID(int id) {
+        List<GebruikteArtikelen> artikel = selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE onderhoudsbeurtID = \"" + id + "\"");
+        if(artikel != null && !artikel.isEmpty()){
+            return artikel.get(0);
+        } else {
+            return null;
+        }  
+    } 
     public GebruikteArtikelen getGebruikteArtikel(int id) {
         List<GebruikteArtikelen> artikel = selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE gebruikteartikelenID = \"" + id + "\"");
         if(artikel != null && !artikel.isEmpty()){
@@ -59,7 +70,9 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
         }  
     }
     
-    private List<GebruikteArtikelen> selectGebruikteArtikel(String query){
+   
+    
+    public List<GebruikteArtikelen> selectGebruikteArtikel(String query){
         List<GebruikteArtikelen> results = new ArrayList<GebruikteArtikelen>();
         try(Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)){
             Statement stmt = con.createStatement();
@@ -73,7 +86,8 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
                 
                 Artikel a = artikeldao.getArtikelByCode(artikelcode);
                 GebruikteArtikelen ga = new GebruikteArtikelen(aantal, a);
-                
+                ga.setGebruikteArtikelId(id);
+                ga.setOnderhoudsBeurtId(OHid);
                 results.add(ga);
             }
             stmt.close();
@@ -84,7 +98,42 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
         return results;
     }
     
+    public void WijzigGebruikteArtikel(GebruikteArtikelen ga, int onderhoudsID, int gaID) {
+
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            Statement stmt = con.createStatement();
+            // create a SQL query
+            String sql = "UPDATE atd.gebruikteartikelen "
+                    + "SET gebruikteartikelenID = '" + gaID + "', aantal = '" + ga.getAantal() + "', artikel = '" + ga.getArtikelID() +
+                    "', onderhoudsbeurtID = '" + onderhoudsID + "'"
+                    + " WHERE gebruikteartikelenID = '" + gaID + "'";
+            stmt.executeUpdate(sql);
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    } 
     
+    public boolean VerwijderGebruikteArtikelen(Onderhoudsbeurt o) {
+        boolean result = false;
+        boolean Onderhoudsbeurt = getGaByOnderhoudsID(o.getDienstNummer()) != null;
+
+        if (Onderhoudsbeurt) {
+            String query = "DELETE FROM gebruikteartikelen WHERE onderhoudsbeurtID = " + o.getDienstNummer();
+
+            try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+                Statement stmt = con.createStatement();
+                if (stmt.executeUpdate(query) == 1) {
+                    result = true;
+                }
+
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        return result;
+    }
     
     @Override
     public void create(GebruikteArtikelen instance) {

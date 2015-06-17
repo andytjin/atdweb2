@@ -2,10 +2,10 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- Add a comment to this line
  */
 package Persistance;
 
+import Domain.Artikel;
 import Domain.Auto;
 import Domain.GebruikteArtikelen;
 import Domain.Monteur;
@@ -15,19 +15,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
  * @author andy
  */
-public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
+public class OnderhoudsbeurtDAO extends BaseDAO<Onderhoudsbeurt> {
 
     private MonteurDAO monteurdao = new MonteurDAO();
     private GebruikteArtikelDAO gebruikteartikeldao = new GebruikteArtikelDAO();
@@ -42,7 +44,7 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
             // create a SQL query
             String sql = "INSERT INTO atd.onderhoudsbeurt "
                     + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren)"
-                    + " VALUES('" + o.getDienstNummer() + "','" + o.getSQLdatum() + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "')";
+                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getSQLdatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "')";
 
             stmt.executeUpdate(sql);
 
@@ -59,50 +61,16 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
             return null;
         }
     }
-
-    public void WijzigOnderhoudsbeurt(Onderhoudsbeurt o, int uur) {
-
-        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
-            Statement stmt = con.createStatement();
-            // create a SQL query
-            String sql = "UPDATE atd.onderhoudsbeurt "
-                    + "SET onderhoudsbeurtID = '" + o.getDienstNummer() + "', datum = '" + o.getSQLdatum() + "', kenteken = '" + o.getKenteken() +
-                    "', monteurID = '" + o.getMonteurID() + "', aantalbestedeuren = '" + uur + "'"
-                    + " WHERE onderhoudsbeurtID = '" + o.getDienstNummer() + "'";
-            stmt.executeUpdate(sql);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     
-    public boolean VerwijderOnderhoudsbeurt(Onderhoudsbeurt o) {
-        boolean result = false;
-        boolean Onderhoudsbeurt = getOnderhoudsbeurt(o.getDienstNummer()) != null;
-
-        if (Onderhoudsbeurt) {
-            String query = "DELETE FROM onderhoudsbeurt WHERE onderhoudsbeurtID = " + o.getDienstNummer();
-
-            try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
-
-                Statement stmt = con.createStatement();
-                if (stmt.executeUpdate(query) == 1) {
-                    result = true;
-                }
-
-            } catch (SQLException sqle) {
-                sqle.printStackTrace();
-            }
-        }
-        return result;
-    }
     
     
     public List<GebruikteArtikelen> getAlleGebruikteArtikelen(int id) {
         return gebruikteartikeldao.getByOnderhoudsID(id);
     }
-
-    private List<Onderhoudsbeurt> selectOnderhoudsbeurt(String query) {
+    
+    
+    
+    public List<Onderhoudsbeurt> selectOnderhoudsbeurt(String query) {
         List<Onderhoudsbeurt> results = new ArrayList<Onderhoudsbeurt>();
         try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
@@ -114,6 +82,7 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
                 String kenteken = rs.getString("kenteken");
                 int monteurid = rs.getInt("monteurID");
                 int bestedeUur = rs.getInt("aantalbestedeuren");
+               
 
                 Auto au = autodao.getAutoByKenteken(kenteken);
                 Monteur mo = monteurdao.getMonteurByID(monteurid);
@@ -121,10 +90,12 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
                 Calendar date = Calendar.getInstance();
                 DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 try {
-                    date.setTime(sdf.parse(datum));
-                } catch (Exception e) {
+                date.setTime(sdf.parse(datum));
+                }catch(Exception e){
                     e.printStackTrace();
                 }
+                System.out.println(datum);
+                System.out.println(date);
                 Onderhoudsbeurt o = new Onderhoudsbeurt(id, date, au, mo);
                 o.setAantalBestedeUur(bestedeUur);
 

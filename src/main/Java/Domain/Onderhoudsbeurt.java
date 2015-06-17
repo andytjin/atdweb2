@@ -2,6 +2,7 @@ package Domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Onderhoudsbeurt extends Dienst implements Serializable{
         
@@ -9,6 +10,7 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	private Auto deAuto;
 	private Monteur deMonteur;
 	private ArrayList<GebruikteArtikelen> deArtikelen = new ArrayList<GebruikteArtikelen>();
+        private String calendarNaarString;
         
 	public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA, Monteur dM){
 		super(dN,Dat);
@@ -28,6 +30,14 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	
         public String getKenteken(){
             return deAuto.getKenteken();
+        }
+        
+        public Auto getDeAuto(){
+            return deAuto;
+        }
+        
+        public Monteur getDeMonteur(){
+            return deMonteur;
         }
         
         public int getMonteurID(){
@@ -50,7 +60,7 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 		return aantalBestedeUur;
 	}
 	
-       
+        
         
 	public boolean equalsDienst(Object andere){
 		boolean b = false;
@@ -67,6 +77,10 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	public void setDeMonteur(Monteur m){
 		deMonteur = m;
 	}
+
+    public Onderhoudsbeurt getOnderhoudsbeurt() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+}
 }
 
 

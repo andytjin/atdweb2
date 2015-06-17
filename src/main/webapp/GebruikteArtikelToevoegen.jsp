@@ -39,16 +39,7 @@
                     voeg toe
                         </button></td>
                 </tr>
-                <tr>
-                    <td><label>Toegevoegde gebruikte artikelen</label> </td>
-
-                <td><c:forEach var="GebruikteArtikelen" items="${gaLijst}">
-
-                    ArtikelCode:<c:out value="${GebruikteArtikelen.hetArtikel.code}"/>
-                    aantal:<c:out value="${GebruikteArtikelen.aantal}"/>
-
-                    </c:forEach></td>
-                </tr>
+               
             </table>
         </form>
     </body>

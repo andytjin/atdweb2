@@ -8,8 +8,10 @@ import Service.MonteurService;
 import Service.OnderhoudsService;
 import Service.ServiceProvider;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -72,7 +74,7 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
 
             Calendar date = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 date.setTime(sdf.parse(datum));
             } catch (Exception e) {
@@ -95,9 +97,10 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             view.forward(request, response);
 
         }
-
-        RequestDispatcher view = request.getRequestDispatcher("/MonteurPage.jsp");
+        if(knop.equals("Terug")){
+        RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermWerkzaamheden.jsp");
         view.forward(request, response);
+        }
     }
 
 }

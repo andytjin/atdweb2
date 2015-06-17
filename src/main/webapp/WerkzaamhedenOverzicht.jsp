@@ -1,28 +1,65 @@
 <%-- 
     Document   : WerkzaamhedenOverzicht
-    Created on : 11-mei-2015, 18:30:36
+    Created on : 16-jun-2015, 17:56:59
     Author     : andy
 --%>
 <jsp:include page="/Headers/monteurheader.jsp"/>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="style.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Hoofdscherm Werkzaamheden</title>
+        <title>Werkzaamheden Overzicht</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
-        <div id ="main">
-            <form action="HoofdSchermWerkzaamheden" method="post">
-                <input type="submit" name="button" value="Toevoegen">
-                <br>
-                <input type="submit" name="button" value="wijzigen">
-                <br>
-                <input type="submit" name="button" value="verwijderen">
-                <br>
-                <input type="submit" name="button" value="Overzicht">
-            </form>
-        </div>
+        <h1>Onderhoudsbeurten</h1>
+      <table>
+			<tr class="thcolor">
+				<th>Onderhoudsid</th>
+				<th>datum</th>
+				<th>Aantal Bestede Uur</th>
+                                <th>Kenteken</th>
+				<th>MonteurID</th>
+			
+			</tr>
+			
+				
+                            <c:forEach var="Onderhoudsbeurt" items="${onderhoudsbeurt}">
+                                <tr>
+                                    <td><c:out value="${Onderhoudsbeurt.dienstNummer}" /></td>
+                                    <td><c:out value="${Onderhoudsbeurt.calendarNaarString}" /></td>
+                                    <td><c:out value="${Onderhoudsbeurt.aantalBestedeUur}" /></td>
+                                    <td><c:out value="${Onderhoudsbeurt.deAuto.kenteken}" /></td>
+                                    <td><c:out value="${Onderhoudsbeurt.deMonteur.ID}" /></td>
+                                </tr>
+                            </c:forEach>
+                                
+		
+		</table> 
+        
+        <h1>Gebruikte artikelen</h1>
+        <table>
+                <tr class="thcolor">
+				<th>Onderhoudsid</th>
+				<th>ArtikelID:</th>
+				<th>Aantal Gebruikt</th>
+                                <th>GebruikteArtikelID</th>
+			
+			
+			</tr>
+			
+				
+                            <c:forEach var="GebruikteArtikelen" items="${gebruikteartikelen}">
+                                <tr>
+                                    <td><c:out value="${GebruikteArtikelen.onderhoudsBeurtId}" /></td>
+                                    <td><c:out value="${GebruikteArtikelen.hetArtikel.code}" /></td>
+                                    <td><c:out value="${GebruikteArtikelen.aantal}" /></td>
+                                    <td><c:out value="${GebruikteArtikelen.gebruikteArtikelId}" /></td>
+                                    
+                                </tr>
+                            </c:forEach>
+          </table>
     </body>
 </html>
