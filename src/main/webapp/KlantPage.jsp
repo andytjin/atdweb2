@@ -14,8 +14,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" charset="utf-8">
             $(document).ready(function () {
-                $("#banner a").bind("click", function (event) {
-                    event.preventDefault();
+                $(".navbutton5").click(function (event) {
+
+                    
                     var target = $(this).attr("href");
                     $("html, body").stop().animate({
                         scrollLeft: $(target).offset().left,
@@ -29,17 +30,16 @@
     <body>
         <div id="header">
             <h1>Homepage</h1>
-            <form class="login" action="KlantPageServlet" method="post">
-                <input type="submit" name="button" value="Log uit">
-            </form>    
-            <div id="banner" class="navbar">
-                <ul class="navForm">
-                    <li> <a href="#Home">Home</a> </li>
-                    <li><a href="#Afspraak">Afspraak</a> </li>
-                    <li><a href="#Garage">Garage</a> </li>
-                    <li><a href="#Factuur">Factuur</a> </li>
-                    <li><a href="#Account">Account</a> </li>
-                </ul>
+
+            <div class="navbar">
+                <form action="KlantPageServlet" method="post" class="navForm">
+                    <input type="button" href="#Home" value="Home" class="navbutton5">
+                    <input type="button" href="#Afspraak" value="Afspraak" class="navbutton5">
+                    <input type="button" href="#Garage" value="Garage" class="navbutton5">
+                    <input type="button" href="#Factuur" value="Factuur" class="navbutton5">
+                    <input type="button" href="#Account" value="Account" class="navbutton5">
+                    <input type="submit" name="button" value="Log uit" class="navbutton5">
+                </form>
             </div>
         </div>
 
