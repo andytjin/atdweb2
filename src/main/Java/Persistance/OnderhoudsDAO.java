@@ -41,8 +41,8 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
             Statement stmt = con.createStatement();
             // create a SQL query
             String sql = "INSERT INTO atd.onderhoudsbeurt "
-                    + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren)"
-                    + " VALUES('" + o.getDienstNummer() + "','" + o.getSQLdatum() + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "')";
+                    + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren, status)"
+                    + " VALUES('" + o.getDienstNummer() + "','" + o.getSQLdatum() + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "','" + o.getStatus() + "')";
 
             stmt.executeUpdate(sql);
 
@@ -67,7 +67,7 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
             // create a SQL query
             String sql = "UPDATE atd.onderhoudsbeurt "
                     + "SET onderhoudsbeurtID = '" + o.getDienstNummer() + "', datum = '" + o.getSQLdatum() + "', kenteken = '" + o.getKenteken() +
-                    "', monteurID = '" + o.getMonteurID() + "', aantalbestedeuren = '" + uur + "'"
+                    "', monteurID = '" + o.getMonteurID() + "', aantalbestedeuren = '" + uur  + "', status = '" + o.getStatus() + "'"
                     + " WHERE onderhoudsbeurtID = '" + o.getDienstNummer() + "'";
             stmt.executeUpdate(sql);
 
@@ -114,7 +114,7 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
                 String kenteken = rs.getString("kenteken");
                 int monteurid = rs.getInt("monteurID");
                 int bestedeUur = rs.getInt("aantalbestedeuren");
-
+                String status = rs.getString("status");
                 Auto au = autodao.getAutoByKenteken(kenteken);
                 Monteur mo = monteurdao.getMonteurByID(monteurid);
 
@@ -125,7 +125,7 @@ public class OnderhoudsDAO extends BaseDAO<Onderhoudsbeurt> {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Onderhoudsbeurt o = new Onderhoudsbeurt(id, date, au, mo);
+                Onderhoudsbeurt o = new Onderhoudsbeurt(id, date, au, mo, status);
                 o.setAantalBestedeUur(bestedeUur);
 
                 gebruikteArtikelenLijst = (List<GebruikteArtikelen>) gebruikteartikeldao.getByOnderhoudsID(id);

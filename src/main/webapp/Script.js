@@ -14,6 +14,7 @@ function fillOnderhoudsbeurt() {
    document.getElementById("auto").value = fields[2];
    document.getElementById("monteur").value = fields[3];
    document.getElementById("uur").value = fields[4];
+   document.getElementById("status").value = fields[5];
 }
 
 function fillGebruikteArtikelen() {

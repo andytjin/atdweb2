@@ -22,6 +22,7 @@
 				<th>Aantal Bestede Uur</th>
                                 <th>Kenteken</th>
 				<th>MonteurID</th>
+                                <th>Status</th>
 			
 			</tr>
 			
@@ -33,6 +34,7 @@
                                     <td><c:out value="${Onderhoudsbeurt.aantalBestedeUur}" /></td>
                                     <td><c:out value="${Onderhoudsbeurt.deAuto.kenteken}" /></td>
                                     <td><c:out value="${Onderhoudsbeurt.deMonteur.ID}" /></td>
+                                    <td><c:out value="${Onderhoudsbeurt.status}" /></td>
                                 </tr>
                             </c:forEach>
                                 

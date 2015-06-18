@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="Domain.Artikel"%>
-<jsp:include page="/Headers/monteurheader.jsp"/>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,9 +21,9 @@
         <form action="WerkzaamheidVerwijderen" method="post"> 
             <label>Selecteer OnderhoudsbeurtID</label>
             <select name="onderhoudsbeurtID" id="onderhoudsbeurtID" onchange="fillOnderhoudsbeurt()">
-                <option disabled Selected>Selecteer OnderhoudsbeurtID</option>
+                <option>Selecteer OnderhoudsbeurtID</option>
                 <c:forEach var="Onderhoudsbeurt" items="${onderhoudsbeurt}">
-                 <option value="${Onderhoudsbeurt.dienstNummer},${Onderhoudsbeurt.calendarNaarString},${Onderhoudsbeurt.deAuto.kenteken},${Onderhoudsbeurt.deMonteur.ID},${Onderhoudsbeurt.aantalBestedeUur}">${Onderhoudsbeurt.dienstNummer}</option>
+                 <option value="${Onderhoudsbeurt.dienstNummer},${Onderhoudsbeurt.calendarNaarString},${Onderhoudsbeurt.deAuto.kenteken},${Onderhoudsbeurt.deMonteur.ID},${Onderhoudsbeurt.aantalBestedeUur},${Onderhoudsbeurt.status}">${Onderhoudsbeurt.dienstNummer}</option>
                 </c:forEach>
             </select>
             <label>Huidige Datum:</label>
@@ -35,6 +35,9 @@
             <input type="text" name="auto" id="auto" readonly>
             <label>Monteur: ID</label>
             <input type="text" name="monteur" id="monteur" readonly>
+             
+            <label>Status:</label>
+            <input type="text" name="status" id="status" readonly>
             <button name="knop" value="Terug" type="submit">
                 Terug
             </button>
