@@ -139,6 +139,22 @@ public class ArtikelDAO extends BaseDAO<Artikel> {
         return results;
     }
 
+    public void wijzigArtikel(Artikel a) {
+
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            Statement stmt = con.createStatement();
+            // create a SQL query
+            String sql = "UPDATE atd.artikel "
+                    + "SET code = '" + a.getCode() + "', aantal = '" + a.getAantal() + "', minimum = '"
+                    + a.getMinimum() + "', prijs = '" + a.getPrijs() + "', artikeltype = '" + a.getType() + "'"
+                    + " WHERE code = '" + a.getCode() + "'";
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void create(Artikel instance) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

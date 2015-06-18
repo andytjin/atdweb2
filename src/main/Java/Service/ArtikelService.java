@@ -1,7 +1,6 @@
 /*
  * Licsense Header
  */
-
 package Service;
 
 import Domain.Artikel;
@@ -26,8 +25,8 @@ public class ArtikelService {
    public void schrijfArtikelNaarDatabase(Artikel a) throws SQLException {
            at.schrijfArtikelNaarDatabase(a); 
     }
-        
-    public void schrijfArtikelTypeNaarDatabase(String atp){    
+    
+    public void schrijfArtikelTypeNaarDatabase(String atp) {        
         atpDAO.schrijfArtikelTypeNaarDatabase(atp);
     }
     
@@ -46,12 +45,12 @@ public boolean verwijderArtikel(Artikel a){
     public void verwijderArtikelType(ArtikelType atp){    
         atpDAO.VerwijderArtikelType(atp);
     }
-   
-    public List<Artikel> getAlleArtikelen(){
+    
+    public List<Artikel> getAlleArtikelen() {
         return at.getAll();
     }
     
-    public Artikel getArtikelByCode(String code){
+    public Artikel getArtikelByCode(String code) {
         return at.getArtikelByCode(code);
     }
     
@@ -63,4 +62,9 @@ public boolean verwijderArtikel(Artikel a){
         return atpDAO.getAll();
     }
    
+
+    public void wijzigArtikel(Artikel a) {
+        at.wijzigArtikel(a);
+    }
+    
 }

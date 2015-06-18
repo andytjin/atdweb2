@@ -21,6 +21,11 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
                 Status = sT;
                 
 	}
+        public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA){
+		super(dN,Dat);
+		deAuto = dA;
+		aantalBestedeUur = 0;
+	}
 	@Override
 	public double prijs() {
 		double p = 0.0;
@@ -30,6 +35,9 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
                 }
 		return p;
 	}
+        public Auto getDeAuto(){
+            return deAuto;
+        }
 	
         public String getKenteken(){
             return deAuto.getKenteken();

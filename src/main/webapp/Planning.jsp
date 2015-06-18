@@ -15,27 +15,29 @@
         <title>Planning</title>
     </head>
     <body>
-        <div id="mainmonteur">
-            <h1>Planning</h1>
-            Selecteer hieronder de Auto voor een Afspraak:<br/>
-            <form action="PlanningServlet" method="post">
-                <div>
-                    <c:forEach var = "autos" items="${Autos}">
-                        <input type="radio" name="autos" value= "${autos.kenteken}" >${autos.kenteken} , ${autos.merk}
-                    </c:forEach>
-                    <br/>
-                    <div>
-                        <br/>
-                        <br/>
-                        <input type="date" name ="SelectedDate" />
-                        <br/>
-                        <br/>
-                        <input type="submit" name="button" value ="Terug" />
-                        <input type="submit" name="button" value ="Auto Toevoegen" />
-                        <input type="submit" name="button" value="Akkoord" />
-                    </div>
-                </div>
-            </form>
-        </div>
+        <h1>Planning</h1>
+        Selecteer hieronder de Auto voor een Afspraak:<br/>
+        <form action="PlanningServlet" method="post">
+            <table>
+                <c:forEach var = "autos" items="${Autos}">
+                    <tr>
+                        <td>
+                            <input type="radio" name="autoradios" value= "${autos.kenteken}" >${autos.merk} | ${autos.kenteken}
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            
+            <div>
+                
+                <input type="date" name ="SelectedDate" />
+                <br/>
+                <br/>
+                <input type="submit" name="button" value ="Terug" />
+                <input type="submit" name="button" value ="Auto Toevoegen" />
+                <input type="submit" name="button" value="Akkoord" />
+            </div>
+
+        </form>
     </body>
 </html>

@@ -58,5 +58,10 @@ public class ServiceProvider {
     
     public static OnderhoudsService getOnderhoudsService(){
         return ohService;
+    public static PlanningService getPlanningService(){
+        return pService;
+    }
+    public static BestellingService getBestellingService(){
+        return bService;
     }
 }

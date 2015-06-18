@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class BaseDAO<T> {
 
-    static final String DB_URL = "jdbc:mysql://localhost:3307/atd";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/atd";
     static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_USERNAME = "root";
     static final String DB_PASSWORD = "usbw";
