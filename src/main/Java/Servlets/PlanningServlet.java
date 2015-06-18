@@ -1,22 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlets;
 
 import Domain.Auto;
-import Domain.Bedrijf;
 import Domain.Klant;
 import Domain.Onderhoudsbeurt;
-import Persistance.AutoDAO;
 import Service.AutoService;
+import Service.FactuurService;
+import Service.ParkeerplaatsService;
 import Service.PlanningService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -33,55 +27,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PlanningServlet", urlPatterns = {"/PlanningServlet"})
 public class PlanningServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PlanningServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PlanningServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -96,16 +47,16 @@ public class PlanningServlet extends HttpServlet {
         Klant k = (Klant) request.getSession().getAttribute("User");
         String knop = request.getParameter("button");
         String dat = request.getParameter("SelectedDate");
-        RequestDispatcher rd = request.getRequestDispatcher("Planning.jsp");
-        
+        RequestDispatcher rd = request.getRequestDispatcher("/KlantPage.jsp");
+
         Calendar date = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                date.setTime(sdf.parse(dat));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date.setTime(sdf.parse(dat));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (knop.equals("Akkoord")) {
             try {
                 Object o = request.getSession().getAttribute("Autos");
@@ -122,7 +73,7 @@ public class PlanningServlet extends HttpServlet {
 
                     for (Auto a : alleAutos) {
                         if (a.getKenteken().equals(selectedAuto)) {
-                            
+
                             auto = a;
                             System.out.println("auto gevonden");
                         }
@@ -164,18 +115,15 @@ public class PlanningServlet extends HttpServlet {
         if (knop.equals("Terug")) {
             rd = request.getRequestDispatcher("KlantPage.jsp");
         }
-
+        request.getSession().setAttribute("User", k);
+        ParkeerplaatsService pps = ServiceProvider.getParkeerPlaatsService();
+        request.setAttribute("bezettePlaatsen", pps.getAantalBezet());
+        List<Auto> lijst = as.getAutoByKlant(k);
+        request.setAttribute("PageName", "Account Settings");
+        request.getSession().setAttribute("autos", lijst);
+        FactuurService fService = ServiceProvider.getFactuurService();
+        request.getSession().setAttribute("klantenfacturen", fService.getAlleFacturen(k.getUsername()));
+        request.setAttribute("PageName", "Homepage");
         rd.forward(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

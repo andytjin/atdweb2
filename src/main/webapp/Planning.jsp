@@ -19,7 +19,7 @@
         Selecteer hieronder de Auto voor een Afspraak:<br/>
         <form action="PlanningServlet" method="post">
             <table>
-                <c:forEach var = "autos" items="${Autos}">
+                <c:forEach var = "autos" items="${autos}">
                     <tr>
                         <td>
                             <input type="radio" name="autoradios" value= "${autos.kenteken}" >${autos.merk} | ${autos.kenteken}

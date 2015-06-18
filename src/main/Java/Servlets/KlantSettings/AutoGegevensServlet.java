@@ -3,8 +3,12 @@ package Servlets.KlantSettings;
 import Domain.Auto;
 import Domain.Klant;
 import Service.AutoService;
+import Service.FactuurService;
+import Service.ParkeerplaatsService;
 import Service.ServiceProvider;
 import java.io.IOException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,16 +31,8 @@ public class AutoGegevensServlet extends HttpServlet {
             throws ServletException, IOException {
         String button = request.getParameter("button");
 
-        /*Object obj = request.getServletContext().getAttribute("bedrijf");
-         Bedrijf bedrijf = null;
-         if (obj != null) {
-         bedrijf = (Bedrijf) obj;
-         }*/
         AutoService as = ServiceProvider.getAutoService();
 
-        /*
-         AUTO TOEVOEGEN
-         */
         if (button.equals("Auto toevoegen")) {
             String kenteken = request.getParameter("kenteken");
             String type = request.getParameter("naam");
@@ -48,7 +44,7 @@ public class AutoGegevensServlet extends HttpServlet {
             if (merk.equals("")) {
                 b = false;
             }
-            if(kenteken.equals("")){
+            if (kenteken.equals("")) {
                 b = false;
             }
             if (b) {
@@ -68,9 +64,17 @@ public class AutoGegevensServlet extends HttpServlet {
         if (button.equals("verwijder")) {
 
         }
-
-        request.setAttribute("PageName", "Auto gegevens");
-        request.setAttribute("settingpage", "AutoGegevens");
-        request.getRequestDispatcher("KlantSettings.jsp").forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("/KlantPage.jsp");
+        Klant k = (Klant) request.getSession().getAttribute("User");
+        request.getSession().setAttribute("User", k);
+        ParkeerplaatsService pps = ServiceProvider.getParkeerPlaatsService();
+        request.setAttribute("bezettePlaatsen", pps.getAantalBezet());
+        List<Auto> lijst = as.getAutoByKlant(k);
+        request.setAttribute("PageName", "Account Settings");
+        request.getSession().setAttribute("autos", lijst);
+        FactuurService fService = ServiceProvider.getFactuurService();
+        request.getSession().setAttribute("klantenfacturen", fService.getAlleFacturen(k.getUsername()));
+        request.setAttribute("PageName", "Homepage");
+        rd.forward(request, response);
     }
 }

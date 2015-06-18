@@ -1,11 +1,16 @@
 package Servlets;
 
+import Domain.Auto;
+import Domain.Klant;
 import Domain.ParkeerDienst;
+import Service.AutoService;
+import Service.FactuurService;
 import Service.ParkeerService;
 import Service.ParkeerplaatsService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,13 +38,12 @@ public class GarageServlet extends HttpServlet {
 
         String sAantal = request.getParameter("aantaluur");
         int aantal = Integer.parseInt(sAantal);
-       
-        
+
         ParkeerService ps = ServiceProvider.getParkeerService();
         ParkeerplaatsService pps = ServiceProvider.getParkeerPlaatsService();
-        
+
         ps.clearDBofOldFiles();
-        
+
         int maxAantal = 25;
         int huidigAantal = pps.getAantalBezet();
 
@@ -59,15 +63,25 @@ public class GarageServlet extends HttpServlet {
             pps.setHuidigBezet(huidigAantal + 1);
             int id = ps.getHoogsteParkeerNummer() + 1;
             Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DATE)+ (int) aantal / 24);
+            cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DATE) + (int) aantal / 24);
             ParkeerDienst pd = new ParkeerDienst(id, cal, aantal);
             ps.create(pd);
-            msgs = "U heeft plaats " + plaatsen[huidigAantal] + " gereserveerd voor " + aantal + " uur"; 
+            msgs = "U heeft plaats " + plaatsen[huidigAantal] + " gereserveerd voor " + aantal + " uur";
         }
-        RequestDispatcher rd = request.getRequestDispatcher("/Garage.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/KlantPage.jsp");
         request.setAttribute("PageName", "Garage");
         request.setAttribute("bezettePlaatsen", pps.getAantalBezet());
         request.setAttribute("msgs", msgs);
+        Klant k = (Klant) request.getSession().getAttribute("User");
+
+        AutoService as = ServiceProvider.getAutoService();
+        request.setAttribute("bezettePlaatsen", pps.getAantalBezet());
+        List<Auto> lijst = as.getAutoByKlant(k);
+        request.setAttribute("PageName", "Account Settings");
+        request.getSession().setAttribute("autos", lijst);
+        FactuurService fService = ServiceProvider.getFactuurService();
+        request.getSession().setAttribute("klantenfacturen", fService.getAlleFacturen(k.getUsername()));
+        request.setAttribute("PageName", "Homepage");
         rd.forward(request, response);
 
     }
