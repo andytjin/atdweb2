@@ -13,61 +13,65 @@
         <title>Factuur</title>
     </head>
     <body>
-        <div id="main">
-            
-                <form action="ZoekKlantServlet" method="post">
-                    
+        <div class="main">
+            <form action="ZoekKlantServlet" method="post">
+                <table>
+                    <tr>
+                        <td>Klantnaam:</td>
+                        <td>
+                            <select name="klant" id="klant">
+                                <c:forEach var="Klant" items="${klanten}">                                    
+                                    <option value="${Klant.username}">${Klant.username}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                        <td><input type="submit" name="button" value="Zoek factuur"></td>
+                    </tr>
+                </table>    
+                <c:forEach var="factuur" items="${klantFactuur}">
                     <table>
-                        <tr>
-                            <td>Klantnaam:</td>
-                            <td><input type="text" name="klant" ></td>
-                            <td><input type="submit" name="button" value="Zoek factuur"></td>
+                        <tr style="background-color:#ffffff; font-weight: bold;">
+                            <td>Factuurnummer</td>
+                            <td>Factuurdatum</td>
+                            <td>Vervaldatum</td>
                         </tr>
-                    </table>    
-                    <c:forEach var="factuur" items="${klantFactuur}">
-                        <table>
-                            <tr style="background-color:#ffffff; font-weight: bold;">
-                                <td>Factuurnummer</td>
-                                <td>Factuurdatum</td>
-                                <td>Vervaldatum</td>
-                            </tr>
-                            <tr style="background-color:#33ccff;">
-                                <td>${factuur.factuurNummer}</td>
-                                <td>${factuur.factuurDatum}</td>
-                                <td>${factuur.vervalDatum}</td>
-                            </tr>
-                            <tr style="background-color:#ffffff; font-weight: bold;">
-                                <td>Brutoprijs</td>
-                                <td>Betaald?</td>
-                            </tr>
-                            <tr style="background-color:#33ccff;">
-                                <td>${factuur.brutoPrijs}</td>
-                                <td>${factuur.isBetaald()}</td>
-                            </tr>
-                            <tr style="background-color:#ffffff; font-weight: bold;">
-                                <td>Omschrijving</td>
-                            </tr>
-                            <tr style="background-color:#33ccff;">
-                                <td>${factuur.omschrijving}</td>
-                            </tr>
-                            <tr style="background-color:#ffffff; font-weight: bold;">
-                                <td>Klant</td>
-                            </tr>
-                            <tr style="background-color:#33ccff;">
-                                <td>${factuur.getKlantNaam()}</td>
+                        <tr style="background-color:#33ccff;">
+                            <td>${factuur.factuurNummer}</td>
+                            <td>${factuur.factuurDatum}</td>
+                            <td>${factuur.vervalDatum}</td>
+                        </tr>
+                        <tr style="background-color:#ffffff; font-weight: bold;">
+                            <td>Brutoprijs</td>
+                            <td>Betaald?</td>
+                        </tr>
+                        <tr style="background-color:#33ccff;">
+                            <td>${factuur.brutoPrijs}</td>
+                            <td>${factuur.isBetaald()}</td>
+                        </tr>
+                        <tr style="background-color:#ffffff; font-weight: bold;">
+                            <td>Omschrijving</td>
+                        </tr>
+                        <tr style="background-color:#33ccff;">
+                            <td>${factuur.omschrijving}</td>
+                        </tr>
+                        <tr style="background-color:#ffffff; font-weight: bold;">
+                            <td>Klant</td>
+                        </tr>
+                        <tr style="background-color:#33ccff;">
+                            <td>${factuur.getKlantNaam()}</td>
 
-                            </tr>
+                        </tr>
 
-                        </table>
-                    </c:forEach>
-                </form>
-            </div>
-        
+                    </table>
+                </c:forEach>
+            </form>
+        </div>
+
         <div id="alleFactures">
             <form action="ForwardServlet" method="post">
                 <table>
                     <tr>
-                        <td>Alle facturen:</td>
+                        <td style="font-family: Arial; font-size: 2em; color: #ffffff">Alle facturen:</td>
                         <td><input type="submit" name="button" value="Alle Facturen"></td>
                     </tr>
                 </table>
@@ -75,8 +79,6 @@
         </div>
         <form action ="FactuurServlet" method="post">
             <div id ="factuuraanmaken">  
-
-
                 <h1> Factuur aanmaken</h1>
                 <table>
                     <tr>
@@ -84,8 +86,27 @@
                         <td><input type="text" name="Factuurnummer"></td>
                     </tr>
                     <tr>
-                        <td>Brutoprijs: € </td>
-                        <td><input type="text" name="Brutoprijs"></td>
+                        <td>Geparkeerde uren:</td>
+                        <td><input type="text" name="parkeeruren"></td>
+                    </tr>
+                    <tr>
+                        <td>Arbeidsuren:</td>
+                        <td><input type="text" name="arbeidsuren"></td>
+                    </tr>
+                    <tr>
+                        <td>Gebruikte artikelen:</td>
+                        <td><select name="artikel" id="artikel">
+                                <c:forEach var="Artikel" items="${artikel}">
+                                    <option value="${Artikel.hetType}">${Artikel.hetType}</option>
+                                </c:forEach>
+                            </select></td>
+                        <td><input type="text" name="hoeveelheid" size="4"></td>
+                        <td><input type="submit" name="voegArtikelToe" value="Toevoegen"></td>
+                    </tr>
+                    <tr>
+                        <td>Bereken prijs:</td>
+                        <td><input type="submit" name="bereken" value="Bereken"></td>
+                        <td><c:out value="${prijs}"/></td>
                     </tr>
                     <tr>
                         <td>Betaald:</td>
@@ -101,15 +122,23 @@
                     </tr>
                     <tr>
                         <td>Omschrijving</td>
-                        <td><input type ="text" style="height: 150px; width: 150px;" name ="Omschrijving"> </td>
+                        <td><input type ="text" size="20" maxlength="20" style="height: 150px;" name ="Omschrijving"> </td>
                     </tr>
                     <tr>
-                        <td>Klantnaam:</td>
-                        <td><input type="text" name="Klantnaam"></td>
+                    <tr>
+                        <td>Klant:</td>
+                        <td><select name="Klantnaam" id="klant">
+                                <c:forEach var="Klant" items="${klanten}">                                    
+                                    <option value="${Klant.username}">${Klant.username}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>Aanmaken:</td>
                         <td><input type="submit" name="button" value ="Aanmaken"></td>
+                        <td>Reset:</td>
+                        <td><input type="reset" name="Reset" value="Reset form" /></td>
                     </tr>
                 </table>
 

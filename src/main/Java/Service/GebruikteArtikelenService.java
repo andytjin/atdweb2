@@ -15,33 +15,38 @@ import java.util.List;
  * @author andy
  */
 public class GebruikteArtikelenService {
+
     GebruikteArtikelDAO gaDAO = new GebruikteArtikelDAO();
-    
-    public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga, int i){
-            gaDAO.schrijfGebruikteArtikelNaarDatabase(ga, i);
+
+    public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga, int i) {
+        gaDAO.schrijfGebruikteArtikelNaarDatabase(ga, i);
     }
-    
-    public GebruikteArtikelen getGebruikteArtikel(int id){
-      return gaDAO.getGebruikteArtikel(id);
+
+    public GebruikteArtikelen getGebruikteArtikel(int id) {
+        return gaDAO.getGebruikteArtikel(id);
     }
-    
-    public List<GebruikteArtikelen> getGAList(){
+
+    public List<GebruikteArtikelen> getGebruikteArtikelByOnderhoudsbeurt(int id) {
+        return gaDAO.getGebruikteArtikelByOnderhoudsbeurtID(id);
+    }
+
+    public List<GebruikteArtikelen> getGAList() {
         return gaDAO.getAll();
     }
-    
-    public List<GebruikteArtikelen> getByID(int id){
+
+    public List<GebruikteArtikelen> getByID(int id) {
         return gaDAO.getByOnderhoudsID(id);
     }
-    
-    public void wijzigGebruikteArtikel(GebruikteArtikelen ga, int onderhoudsID, int gaID){
+
+    public void wijzigGebruikteArtikel(GebruikteArtikelen ga, int onderhoudsID, int gaID) {
         gaDAO.WijzigGebruikteArtikel(ga, onderhoudsID, gaID);
     }
-    
-    public boolean VerwijderGebruikteArtikel(Onderhoudsbeurt o){
+
+    public boolean VerwijderGebruikteArtikel(Onderhoudsbeurt o) {
         boolean result = false;
-          if(gaDAO.VerwijderGebruikteArtikelen(o)){
-              result = true;
-          } 
-          return result;
+        if (gaDAO.VerwijderGebruikteArtikelen(o)) {
+            result = true;
+        }
+        return result;
     }
 }

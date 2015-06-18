@@ -1,5 +1,6 @@
 package Domain;
 
+import Security.Encrypter;
 import java.io.Serializable;
 
 public class Klant implements Serializable{
@@ -32,9 +33,10 @@ public class Klant implements Serializable{
     }
 
     public boolean checkPassword(String pw) {
+        String encrypt = Encrypter.md5Hash(pw);
         boolean b = false;
         if (password != null) {
-            if (password.equals(pw)) {
+            if (password.equals(encrypt)) {
                 b = true;
             }
         }
@@ -100,7 +102,7 @@ public class Klant implements Serializable{
         username = uname;
     }
 
-    public String wiltHerinnering() {
+    public String getWiltHerinnering() {
         String s = "";
         if (WiltHerinnering == true) {
             s = "Ja";

@@ -23,6 +23,7 @@
                     <input type="submit" name="button" value="Home" class="navbutton"/>
                     <input type="submit" name="button" value="add monteur" class="navbutton"/>  
                     <input type="submit" name="button" value="Factuur" class="navbutton"/>
+                    <input type="submit" name="button" value="Klanten" class="navbutton"/>
                     <input type="submit" name="button" value="log out" class="navbutton"/>
                 </form>
             </div>

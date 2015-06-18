@@ -22,68 +22,69 @@ import java.util.List;
  *
  * @author andy
  */
-public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
+public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen> {
+
     private ArtikelDAO artikeldao = new ArtikelDAO();
-   
+
     public void schrijfGebruikteArtikelNaarDatabase(GebruikteArtikelen ga, int i) {
-           
-                try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
             // create a SQL query
             List<GebruikteArtikelen> lijst = selectGebruikteArtikel("select * from gebruikteartikelen");
             String sql = "INSERT INTO atd.gebruikteartikelen "
                     + "(gebruikteartikelenID, aantal, artikel, onderhoudsbeurtID)"
-                    + " VALUES('" + (lijst.size() + 2) + "','" + ga.getAantal()  + "','" + ga.getArtikelID()+ "','" + i + "')";
+                    + " VALUES('" + (lijst.size() + 2) + "','" + ga.getAantal() + "','" + ga.getArtikelID() + "','" + i + "')";
             stmt.executeUpdate(sql);
-            
-            }catch (Exception e) {
-             e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    
-    
-    
-    
+
     public List<GebruikteArtikelen> getByOnderhoudsID(int id) {
         List<GebruikteArtikelen> artikel = selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE onderhoudsbeurtID = \"" + id + "\"");
-        if(artikel != null && !artikel.isEmpty()){
+        if (artikel != null && !artikel.isEmpty()) {
             return artikel;
         } else {
             return null;
-        }  
-    } 
-    
+        }
+    }
+
     public GebruikteArtikelen getGaByOnderhoudsID(int id) {
         List<GebruikteArtikelen> artikel = selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE onderhoudsbeurtID = \"" + id + "\"");
-        if(artikel != null && !artikel.isEmpty()){
+        if (artikel != null && !artikel.isEmpty()) {
             return artikel.get(0);
         } else {
             return null;
-        }  
-    } 
+        }
+    }
+
     public GebruikteArtikelen getGebruikteArtikel(int id) {
         List<GebruikteArtikelen> artikel = selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE gebruikteartikelenID = \"" + id + "\"");
-        if(artikel != null && !artikel.isEmpty()){
+        if (artikel != null && !artikel.isEmpty()) {
             return artikel.get(0);
         } else {
             return null;
-        }  
+        }
     }
-    
-   
-    
-    public List<GebruikteArtikelen> selectGebruikteArtikel(String query){
+
+    public List<GebruikteArtikelen> getGebruikteArtikelByOnderhoudsbeurtID(int id) {
+        return selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE onderhoudsbeurtID = " + id + ";");
+    }
+
+    public List<GebruikteArtikelen> selectGebruikteArtikel(String query) {
         List<GebruikteArtikelen> results = new ArrayList<GebruikteArtikelen>();
-        try(Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)){
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 int id = rs.getInt("gebruikteartikelenID");
-                int aantal = rs.getInt("aantal"); 
+                int aantal = rs.getInt("aantal");
                 String artikelcode = rs.getString("artikel");
                 int OHid = rs.getInt("onderhoudsbeurtID");
-                
+
                 Artikel a = artikeldao.getArtikelByCode(artikelcode);
                 GebruikteArtikelen ga = new GebruikteArtikelen(aantal, a);
                 ga.setGebruikteArtikelId(id);
@@ -91,29 +92,29 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
                 results.add(ga);
             }
             stmt.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return results;
     }
-    
+
     public void WijzigGebruikteArtikel(GebruikteArtikelen ga, int onderhoudsID, int gaID) {
 
         try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
             // create a SQL query
             String sql = "UPDATE atd.gebruikteartikelen "
-                    + "SET gebruikteartikelenID = '" + gaID + "', aantal = '" + ga.getAantal() + "', artikel = '" + ga.getArtikelID() +
-                    "', onderhoudsbeurtID = '" + onderhoudsID + "'"
+                    + "SET gebruikteartikelenID = '" + gaID + "', aantal = '" + ga.getAantal() + "', artikel = '" + ga.getArtikelID()
+                    + "', onderhoudsbeurtID = '" + onderhoudsID + "'"
                     + " WHERE gebruikteartikelenID = '" + gaID + "'";
             stmt.executeUpdate(sql);
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    } 
-    
+    }
+
     public boolean VerwijderGebruikteArtikelen(Onderhoudsbeurt o) {
         boolean result = false;
         boolean Onderhoudsbeurt = getGaByOnderhoudsID(o.getDienstNummer()) != null;
@@ -134,7 +135,7 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
         }
         return result;
     }
-    
+
     @Override
     public void create(GebruikteArtikelen instance) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -152,7 +153,7 @@ public class GebruikteArtikelDAO extends BaseDAO<GebruikteArtikelen>{
 
     @Override
     public List<GebruikteArtikelen> getAll() {
-       return selectGebruikteArtikel("SELECT * FROM gebruikteartikelen");
+        return selectGebruikteArtikel("SELECT * FROM gebruikteartikelen");
     }
-    
+
 }
