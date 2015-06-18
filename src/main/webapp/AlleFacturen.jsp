@@ -22,8 +22,7 @@
 
         <div class="main">            
             <c:forEach var="factuur" items="${alleFacturen}">
-                <form action="alleFacturenServlet" method="post">
-                    <div class="spacing">
+                <form action="alleFacturenServlet" method="post">                    
                         <table>
                             <tr style="color:#ffffff; font-size: 1em;">
                                 <td>Factuurnummer</td>
@@ -37,14 +36,9 @@
                                 <td><input type="hidden" name="id" value="${factuur.factuurNummer}" /></td>
                                 <td><input type="submit" name="button" value="Open"/></td>                                
                             </tr>
-                        </table>
-
-                    </div>
+                        </table>                   
                 </form>
-            </c:forEach>                
-            <%-- <input type="text" name="fNummer">
-             <input type="submit" name="button" value="Haal op"> --%>
-
+            </c:forEach>             
         </div>
         <div id="main3">
 

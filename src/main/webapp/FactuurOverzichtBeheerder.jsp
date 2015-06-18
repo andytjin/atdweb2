@@ -71,7 +71,7 @@
             <form action="ForwardServlet" method="post">
                 <table>
                     <tr>
-                        <td style="font-family: Arial; font-size: 2em; color: #ffffff">Alle facturen:</td>
+                        <td style="font-family: Arial; font-size: 1.5em; color: #ffffff">Alle facturen:</td>
                         <td><input type="submit" name="button" value="Alle Facturen"></td>
                     </tr>
                 </table>
@@ -86,22 +86,24 @@
                         <td><input type="text" name="Factuurnummer"></td>
                     </tr>
                     <tr>
-                        <td>Geparkeerde uren:</td>
-                        <td><input type="text" name="parkeeruren"></td>
+                        <td>Parkeerdienst/Aantaluren:</td>
+                        <td><select name="pdiensten" id="pdiensten">
+                                <c:forEach var="ParkeerDienst" items="${pdiensten}">
+                                    <option value="${ParkeerDienst.dienstNummer}">${ParkeerDienst.dienstNummer}</option>
+                                </c:forEach>
+                            </select></td>
                     </tr>
                     <tr>
                         <td>Arbeidsuren:</td>
                         <td><input type="text" name="arbeidsuren"></td>
                     </tr>
                     <tr>
-                        <td>Gebruikte artikelen:</td>
-                        <td><select name="artikel" id="artikel">
-                                <c:forEach var="Artikel" items="${artikel}">
-                                    <option value="${Artikel.hetType}">${Artikel.hetType}</option>
+                        <td>Onderhoudsbeurt/artikelen:</td>
+                        <td><select name="dienstNummer" id="dienstNummer">
+                                <c:forEach var="Onderhoudsbeurt" items="${dienstNummer}">
+                                    <option value="${Onderhoudsbeurt.dienstNummer}">${Onderhoudsbeurt.dienstNummer}</option>
                                 </c:forEach>
-                            </select></td>
-                        <td><input type="text" name="hoeveelheid" size="4"></td>
-                        <td><input type="submit" name="voegArtikelToe" value="Toevoegen"></td>
+                            </select></td>                        
                     </tr>
                     <tr>
                         <td>Bereken prijs:</td>
