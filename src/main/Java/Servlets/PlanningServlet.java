@@ -15,7 +15,9 @@ import Service.PlanningService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -86,20 +88,26 @@ public class PlanningServlet extends HttpServlet {
         String error = "";
         //Auto selecteren
         AutoService as = ServiceProvider.getAutoService();
-        PlanningService os = ServiceProvider.getOnderhoudsbeurtService();
+        PlanningService ps = ServiceProvider.getPlanningService();
         Onderhoudsbeurt ob = null;
         Auto auto = null;
         List<Auto> alleAutos = null;
 
         Klant k = (Klant) request.getSession().getAttribute("User");
         String knop = request.getParameter("button");
-        RequestDispatcher rd = request.getRequestDispatcher("Onderhoudsbeurt.jsp");
-
         String dat = request.getParameter("SelectedDate");
+        RequestDispatcher rd = request.getRequestDispatcher("Planning.jsp");
+        
+        Calendar date = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                date.setTime(sdf.parse(dat));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         
         if (knop.equals("Akkoord")) {
             try {
-                alleAutos = null;
                 Object o = request.getSession().getAttribute("Autos");
                 if (o != null) {
                     alleAutos = (List<Auto>) o;
@@ -114,6 +122,7 @@ public class PlanningServlet extends HttpServlet {
 
                     for (Auto a : alleAutos) {
                         if (a.getKenteken().equals(selectedAuto)) {
+                            
                             auto = a;
                             System.out.println("auto gevonden");
                         }
@@ -131,24 +140,26 @@ public class PlanningServlet extends HttpServlet {
                 //System.out.println(os.getHighestDNr());
                 try {
                     System.out.println(dat);
-                    dnr = os.getHighestDNr() + 1;
+                    dnr = ps.getHighestDNr() + 1;
                     System.out.println("--------dit is de try!!!!!");
-                    os.addOnderhoudsbeurt(dnr, dat, auto.getKenteken());
-                    rd = request.getRequestDispatcher("KlantPage.jsp");
+                    Onderhoudsbeurt o = new Onderhoudsbeurt(dnr, date, auto);
+                    ps.addOnderhoudsbeurt(o);
+                    System.out.println("onderhoudsbeurt toegevoegd!!!!!!");
+                    rd = request.getRequestDispatcher("PlanningOverzicht.jsp");
                 } catch (Exception e) {
                     System.out.println("dit is de catch!!!!!--------");
-                    //e.printStackTrace();
+                    e.printStackTrace();
                 }
 
                 //request.getSession().setAttribute("SelectedAuto", auto);
             } else {
-                System.out.println("FOUT!");
+                System.out.println("FOUT! Auto is null");
                 error = "U moet eerst een auto selecteren voordat u door kunt gaan";
             }
         }
 
         if (knop.equals("Auto Toevoegen")) {
-            rd = request.getRequestDispatcher("Autosettings.jsp");
+            rd = request.getRequestDispatcher("/KlantSettingsPages/AutoGegevens.jsp");
         }
         if (knop.equals("Terug")) {
             rd = request.getRequestDispatcher("KlantPage.jsp");

@@ -2,6 +2,7 @@ package Service;
 
 import Domain.Onderhoudsbeurt;
 import Persistance.PlanningDAO;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -9,26 +10,27 @@ import java.util.List;
  * @author freekvdp
  */
 public class PlanningService {
-    private PlanningDAO oDAO = new PlanningDAO();
+    private PlanningDAO pDAO = new PlanningDAO();
     
     public Onderhoudsbeurt getOnderhoudsbeurt(int dn){
-        return oDAO.getOnderhoudsbeurt(dn);
+        return pDAO.getOnderhoudsbeurt(dn);
     }
      public List<Onderhoudsbeurt> getAlleOnderhoudsbeurten(){
-        return oDAO.getAlleOnderhoudsbeurten();
+        return pDAO.getAlleOnderhoudsbeurten();
     }
     
-    public void addOnderhoudsbeurt(int dnummer, String dat, String ken){
-        oDAO.create(dnummer, dat, ken);
+    public void addOnderhoudsbeurt(Onderhoudsbeurt o){
+        System.out.println("PlanningService: addOnderhoudsbeurt CHECK");
+        pDAO.createPlanning(o);
     }
     public List<Onderhoudsbeurt> getAllObeurten(){
-        return oDAO.getAlleOnderhoudsbeurten();
+        return pDAO.getAlleOnderhoudsbeurten();
     }
-    public Onderhoudsbeurt getOnderhoudsbeurt(String ken){
-        return oDAO.getOnderhoudsbeurt(ken);
+    public List<Onderhoudsbeurt> getOnderhoudsbeurten(String ken){
+        return pDAO.getOnderhoudsbeurten(ken);
     }
     public int getHighestDNr(){
-        List<Onderhoudsbeurt> all = oDAO.getAll();
+        List<Onderhoudsbeurt> all = pDAO.getAll();
         return all.size();
     }
     

@@ -30,26 +30,46 @@ import java.util.Locale;
  */
 public class PlanningDAO extends BaseDAO<Onderhoudsbeurt> {
 
-    private MonteurDAO monteurdao = new MonteurDAO();
-    private GebruikteArtikelDAO gebruikteartikeldao = new GebruikteArtikelDAO();
     private AutoDAO autodao = new AutoDAO();
     private List<GebruikteArtikelen> gebruikteArtikelenLijst = null;
 
-    public void schrijfOnderhoudsbeurtNaarDatabase(Onderhoudsbeurt o, int bestedeuur) {
-
+    private List<Onderhoudsbeurt> selectOnderhoudsbeurt(String query) {
+        List<Onderhoudsbeurt> results = new ArrayList<Onderhoudsbeurt>();
+        List<Auto> autos = autodao.getAlleAutos();
         try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
-
             Statement stmt = con.createStatement();
-            // create a SQL query
-            String sql = "INSERT INTO atd.onderhoudsbeurt "
-                    + "(onderhoudsbeurtID, datum, kenteken, monteurID, aantalbestedeuren)"
-                    + " VALUES('" + o.getDienstNummer()+ "','" + o.getSQLdatum()  + "','" + o.getKenteken() + "','" + o.getMonteurID() + "','" + bestedeuur + "')";
+            ResultSet rs = stmt.executeQuery(query);
 
-            stmt.executeUpdate(sql);
+            while (rs.next()) {
+                int id = rs.getInt("onderhoudsbeurtID");
+                String datum = rs.getString("datum");
+                String kenteken = rs.getString("kenteken");               
+                
+                Auto auto = null;
+                for(Auto a : autos){
+                    if(a.getKenteken().equals(kenteken)){
+                        auto = a;
+                        System.out.println("auto a is toegevoegd");
+                    }
+                }
+                Calendar date = Calendar.getInstance();
+                DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                date.setTime(sdf.parse(datum));
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                Onderhoudsbeurt o = new Onderhoudsbeurt(id, date, auto);
 
+                
+                results.add(o);
+            }
+            stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return results;
     }
 
     public List<Onderhoudsbeurt> getByID(int id) {
@@ -59,55 +79,6 @@ public class PlanningDAO extends BaseDAO<Onderhoudsbeurt> {
         } else {
             return null;
         }
-    }
-
-    public List<GebruikteArtikelen> getAlleGebruikteArtikelen(int id) {
-        return gebruikteartikeldao.getByOnderhoudsID(id);
-    }
-
-    private List<Onderhoudsbeurt> selectOnderhoudsbeurt(String query) {
-        List<Onderhoudsbeurt> results = new ArrayList<Onderhoudsbeurt>();
-        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                int id = rs.getInt("onderhoudsbeurtID");
-                String datum = rs.getString("datum");
-                String kenteken = rs.getString("kenteken");
-                int monteurid = rs.getInt("monteurID");
-                int bestedeUur = rs.getInt("aantalbestedeuren");
-               
-
-                Auto au = autodao.getAutoByKenteken(kenteken);
-                Monteur mo = monteurdao.getMonteurByID(monteurid);
-
-                Calendar date = Calendar.getInstance();
-                DateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-                try {
-                date.setTime(sdf.parse(datum));
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                Onderhoudsbeurt o = new Onderhoudsbeurt(id, date, au, mo);
-                o.setAantalBestedeUur(bestedeUur);
-
-                gebruikteArtikelenLijst = (List<GebruikteArtikelen>) gebruikteartikeldao.getByOnderhoudsID(id);
-                if (gebruikteArtikelenLijst != null) {
-                    for (GebruikteArtikelen g : gebruikteArtikelenLijst) {
-                        o.voegArtikelToe(g.getHetArtikel(), g.getAantal(), id);
-                    }
-                } else {
-                    System.out.println("er zijn geen gebruikte artikelen");
-                }
-                results.add(o);
-            }
-            stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return results;
     }
 
     @Override
@@ -134,17 +105,17 @@ public class PlanningDAO extends BaseDAO<Onderhoudsbeurt> {
         return selectOnderhoudsbeurt("SELECT * FROM onderhoudsbeurt");
     }
 
-    public void create(int dnr, String dat, String ken) {
+    public void createPlanning(Onderhoudsbeurt o) {
         try (Connection con = getConnection()) {
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO Onderhoudsbeurt" + "(onderhoudsbeurtID, datum, kenteken)"
-                    + "VALUES(\"" + dnr + "\", \"" + dat + "\", \"" + ken + "\")");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO atd.Onderhoudsbeurt(onderhoudsbeurtID, datum, kenteken) VALUES('" + o.getDienstNummer() + "', '" + o.getSQLdatum() + "', '" + o.getKenteken() + "');");
             int i = stmt.executeUpdate();
+            System.out.println("planningDAO: createOnderhoudsbeurt CHECK");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public Onderhoudsbeurt getOnderhoudsbeurt(String ken) {
+    public List<Onderhoudsbeurt> getOnderhoudsbeurten(String ken) {
         List<Onderhoudsbeurt> list = selectOnderhoudsbeurt("SELECT * FROM onderhoudsbeurt WHERE kenteken = '" + ken + "'");
         Onderhoudsbeurt o = null;
         try {
@@ -152,7 +123,7 @@ public class PlanningDAO extends BaseDAO<Onderhoudsbeurt> {
         } catch (Exception e) {
             System.out.println("Onderhoudsbeurt bestaat niet!");
         }
-        return o;
+        return list;
     }
 
     public Onderhoudsbeurt getOnderhoudsbeurt(int dn) {
@@ -168,7 +139,7 @@ public class PlanningDAO extends BaseDAO<Onderhoudsbeurt> {
 
     public int getHighestDienstnr() {
 
-        List<Onderhoudsbeurt> list = selectOnderhoudsbeurt("SELECT MAX(onderhoudsbeurtID) FROM onderhoudsbeurt");
+        List<Onderhoudsbeurt> list = selectOnderhoudsbeurt("SELECT COUNT(onderhoudsbeurtID) FROM onderhoudsbeurt;");
         Onderhoudsbeurt ohb = list.get(0);
         int i = ohb.getDienstNummer();
         System.out.println(i);

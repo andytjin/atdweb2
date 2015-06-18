@@ -5,14 +5,10 @@
  */
 package Servlets;
 
-import Domain.Auto;
-import Domain.Klant;
-import Domain.Onderhoudsbeurt;
-import Service.AutoService;
-import Service.PlanningService;
-import Service.ServiceProvider;
+import Domain.Artikel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author freekvdp
  */
-@WebServlet(name = "OnderhoudsbeurtOverzichtServlet", urlPatterns = {"/OnderhoudsbeurtOverzichtServlet"})
-public class OnderhoudsbeurtOverzichtServlet extends HttpServlet {
+@WebServlet(name = "NaarBestelLijstServlet", urlPatterns = {"/NaarBestelLijstServlet"})
+public class NaarBestelLijstServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +41,10 @@ public class OnderhoudsbeurtOverzichtServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet OnderhoudsbeurtOverzichtServlet</title>");            
+            out.println("<title>Servlet naarBestelLijstServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet OnderhoudsbeurtOverzichtServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet naarBestelLijstServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -80,28 +76,49 @@ public class OnderhoudsbeurtOverzichtServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        List<Auto> alleAutos = (List<Auto>) request.getSession().getAttribute("Autos");
-        List<Onderhoudsbeurt> alleOnderhoudsbeurten = null;
-        //Klant k = (Klant) request.getSession().getAttribute("User");
-        AutoService as = ServiceProvider.getAutoService();
-        PlanningService os = ServiceProvider.getOnderhoudsbeurtService();
-        RequestDispatcher rd = request.getRequestDispatcher("Onderhoudsbeurt.jsp");
-        
-        String selectedAuto = request.getParameter("autos");
-        
-        for(Auto a : alleAutos){
-            if(a.getKenteken().equals(selectedAuto)){
-                
+        String verplaatsknop = request.getParameter("Artikelcode");
+        Object o1 = request.getSession().getAttribute("teBestellen");
+        Object o2 = request.getSession().getAttribute("bijnaBestellen");
+        List<Artikel> teBestellenArtikelen = null;
+        List<Artikel> bijnaTeBestellenArtikelen = null;
+        RequestDispatcher rd = request.getRequestDispatcher("/Bestelling.jsp");
+
+        if (o1 != null) {
+            teBestellenArtikelen = (List<Artikel>) o1;
+            System.out.println("te bestellenLijst IS NIET leeg");
+        } else {
+            System.out.println("te bestellenLijst IS leeg");
+        }
+        if (o2 != null) {
+            bijnaTeBestellenArtikelen = (List<Artikel>) o2;
+            System.out.println("Bijna te bestellenLijst IS NIET leeg");
+        } else {
+            System.out.println("Bijna te bestellenLijst IS leeg");
+        }
+        if (bijnaTeBestellenArtikelen != null) {
+            Artikel verplaatsArtikel = null;
+            for (Artikel a : bijnaTeBestellenArtikelen) {
+                if (a.getCode().equals(verplaatsknop)) {
+                    verplaatsArtikel = a;
+                }
+            }
+
+            try {
+                bijnaTeBestellenArtikelen.remove(verplaatsArtikel);
+                teBestellenArtikelen.add(verplaatsArtikel);
+                request.getSession().setAttribute("teBestellen", teBestellenArtikelen);
+                request.getSession().setAttribute("bijnaBestellen", bijnaTeBestellenArtikelen);
+                System.out.println("TRY");
+            } catch (Exception e) {
+                System.out.println("CATCH");
             }
         }
-        
+        rd.forward(request, response);
     }
 
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
 }
