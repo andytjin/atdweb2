@@ -3,6 +3,7 @@
  */
 package Domain;
 
+import java.util.Calendar;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,6 +16,9 @@ import static org.junit.Assert.*;
  * @author Max
  */
 public class ParkeerDienstTest {
+    
+    private ParkeerDienst pd;
+    private Calendar cal = Calendar.getInstance();
     
     public ParkeerDienstTest() {
     }
@@ -29,6 +33,7 @@ public class ParkeerDienstTest {
     
     @Before
     public void setUp() {
+        pd = new ParkeerDienst(123, cal, 3);
     }
     
     @After
@@ -41,11 +46,10 @@ public class ParkeerDienstTest {
     @Test
     public void testSetAantalUur() {
         System.out.println("setAantalUur");
-        int aU = 0;
-        ParkeerDienst instance = null;
+        int aU = 8;
+        ParkeerDienst instance = pd;
         instance.setAantalUur(aU);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(pd.getAantalUur(), 8);
     }
 
     /**
@@ -54,12 +58,10 @@ public class ParkeerDienstTest {
     @Test
     public void testPrijs() {
         System.out.println("prijs");
-        ParkeerDienst instance = null;
-        double expResult = 0.0;
+        ParkeerDienst instance = pd;
+        double expResult = 25.0;
         double result = instance.prijs();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -68,13 +70,12 @@ public class ParkeerDienstTest {
     @Test
     public void testEqualsDienst() {
         System.out.println("equalsDienst");
-        Object andere = null;
-        ParkeerDienst instance = null;
+        Object andere = pd;
+        ParkeerDienst instance = pd;
         boolean expResult = false;
         boolean result = instance.equalsDienst(andere);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -83,12 +84,10 @@ public class ParkeerDienstTest {
     @Test
     public void testGetNaam() {
         System.out.println("getNaam");
-        ParkeerDienst instance = null;
-        String expResult = "";
+        ParkeerDienst instance = pd;
+        String expResult = "Geen monteur";
         String result = instance.getNaam();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -97,12 +96,11 @@ public class ParkeerDienstTest {
     @Test
     public void testGetOnderhoudsbeurt() {
         System.out.println("getOnderhoudsbeurt");
-        ParkeerDienst instance = null;
+        ParkeerDienst instance = pd;
         Onderhoudsbeurt expResult = null;
         Onderhoudsbeurt result = instance.getOnderhoudsbeurt();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -111,12 +109,11 @@ public class ParkeerDienstTest {
     @Test
     public void testGetAantalUur() {
         System.out.println("getAantalUur");
-        ParkeerDienst instance = null;
-        int expResult = 0;
+        ParkeerDienst instance = pd;
+        int expResult = 3;
         int result = instance.getAantalUur();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
     
 }
