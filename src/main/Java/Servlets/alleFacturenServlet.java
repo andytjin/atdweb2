@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import Domain.Factuur;
 import Service.FactuurService;
 import Service.ServiceProvider;
 import java.io.IOException;
@@ -19,27 +20,24 @@ import javax.servlet.http.HttpServletResponse;
  * @author Thijs
  */
 public class alleFacturenServlet extends HttpServlet {
-    
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FactuurService fService = ServiceProvider.getFactuurService();
-        String fnummer = request.getParameter("fNummer");
+        String id = request.getParameter("id");
         String knop = request.getParameter("button");
-        RequestDispatcher rd = null;  
-        Integer i = null;
-                
-        if (!fnummer.equals("")){
-            if (fnummer != null) {
-                i = Integer.parseInt(fnummer);
+        RequestDispatcher rd = request.getRequestDispatcher("AlleFacturen.jsp");
+        Integer i;
+        System.out.println(id);
+        if (knop.equals("Open")) {
+            if (id != null) {
+                i = Integer.parseInt(id);
+                Factuur factuur = fService.getFactuur(i);
+                System.out.println("" + id);
+                request.setAttribute("fact", factuur);
             }
-        }
-        if (knop.equals("Haal op")){
-            rd = request.getRequestDispatcher("AlleFacturen.jsp");            
-            request.getSession().setAttribute("gezochteFactuur", fService.getFactuur(i));
         }
         rd.forward(request, response);
     }
-
 }

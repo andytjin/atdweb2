@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+/*
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,6 +22,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+*/
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -58,8 +60,8 @@ public class KlantenOverzichtServlet extends HttpServlet {
             
             request.setAttribute("KlantenLijst", lijst);
             
-        } else {
-            KlantService ks = ServiceProvider.getKlantService();
+        } //else {
+         /*   KlantService ks = ServiceProvider.getKlantService();
             List<Klant> lijst = ks.getAlleKlanten();
             for (Klant k : lijst) {
                 if (k.isWiltHerinnering()) {
@@ -107,9 +109,9 @@ public class KlantenOverzichtServlet extends HttpServlet {
                         e.printStackTrace();
                     }
                 }
-            }
+            }*/
 
-        }
+       // }
         request.getRequestDispatcher("KlantenOverzicht.jsp").forward(request, response);
 
     }

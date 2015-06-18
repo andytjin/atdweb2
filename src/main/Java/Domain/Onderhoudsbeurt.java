@@ -11,12 +11,15 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	private Monteur deMonteur;
 	private ArrayList<GebruikteArtikelen> deArtikelen = new ArrayList<GebruikteArtikelen>();
         private String calendarNaarString;
+        private String Status;
         
-	public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA, Monteur dM){
+	public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA, Monteur dM, String sT){
 		super(dN,Dat);
 		deAuto = dA;
 		deMonteur = dM;
 		aantalBestedeUur = 0;
+                Status = sT;
+                
 	}
 	@Override
 	public double prijs() {
@@ -59,8 +62,14 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	public int getAantalBestedeUur(){
 		return aantalBestedeUur;
 	}
-	
         
+        public String getStatus(){
+            return Status;
+        }
+        
+        public void setStatus(String s){
+            Status = s;
+        }
         
 	public boolean equalsDienst(Object andere){
 		boolean b = false;

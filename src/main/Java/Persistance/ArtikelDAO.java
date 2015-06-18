@@ -128,7 +128,7 @@ public class ArtikelDAO extends BaseDAO<Artikel> {
                 String type = rs.getString("artikeltype");
 
                 ArtikelType at = artikeltypedao.getByType(type);
-                Artikel a = new Artikel(code, aantal, min, prijs, at);
+                Artikel a = new Artikel(code, min, aantal, prijs, at);
                 results.add(a);
             }
             stmt.close();

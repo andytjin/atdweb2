@@ -3,7 +3,7 @@
     Created on : 13-mei-2015, 17:35:58
     Author     : andy
 --%>
-<jsp:include page="/Headers/monteurheader.jsp"/>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
         <form action="ArtikelVerwijderen" method="post">
         <label>Selecteer ArtikelID:</label>
         <select name="artikelNummer" id="artikel" onchange="fillArtikelVerwijderen()" >
-            <option disabled Selected>Selecteer ArtikelID</option>
+            <option>Selecteer ArtikelID</option>
             <c:forEach var="Artikel" items="${artikel}">
              <option value="${Artikel.code},${Artikel.hetType.type},${Artikel.aantal},${Artikel.minimum},${Artikel.prijs}">${Artikel.code}</option>
             </c:forEach>

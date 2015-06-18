@@ -39,6 +39,9 @@
                     voeg toe
                         </button></td>
                 </tr>
+                <tr>
+                    <td>${msgs}</td>
+                </tr>
                
             </table>
         </form>

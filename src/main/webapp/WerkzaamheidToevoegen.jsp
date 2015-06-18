@@ -46,6 +46,14 @@
                                 </c:forEach>
                             </select></td>
                     </tr>
+                    <tr> 
+                        <td><label>Status:</label></td>
+                        <td><select name="status" >
+                            <option>Selecteer Status</option>
+                            <option value="In-onderhoud">In-onderhoud</option>
+                            <option value="Gerepareerd">Gerepareerd</option>
+                        </select></td>
+                    </tr>
                     <tr>
                         <td></td>
                         <td><button name="knop" value="Terug" type="submit"><br>

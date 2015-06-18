@@ -3,6 +3,7 @@
  */
 package WhiteBoxTest;
 
+import Domain.ArtikelType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,6 +16,8 @@ import static org.junit.Assert.*;
  * @author Max
  */
 public class ArtikelTypeTest {
+    
+    private ArtikelType at;
     
     public ArtikelTypeTest() {
     }
@@ -29,15 +32,15 @@ public class ArtikelTypeTest {
     
     @Before
     public void setUp() {
+        at = new ArtikelType("Band");
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void testGetType(){
+        assertEquals(at.getType(), "Band");
+    }
 }

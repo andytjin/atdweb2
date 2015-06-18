@@ -28,9 +28,6 @@
                     <button name="knop" value="werkzaamheidVerwijderen" type="submit" class="navbuttonmonteurHS">
                         Werkzaamheid verwijderen
                     </button>
-                    <button name="knop" value="terug" type="submit" class="navbuttonmonteurHS">
-                        Terug
-                    </button>
                 </div>
             </form>
         </div>

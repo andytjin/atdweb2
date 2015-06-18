@@ -3,6 +3,8 @@
  */
 package WhiteBoxTest;
 
+import Domain.Auto;
+import Domain.Klant;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,6 +18,8 @@ import static org.junit.Assert.*;
  */
 public class AutoTest {
     
+    private Auto a;
+    private Klant k;
     public AutoTest() {
     }
     
@@ -29,15 +33,36 @@ public class AutoTest {
     
     @Before
     public void setUp() {
+        k = new Klant("Test", "TestAdres", "TestGeboorte", "TestTel", "TestPostCode", "TestEmail", true);
+        a = new Auto("12-34-56", "c3", "Citroen", k);
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void testGetNaam(){
+        assertEquals(a.getNaam(), "c3");
+    }
+    
+    @Test
+    public void testGetMerk(){
+        assertEquals(a.getMerk(), "Citroen");
+    }
+    
+    @Test
+    public void testGetKlant(){
+        assertEquals(a.getKlant(), k);
+    }
+    
+    @Test
+    public void testGetKenteken(){
+        assertEquals(a.getKenteken(), "12-34-56");
+    }
+    
+    @Test
+    public void testGetDeEigenaarNaam(){
+        assertEquals(a.getDeEigenaarsNaam(), "Test");
+    }
 }

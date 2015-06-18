@@ -28,16 +28,13 @@ import javax.servlet.http.HttpServletResponse;
 public class GebruikteArtikelToevoegen extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -50,48 +47,60 @@ public class GebruikteArtikelToevoegen extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String knop = request.getParameter("knop");
+        
+        
+        System.out.println("Running GAtoevoegen");
         String gaAantal = request.getParameter("ga");
         String ArtikelCode = request.getParameter("artikel");
         String onderhoudsID = request.getParameter("onderhoudsbeurt");
         int gAantal = 0;
         int ohID = 0;
+        boolean b = true;
 
-        
         if (onderhoudsID.equals("")) {
             System.out.println("null");
+            b = false;
         } else {
             ohID = Integer.parseInt(onderhoudsID);
         }
-        
+
         if (gaAantal.equals("")) {
             System.out.println("null");
+            b = false;
         } else {
             gAantal = Integer.parseInt(gaAantal);
         }
+        if (b) {
 
-        
-        if (knop.equals("voeg toe")) {
             ArtikelService aService = ServiceProvider.getArtikelService();
             GebruikteArtikelenService gaService = ServiceProvider.getGebruikteArtikelenService();
 
             if (gAantal > 0) {
                 Artikel a = aService.getArtikelByCode(ArtikelCode);
-                GebruikteArtikelen ga = new GebruikteArtikelen(gAantal, a);
-                gaService.schrijfGebruikteArtikelNaarDatabase(ga,ohID);
-              
+                if ((a.getAantal() - gAantal) < 0) {
+                    System.out.println("Niet genoeg voorraad");
+                    request.setAttribute("msgs", "Niet genoeg op voorraad");
+                } else {
+                    a.setAantal(a.getAantal() - gAantal);
+                    GebruikteArtikelen ga = new GebruikteArtikelen(gAantal, a);
+                    aService.WijzigArtikel(a);
+                    System.out.println("Artikel aantal gewijzigd naar: " + a.getAantal());
+                    gaService.schrijfGebruikteArtikelNaarDatabase(ga, ohID);
+                }
             }
-                
+
             //   List<GebruikteArtikelen> gaLijst = gaService.getGAList();
             List<GebruikteArtikelen> gaLijst = gaService.getByID(ohID);
             request.setAttribute("gaLijst", gaLijst);
+
+        }else{
+            System.out.println("WTF");
         }
         RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
         view.forward(request, response);

@@ -77,6 +77,7 @@ public class WerkzaamheidWijzigen extends HttpServlet {
         String kenteken = request.getParameter("auto");
         String monteurID = request.getParameter("monteur");
         String Onderhoudid = "";
+        String status = request.getParameter("status");
         Calendar date = Calendar.getInstance();
       
         int ohID = 0;
@@ -91,7 +92,14 @@ public class WerkzaamheidWijzigen extends HttpServlet {
             sc.close();
             } catch(NoSuchElementException e){
                 e.printStackTrace();
-            }
+            } 
+        
+        if (status.equals("Selecteer Status")) {
+            System.out.println("Status = null");
+        } else {
+            System.out.println("Status is niet null");
+        }
+        
         if (datum.equals("")) {
                 System.out.println("datum = null");
             } else {
@@ -109,7 +117,7 @@ public class WerkzaamheidWijzigen extends HttpServlet {
             } else {
                 System.out.println("Kenteken != null");
             }
-        if (onderhoudsbeurtID.equals("Selecteer OnderhoudsbeurtID")) {
+        if (Onderhoudid.equals("Selecteer OnderhoudsbeurtID")) {
             System.out.println("onderhoudsID = null");
         } else {
             ohID = Integer.parseInt(Onderhoudid);
@@ -132,7 +140,7 @@ public class WerkzaamheidWijzigen extends HttpServlet {
 
             System.out.println("TEST : " + datum);
 
-            Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, date, au, m);
+            Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, date, au, m,status);
             if (bestedeUur.equals("")) {
                 System.out.println("velden zijn leeg");
             } else {
