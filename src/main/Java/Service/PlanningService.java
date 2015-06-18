@@ -15,16 +15,17 @@ public class PlanningService {
     public Onderhoudsbeurt getOnderhoudsbeurt(int dn){
         return pDAO.getOnderhoudsbeurt(dn);
     }
-    }
-    }
-    }
      public List<Onderhoudsbeurt> getAlleOnderhoudsbeurten(){
         return pDAO.getAlleOnderhoudsbeurten();
-    }
-    }
-
-}
-    
+    } 
     public void addOnderhoudsbeurt(Onderhoudsbeurt o){
         System.out.println("PlanningService: addOnderhoudsbeurt CHECK");
         pDAO.createPlanning(o);
+    }
+    public int getHighestDNr(){
+        return pDAO.getHighestDienstnr();
+    }
+    public List<Onderhoudsbeurt> getOnderhoudsbeurten(String kenteken){
+        return pDAO.getOnderhoudsbeurten(kenteken);
+    }
+}

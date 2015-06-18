@@ -69,6 +69,7 @@ public class LoginServlet extends HttpServlet {
                     FactuurService fService = ServiceProvider.getFactuurService();
                     request.getSession().setAttribute("klantenfacturen", fService.getAlleFacturen(k.getUsername()));
                     request.setAttribute("PageName", "Homepage");
+                    
                 } else {
                     b = false;
                     msgs += "- Wachtwoord is onjuist";

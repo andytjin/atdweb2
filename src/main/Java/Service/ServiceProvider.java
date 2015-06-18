@@ -19,6 +19,7 @@ public class ServiceProvider {
     static ParkeerService psService = new ParkeerService();
     static ParkeerplaatsService ppsService = new ParkeerplaatsService();
     static OnderhoudsService ohService = new OnderhoudsService();
+    static BestellingService bService = new BestellingService();
     
     public static KlantService getKlantService() {
         return kService;
@@ -58,8 +59,6 @@ public class ServiceProvider {
     
     public static OnderhoudsService getOnderhoudsService(){
         return ohService;
-    public static PlanningService getPlanningService(){
-        return pService;
     }
     public static BestellingService getBestellingService(){
         return bService;

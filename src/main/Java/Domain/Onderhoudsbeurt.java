@@ -43,9 +43,7 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
             return deAuto.getKenteken();
         }
         
-        public Auto getDeAuto(){
-            return deAuto;
-        }
+        
         
         public Monteur getDeMonteur(){
             return deMonteur;
