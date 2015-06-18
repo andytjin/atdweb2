@@ -66,7 +66,7 @@ public class GebruikteArtiekelenTest {
 
     @Test
     public void testGetArtikelId() {
-        assertEquals(ga.getGebruikteArtikelId(), "1A2B3C");
+        assertEquals(ga.getGebruikteArtikelId(), 0);
     }
 
     @Test

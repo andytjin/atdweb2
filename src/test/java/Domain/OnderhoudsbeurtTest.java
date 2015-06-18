@@ -128,7 +128,7 @@ public class OnderhoudsbeurtTest {
     public void testGetGebruikteArtikelen() {
         System.out.println("getGebruikteArtikelen");
         Onderhoudsbeurt instance = o;
-        ArrayList<GebruikteArtikelen> expResult = null;
+        ArrayList<GebruikteArtikelen> expResult = new ArrayList<GebruikteArtikelen>();
         ArrayList<GebruikteArtikelen> result = instance.getGebruikteArtikelen();
         assertEquals(expResult, result);
     }
@@ -151,12 +151,10 @@ public class OnderhoudsbeurtTest {
     @Test
     public void testGetAantalBestedeUur() {
         System.out.println("getAantalBestedeUur");
-        Onderhoudsbeurt instance = null;
-        int expResult = 0;
+        Onderhoudsbeurt instance = o;
+        int expResult = 5;
         int result = instance.getAantalBestedeUur();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
