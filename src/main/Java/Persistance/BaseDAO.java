@@ -1,7 +1,6 @@
 /*
  * Licsense Header
  */
-
 package Persistance;
 
 import java.sql.Connection;
@@ -13,13 +12,15 @@ import java.util.List;
  *
  * @author Max
  */
+
+
 public abstract class BaseDAO<T> {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/atd";
     static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_USERNAME = "root";
-    static final String DB_PASSWORD = "";
-    
+    static final String DB_PASSWORD = "usbw";
+
     protected final Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
     }
@@ -31,12 +32,12 @@ public abstract class BaseDAO<T> {
             e.printStackTrace();
         }
     }
-    
+
     public abstract void create(T instance);
-    
+
     public abstract void delete(T instance);
-    
+
     public abstract void change(T instance, T newInstance);
-    
+
     public abstract List<T> getAll();
 }

@@ -2,10 +2,12 @@ package WerkzaamhedenServlets;
 
 import Domain.Artikel;
 import Domain.Auto;
+import Domain.GebruikteArtikelen;
 import Domain.Monteur;
 import Domain.Onderhoudsbeurt;
 import Service.ArtikelService;
 import Service.AutoService;
+import Service.GebruikteArtikelenService;
 import Service.MonteurService;
 import Service.OnderhoudsService;
 import Service.ServiceProvider;
@@ -55,8 +57,83 @@ public class HoofdSchermWerkzaamheden extends HttpServlet {
             
             RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
             view.forward(request, response);
-        } else {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        
+        if (knop.equals("werkzaamheidWijzigen")) {
+            ArtikelService aService = ServiceProvider.getArtikelService();
+            List<Artikel> lijst = aService.getAlleArtikelen();
+            request.getSession().setAttribute("artikel", lijst);
+
+            MonteurService mService = ServiceProvider.getMonteurService();
+            List<Monteur> mlijst = mService.getAlleMonteurs();
+            request.getSession().setAttribute("monteur", mlijst);
+
+            AutoService auService = ServiceProvider.getAutoService();
+            List<Auto> auLijst = auService.getAlleAutos();
+            request.getSession().setAttribute("auto", auLijst);
+            
+            OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
+            List<Onderhoudsbeurt> oLijst = oService.getAlleOnderhoudsbeurten();
+            request.getSession().setAttribute("onderhoudsbeurt", oLijst);
+            
+            GebruikteArtikelenService gAService = ServiceProvider.getGebruikteArtikelenService();
+            List<GebruikteArtikelen> gaLijst = gAService.getGAList();
+            request.getSession().setAttribute("gebruikteartikelen", gaLijst);
+            
+            RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidWijzigen.jsp");
+            view.forward(request, response);
+        
+        }
+        
+        if (knop.equals("werkzaamheidVerwijderen")) {
+            ArtikelService aService = ServiceProvider.getArtikelService();
+            List<Artikel> lijst = aService.getAlleArtikelen();
+            request.getSession().setAttribute("artikel", lijst);
+
+            MonteurService mService = ServiceProvider.getMonteurService();
+            List<Monteur> mlijst = mService.getAlleMonteurs();
+            request.getSession().setAttribute("monteur", mlijst);
+
+            AutoService auService = ServiceProvider.getAutoService();
+            List<Auto> auLijst = auService.getAlleAutos();
+            request.getSession().setAttribute("auto", auLijst);
+            
+            OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
+            List<Onderhoudsbeurt> oLijst = oService.getAlleOnderhoudsbeurten();
+            request.getSession().setAttribute("onderhoudsbeurt", oLijst);
+            
+            GebruikteArtikelenService gAService = ServiceProvider.getGebruikteArtikelenService();
+            List<GebruikteArtikelen> gaLijst = gAService.getGAList();
+            request.getSession().setAttribute("gebruikteartikelen", gaLijst);
+            
+            RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidVerwijderen.jsp");
+            view.forward(request, response);
+        
+        }
+        
+        if (knop.equals("werkzaamheidOverzicht")) {
+            ArtikelService aService = ServiceProvider.getArtikelService();
+            List<Artikel> lijst = aService.getAlleArtikelen();
+            request.getSession().setAttribute("artikel", lijst);
+
+            MonteurService mService = ServiceProvider.getMonteurService();
+            List<Monteur> mlijst = mService.getAlleMonteurs();
+            request.getSession().setAttribute("monteur", mlijst);
+
+            AutoService auService = ServiceProvider.getAutoService();
+            List<Auto> auLijst = auService.getAlleAutos();
+            request.getSession().setAttribute("auto", auLijst);
+            
+            OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
+            List<Onderhoudsbeurt> oLijst = oService.getAlleOnderhoudsbeurten();
+            request.getSession().setAttribute("onderhoudsbeurt", oLijst);
+            
+            GebruikteArtikelenService gAService = ServiceProvider.getGebruikteArtikelenService();
+            List<GebruikteArtikelen> gaLijst = gAService.getGAList();
+            request.getSession().setAttribute("gebruikteartikelen", gaLijst);
+            
+            RequestDispatcher view = request.getRequestDispatcher("/WerkzaamhedenOverzicht.jsp");
+            view.forward(request, response);
         }
 
     }

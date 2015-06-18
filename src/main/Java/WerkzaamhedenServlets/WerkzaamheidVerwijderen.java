@@ -5,8 +5,22 @@
  */
 package WerkzaamhedenServlets;
 
+import Domain.Auto;
+import Domain.Monteur;
+import Domain.Onderhoudsbeurt;
+import Service.AutoService;
+import Service.GebruikteArtikelenService;
+import Service.MonteurService;
+import Service.OnderhoudsService;
+import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,19 +45,7 @@ public class WerkzaamheidVerwijderen extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet WerkzaamheidVerwijderen</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet WerkzaamheidVerwijderen at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +60,7 @@ public class WerkzaamheidVerwijderen extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+     
     }
 
     /**
@@ -72,7 +74,98 @@ public class WerkzaamheidVerwijderen extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String knop = request.getParameter("knop");
+        String onderhoudsbeurtID = request.getParameter("onderhoudsbeurtID");
+        String datum = "";
+        String bestedeUur = "";
+        String kenteken = "";
+        String monteurID = "";
+        String Onderhoudid = "";
+        Calendar date = Calendar.getInstance();
+        String status = "";
+      
+        int ohID = 0;
+        int MonteurID = 0;
+        
+        try{
+            Scanner sc = new Scanner(onderhoudsbeurtID);
+            sc.useDelimiter("\\s*,\\s*");
+            Onderhoudid = sc.next();
+            datum = sc.next();
+            kenteken = sc.next();
+            monteurID = sc.next();
+            bestedeUur = sc.next();
+            status = sc.next();
+            
+            
+            sc.close();
+            } catch(NoSuchElementException e){
+                e.printStackTrace();
+            }
+        if (status.equals("")) {
+            System.out.println("Status = null");
+        } else {
+            System.out.println("Status is niet null");
+        }
+        if (datum.equals("")) {
+                System.out.println("datum = null");
+            } else {
+               
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                date.setTime(sdf.parse(datum));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+            if (kenteken.equals("")) {
+                System.out.println("Kenteken = null");
+            } else {
+                System.out.println("Kenteken != null");
+            }
+        if (onderhoudsbeurtID.equals("Selecteer OnderhoudsbeurtID")) {
+            System.out.println("onderhoudsID = null");
+        } else {
+            ohID = Integer.parseInt(Onderhoudid);
+        }
+        if (monteurID.equals("")) {
+            System.out.println("MonteurID = null");
+        } else {
+            MonteurID = Integer.parseInt(monteurID);
+        }
+
+        if (knop.equals("Verwijder")) {
+            MonteurService mService = ServiceProvider.getMonteurService();
+            Monteur m = mService.getMonteurByID(MonteurID);
+            AutoService auService = ServiceProvider.getAutoService();
+            Auto au = auService.getAutoByKenteken(kenteken);
+            //datum, aantalbestede uren, nettoprijs
+            OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
+            GebruikteArtikelenService gaService = ServiceProvider.getGebruikteArtikelenService();
+            
+
+            System.out.println("TEST : " + datum);
+
+            Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, date, au, m,status);
+            if (bestedeUur.equals("")) {
+                System.out.println("velden zijn leeg");
+            } else {
+              
+                int uur = Integer.parseInt(bestedeUur);
+                gaService.VerwijderGebruikteArtikel(o);
+                oService.VerwijderOnderhoudsbeurt(o);
+                
+            }
+            RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidVerwijderen.jsp");
+            view.forward(request, response);
+
+        }
+        if(knop.equals("Terug")){
+        RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermWerkzaamheden.jsp");
+        view.forward(request, response);
+        }
+  
     }
 
     /**

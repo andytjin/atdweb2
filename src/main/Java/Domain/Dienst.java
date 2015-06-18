@@ -3,6 +3,8 @@ package Domain;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public abstract class Dienst implements Serializable{
 
@@ -10,12 +12,22 @@ public abstract class Dienst implements Serializable{
 	private Calendar datum;
 	//private double nettoPrijs;
 	private Factuur deFactuur;
+        private String calendarNaarString;
  
 	public Dienst(int dN, Calendar dat){
 		dienstNummer = dN;
 		datum = dat;
 	}
 	
+        public String getCalendarNaarString(){
+            
+            Calendar cal = datum;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            calendarNaarString = sdf.format(cal.getTime());
+            
+            return calendarNaarString;
+        }
+        
 	public void setDeBetaling(Factuur f){
 		deFactuur = f;
 	}

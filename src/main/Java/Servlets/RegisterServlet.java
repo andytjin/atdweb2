@@ -1,6 +1,7 @@
 package Servlets;
 
 import Domain.Klant;
+import Security.Encrypter;
 import Service.KlantService;
 import Service.ServiceProvider;
 import java.io.IOException;
@@ -85,7 +86,8 @@ public class RegisterServlet extends HttpServlet {
         if (b) {
             Klant k = new Klant(username, realname, pass1, adres, geboortedatum, telnmr, postcode, email1, herrinering);
             if (!ks.heeftKlant(k.getUsername())) {
-                ks.addKlant(username, realname, pass1, adres, geboortedatum, telnmr, postcode, email1, herrinering);
+                String encrypted = Encrypter.md5Hash(pass1);
+                ks.addKlant(username, realname, encrypted, adres, geboortedatum, telnmr, postcode, email1, herrinering);
                 request.getSession().setAttribute("user", k);
                 request.setAttribute("msgs", "U bent geregistreerd, log boven aan de pagina in.");
             } else {

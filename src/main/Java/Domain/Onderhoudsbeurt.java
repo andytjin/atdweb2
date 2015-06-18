@@ -10,12 +10,16 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	private Auto deAuto;
 	private Monteur deMonteur;
 	private ArrayList<GebruikteArtikelen> deArtikelen = new ArrayList<GebruikteArtikelen>();
+        private String calendarNaarString;
+        private String Status;
         
-	public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA, Monteur dM){
+	public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA, Monteur dM, String sT){
 		super(dN,Dat);
 		deAuto = dA;
 		deMonteur = dM;
 		aantalBestedeUur = 0;
+                Status = sT;
+                
 	}
         public Onderhoudsbeurt(int dN, Calendar Dat, Auto dA){
 		super(dN,Dat);
@@ -39,6 +43,14 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
             return deAuto.getKenteken();
         }
         
+        public Auto getDeAuto(){
+            return deAuto;
+        }
+        
+        public Monteur getDeMonteur(){
+            return deMonteur;
+        }
+        
         public int getMonteurID(){
             return deMonteur.getID();
         }
@@ -58,8 +70,14 @@ public class Onderhoudsbeurt extends Dienst implements Serializable{
 	public int getAantalBestedeUur(){
 		return aantalBestedeUur;
 	}
-	
-       
+        
+        public String getStatus(){
+            return Status;
+        }
+        
+        public void setStatus(String s){
+            Status = s;
+        }
         
 	public boolean equalsDienst(Object andere){
 		boolean b = false;

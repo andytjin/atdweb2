@@ -5,9 +5,13 @@ package Persistance;
 
 import Domain.Artikel;
 import Domain.ArtikelType;
+import Domain.GebruikteArtikelen;
+import static Persistance.BaseDAO.DB_URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +23,11 @@ import java.util.List;
 public class ArtikelDAO extends BaseDAO<Artikel> {
 
     private ArtikelTypeDAO artikeltypedao = new ArtikelTypeDAO();
+    private String errorMessage = "";
 
-    public void schrijfArtikelNaarDatabase(Artikel a) {
+    //   private GebruikteArtikelDAO gebruikteartikeldao = new GebruikteArtikelDAO();
+
+    public void schrijfArtikelNaarDatabase(Artikel a) throws SQLException {
 
         try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             Statement stmt = con.createStatement();
@@ -28,11 +35,57 @@ public class ArtikelDAO extends BaseDAO<Artikel> {
             String sql = "INSERT INTO atd.artikel "
                     + "(code, aantal, minimum, prijs, artikeltype)"
                     + " VALUES('" + a.getCode() + "','" + a.getAantal() + "','" + a.getMinimum() + "','" + a.getPrijs() + "','" + a.getType() + "')";
+            try{
+            stmt.executeUpdate(sql);
+            
+        } catch (SQLIntegrityConstraintViolationException e) {
+            errorMessage  = "ArtikelID bestaat al";
+            System.out.println(errorMessage);
+        } catch (SQLException e) {
+            // Other SQL Exception
+        }
+       }
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void WijzigArtikel(Artikel a) {
+
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            Statement stmt = con.createStatement();
+            // create a SQL query
+            String sql = "UPDATE atd.artikel "
+                    + "SET code = '" + a.getCode() + "', aantal = '" + a.getAantal() + "', minimum = '"
+                    + a.getMinimum() + "', prijs = '" + a.getPrijs() + "', artikeltype = '" + a.getType() + "'" 
+                    + " WHERE code = '" + a.getCode() + "'";
             stmt.executeUpdate(sql);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean VerwijderArtikel(Artikel a) {
+        boolean result = false;
+        boolean Artikel = getArtikelByCode(a.getCode()) != null;
+
+        if (Artikel) {
+            String query = "DELETE FROM artikel WHERE code = " + a.getCode();
+
+            try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+                Statement stmt = con.createStatement();
+                if (stmt.executeUpdate(query) == 1) {
+                    result = true;
+                }
+
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        return result;
     }
 
     public Artikel getArtikelByCode(String cd) {
@@ -44,6 +97,14 @@ public class ArtikelDAO extends BaseDAO<Artikel> {
         }
     }
 
+    /*  public GebruikteArtikelen GebruikteArtikelenbyCode(String code) {
+     List<GebruikteArtikelen> artikel = gebruikteartikeldao.selectGebruikteArtikel("SELECT * FROM gebruikteartikelen WHERE artikel = \"" + code + "\"");
+     if(artikel != null && !artikel.isEmpty()){
+     return artikel.get(0);
+     } else {
+     return null;
+     }  
+     } */
     public List<Artikel> getByCode(String cd) {
         List<Artikel> artikel = selectArtikel("SELECT * FROM artikel WHERE code = \"" + cd + "\"");
         if (artikel != null && !artikel.isEmpty()) {

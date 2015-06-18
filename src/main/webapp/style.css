@@ -22,29 +22,43 @@ body{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: 100%; 
-
 }
 
+#scrollableBody{
+    width: 600%;
+}
+
+.panel { 
+    width: 930px; 
+    float: left; 
+    padding-left: 30px; 
+    padding-right: 1040px; 
+}
 #header {
     width: 102%;  
     height: 2em;
     font-family: Titel;
     font-size: 40px;
-    position: relative; left: -1%; top: -55px;
     float: top;
     background-color: #555555;
     -webkit-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     opacity: 0.7;
+    position: fixed; 
+    top: 0em;
+    left: -1em;
+    line-height: 45px; 
+    margin: 0 1em;
+} 
 
-
-}
 #header h1 {
     position: relative; left: 30px;
+    top: -0.3em;
+    padding-bottom: 0em;
 }
 #header .login {
-    position: relative; top: -150px; left: -50px;   
+    position: relative; top: -130px; left: -50px;   
     float: right;
 }
 
@@ -58,7 +72,7 @@ body{
 }
 .navForm{
     position: absolute;
-    top: -10px;
+    top: -6px;
     width: 100%;
     height: 30px;
     display: table;
@@ -70,7 +84,6 @@ body{
     display: table-cell;
     background: #2b2b2b;
     color: #ffffff;
-    font-size: 15px;
     border-color: #2b2b2b;
     height:30px;
 }
@@ -82,6 +95,7 @@ body{
     font-size: 15px;
     border-color: #2b2b2b;
     height:30px;
+    margin: 0px;
 }
 .navbuttonmonteur{    
     width: 33.333%;
@@ -119,10 +133,12 @@ body{
 }
 
 #register {
-    position: relative; left: 75%;
+    position: relative; left: 80em;
+    top: 10em;
     width: 27em;
 }
 .reg{
+    font-family: Arial;
     border-radius: 29px 29px 29px 29px;
     -moz-border-radius: 29px 29px 29px 29px;
     -webkit-border-radius: 29px 29px 29px 29px;
@@ -155,10 +171,10 @@ body{
 #infobar {
     position: relative; 
     float: bottom; 
-    top: 333px;
+    top: 80em;
     left: -1%;
     background-color: #ffffff;
-    width: 102%;
+    width: 100%;
     height: 5em;
     opacity: 0.7;
 }
@@ -171,7 +187,7 @@ body{
     font-size: 1em;
     font-style: italic;
     text-align: center;    
-    position: relative; top: 16.7em;
+    position: relative; top: 20em;
 }
 #infobar .informatie{
     position: relative; top: 3em;
@@ -191,12 +207,12 @@ body{
 }
 
 #KlantGegevens{
-    position: absolute; left:10%;
+    position: relative; left:10%;
     top: 20%;
 }
 #AutoGegevens{
-    position: absolute; left:60%;
-    top: 20%
+    position: relative; left:100%;
+    top: -31.5em;
 }
 .autotabel{
     position: relative; left: 50%; 
@@ -229,7 +245,7 @@ body{
     position: relative; left: 85%;
 }
 
-#main {
+.main {
     font-family: Arial;
     border-radius: 29px 29px 29px 29px;
     -moz-border-radius: 29px 29px 29px 29px;
@@ -254,11 +270,12 @@ body{
     -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     padding: 2em;
-    position: absolute; top: 20%; left: 37.5%;
+    position: relative; top: 20%; left: 37.5%;
     width: 25em;
     height: 35em;
     opacity: 0.9;
 }
+
 #factuuraanmaken{
     font-family: Arial;
     border-radius: 29px 29px 29px 29px;
@@ -285,7 +302,7 @@ body{
     -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     padding: 2em;
-    position: absolute; top: 20%; left: 20%;
+    position: relative; top: 20%; left: 20%;
     width: 30em;
     height: 35em;   
     opacity: 0.9;
@@ -300,7 +317,7 @@ body{
     -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     padding: 2em;
-    position: absolute; top: 20%; left: 60%;
+    position: relative; top: 20%; left: 60%;
     width: 30em;
     height: 35em;
     opacity: 0.9;
@@ -315,7 +332,7 @@ body{
     -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
     padding: 2em;
-    position: absolute; top: 20%; left: 20%;
+    position: relative; top: 20%; left: 20%;
     width: 50em;
     height: 35em;
     opacity: 0.9;
@@ -326,3 +343,80 @@ body{
 .hswerkzaamheden button{
     margin: 20px;
 }
+
+
+.parkeerplaats{
+    position: relative;
+    left: 80em;
+
+}
+
+.GarageVakE{
+    position: relative;
+    left: 22em;
+    top: -22em;
+}
+
+.content{
+    position: relative;
+    top: 8em;
+}
+.homepageATDinfo{
+    position: relative; left: 20em;
+    top: 1em;
+    width: 30em;
+    font-family: Arial;
+    border-radius: 29px 29px 29px 29px;
+    -moz-border-radius: 29px 29px 29px 29px;
+    -webkit-border-radius: 29px 29px 29px 29px;
+    background-color: #a2a2a2;
+    -webkit-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    opacity: 0.9;  
+    padding: 2em;
+}
+.homepageKlantInfo{
+    position: relative; left: 60em;
+    width: 30em;
+    top: -23.5em;
+    font-family: Arial;
+    border-radius: 29px 29px 29px 29px;
+    -moz-border-radius: 29px 29px 29px 29px;
+    -webkit-border-radius: 29px 29px 29px 29px;
+    background-color: #a2a2a2;
+    -webkit-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    opacity: 0.9;  
+    padding: 2em;
+}
+
+.tabelDiv{
+    position: relative; left: 10em; 
+    font-family: Arial;
+    display: inline-block;
+    border-radius: 29px 29px 29px 29px;
+    -moz-border-radius: 29px 29px 29px 29px;
+    -webkit-border-radius: 29px 29px 29px 29px;
+    background-color: #a2a2a2;
+    -webkit-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    box-shadow: 7px 3px 23px -2px rgba(0,0,0,0.75);
+    opacity: 0.9;  
+    padding: 2em; 
+}
+
+#tabel{
+    border-collapse: collapse;
+}
+#tabel .head{
+    font-weight: bold;  
+}
+#tabel .info{
+    border: 1px;
+}
+#tabel .info td{
+    border: 1px solid black;
+}
+

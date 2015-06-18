@@ -12,6 +12,10 @@ import Service.ArtikelService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,65 +39,115 @@ public class ArtikelToevoegen extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
+
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         String artikelNummer = request.getParameter("artikelNummer");
         String artikelType = request.getParameter("artikelType");
         String aantal = request.getParameter("aantal");
         String minimum = request.getParameter("minimum");
         String prijs = request.getParameter("prijs");
         String knop = request.getParameter("knop");
-        
+        String artikeltype = request.getParameter("artikeltype");
+        String message = "";
         int aant = 0;
         int min = 0;
         double pr = 0.0;
-        
+
+        boolean b = true;
+
+        if (artikelNummer.equals("")) {
+            b = false;
+            message += "Artikelnummer is niet ingevuld ";
+        }
+        if (artikeltype.equals("")) {
+            b = false;
+            message += "Artikeltype is niet ingevuld ";
+        }
         if (aantal.equals("")) {
+            b = false;
             System.out.println("aantal = null");
+            message += "Aantal is niet ingevuld ";
         } else {
             aant = Integer.parseInt(aantal);
         }
-        
+
         if (minimum.equals("")) {
+            b = false;
             System.out.println("minimum = null");
+            message += "Minimum is niet ingevuld ";
         } else {
             min = Integer.parseInt(minimum);
         }
-        
+
         if (prijs.equals("")) {
+            b = false;
             System.out.println("prijs = null");
+            message += "Prijs is niet ingevuld ";
         } else {
             pr = Double.parseDouble(prijs);
         }
         
-        if(knop.equals("Opslaan")){
+        if(knop.equals("voeg toe")){
             ArtikelService as = ServiceProvider.getArtikelService();
-            
-            
             ArtikelType hetType = new ArtikelType(artikelType);
-            Artikel a = new Artikel(artikelNummer, min, aant, pr, hetType);
-            
             as.schrijfArtikelTypeNaarDatabase(artikelType);
-            as.schrijfArtikelNaarDatabase(a);
             RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
+            view.forward(request, response);
+            //error message maken als het al bestaat
+        }
+        if (knop.equals("Terug")) {
+            RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermArtikelen.jsp");
             view.forward(request, response);
         }
         
-        if(knop.equals("Terug")){
-           RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermWerkzaamheden.jsp");
-           view.forward(request, response);    
-        }
+        if (knop.equals("Opslaan")) {
+            if(b){
+            boolean c = true;
+
+            ArtikelService as = ServiceProvider.getArtikelService();
+            String error = "";
+            ArtikelType hetType = new ArtikelType(artikeltype);
+            Artikel a = new Artikel(artikelNummer, min, aant, pr, hetType);
+
+            
+            boolean o = false;
+            try {
+                as.schrijfArtikelNaarDatabase(a);
+                o = true;
+            } catch (SQLIntegrityConstraintViolationException e) {   
+            } catch (SQLException e) {
+                // Other SQL Exception
+            }
+            if (o) {
+                    message += "Artikel is met succes opgeslagen ";
+                    
+                } else {
+                    message = "ArtikelID bestaat al";
+                    System.out.println(error);
+                    
+                }
+            request.setAttribute("error", message);
+            RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
+            view.forward(request, response);
+        } else {
+            request.setAttribute("error", message);
+            RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
+            view.forward(request, response);
+        } 
+       }
+
+        
+        
+        
+
     }
 
     /**

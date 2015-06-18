@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hoofdscherm werkzaamheden</title>
     </head>
-    <body>
+    <body class="content">
         <div id="mainmonteur">
             <form action="HoofdSchermWerkzaamheden" method="post">   
                 <div class="hswerkzaamheden">
@@ -27,9 +27,6 @@
                     </button>
                     <button name="knop" value="werkzaamheidVerwijderen" type="submit" class="navbuttonmonteurHS">
                         Werkzaamheid verwijderen
-                    </button>
-                    <button name="knop" value="terug" type="submit" class="navbuttonmonteurHS">
-                        Terug
                     </button>
                 </div>
             </form>

@@ -4,21 +4,47 @@
     Author     : andy
 --%>
 
+<%@page import="Domain.Artikel"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
+        <script type="text/javascript" src="Script.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Werkzaamheid Verwijderen</title>
     </head>
     <body>
-        <label>Selecteer Werkzaamhedennummer:</label>
-        <select name="Werkzaamheidnummer"></select>
-        <button name="knop" value="Terug" type="submit"><br>
+        <form action="WerkzaamheidVerwijderen" method="post"> 
+            <label>Selecteer OnderhoudsbeurtID</label>
+            <select name="onderhoudsbeurtID" id="onderhoudsbeurtID" onchange="fillOnderhoudsbeurt()">
+                <option>Selecteer OnderhoudsbeurtID</option>
+                <c:forEach var="Onderhoudsbeurt" items="${onderhoudsbeurt}">
+                 <option value="${Onderhoudsbeurt.dienstNummer},${Onderhoudsbeurt.calendarNaarString},${Onderhoudsbeurt.deAuto.kenteken},${Onderhoudsbeurt.deMonteur.ID},${Onderhoudsbeurt.aantalBestedeUur},${Onderhoudsbeurt.status}">${Onderhoudsbeurt.dienstNummer}</option>
+                </c:forEach>
+            </select>
+            <label>Huidige Datum:</label>
+            <input type="text" name="datum" id="datum" readonly><br/>
+            
+            <label>aantal besteden uur:</label>
+            <input type="text" name="uur" id="uur" readonly><br/>
+            <label>Auto ID:</label>
+            <input type="text" name="auto" id="auto" readonly>
+            <label>Monteur: ID</label>
+            <input type="text" name="monteur" id="monteur" readonly>
+             
+            <label>Status:</label>
+            <input type="text" name="status" id="status" readonly>
+            <button name="knop" value="Terug" type="submit">
                 Terug
-        </button>
-        <button name="knop" value="verwijder" type="submit"><br>
-                Verwijder
-        </button>
+            </button>
+            <button name="knop" value="Verwijder" type="submit">
+               Verwijder
+            </button>
+        </form>
+        
     </body>
 </html>

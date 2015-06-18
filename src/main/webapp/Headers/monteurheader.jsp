@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="shortcut icon"  href="Images/picatd.png" />
     </head>
     <body>
         <div id="header">

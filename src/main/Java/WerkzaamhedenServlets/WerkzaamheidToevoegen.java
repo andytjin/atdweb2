@@ -43,10 +43,17 @@ public class WerkzaamheidToevoegen extends HttpServlet {
         String bestedeUur = request.getParameter("uur");
         String kenteken = request.getParameter("auto");
         String monteurID = request.getParameter("monteur");
+        String status = request.getParameter("status");
       
         int ohID = 0;
         int MonteurID = 0;
-
+        
+        if (status.equals("")) {
+            System.out.println("Status = null");
+        } else {
+            System.out.println("Status is niet null");
+        }
+        
         if (onderhoudsbeurtID.equals("")) {
             System.out.println("onderhoudsID = null");
         } else {
@@ -58,7 +65,10 @@ public class WerkzaamheidToevoegen extends HttpServlet {
         } else {
             MonteurID = Integer.parseInt(monteurID);
         }
-
+         if(knop.equals("Terug")){
+        RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermWerkzaamheden.jsp");
+        view.forward(request, response);
+        }
         //int GAID = Integer.parseInt(gaID);
         //int MonteurID = Integer.parseInt(monteurID);
         //artikel moet opgeslagen worden in gebruikte artikel
@@ -74,7 +84,7 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             OnderhoudsService oService = ServiceProvider.getOnderhoudsService();
 
             Calendar date = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 date.setTime(sdf.parse(datum));
             } catch (Exception e) {
@@ -83,7 +93,7 @@ public class WerkzaamheidToevoegen extends HttpServlet {
 
             System.out.println("TEST : " + datum);
 
-            Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, date, au, m);
+            Onderhoudsbeurt o = new Onderhoudsbeurt(ohID, date, au, m, status);
             if (bestedeUur.equals("")) {
                 System.out.println("velden zijn leeg");
             } else {
@@ -97,9 +107,7 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             view.forward(request, response);
 
         }
-
-        RequestDispatcher view = request.getRequestDispatcher("/MonteurPage.jsp");
-        view.forward(request, response);
+       
     }
 
 }

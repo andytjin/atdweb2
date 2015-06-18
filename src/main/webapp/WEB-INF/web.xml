@@ -8,6 +8,18 @@
         <servlet-name>MonteurPageServlet</servlet-name>
         <servlet-class>Servlets.MonteurPageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GarageServlet</servlet-name>
+        <servlet-class>Servlets.GarageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlanningServlet</servlet-name>
+        <servlet-class>Servlets.PlanningServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>KlantenOverzichtServlet</servlet-name>
+        <servlet-class>Servlets.KlantenOverzichtServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -63,6 +75,18 @@
     <servlet-mapping>
         <servlet-name>MonteurPageServlet</servlet-name>
         <url-pattern>/MonteurPageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GarageServlet</servlet-name>
+        <url-pattern>/GarageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlanningServlet</servlet-name>
+        <url-pattern>/PlanningServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KlantenOverzichtServlet</servlet-name>
+        <url-pattern>/KlantenOverzichtServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

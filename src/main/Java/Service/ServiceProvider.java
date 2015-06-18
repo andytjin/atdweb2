@@ -13,11 +13,12 @@ public class ServiceProvider {
     static AutoService aService = new AutoService();
     static ArtikelService atkService = new ArtikelService();
     static MonteurService mService = new MonteurService();
-    static OnderhoudsService oService = new OnderhoudsService();
+    static PlanningService oService = new PlanningService();
     static GebruikteArtikelenService gaService = new GebruikteArtikelenService();
     static FactuurService fService = new FactuurService();
-    static PlanningService pService = new PlanningService();
-    static BestellingService bService = new BestellingService();
+    static ParkeerService psService = new ParkeerService();
+    static ParkeerplaatsService ppsService = new ParkeerplaatsService();
+    static OnderhoudsService ohService = new OnderhoudsService();
     
     public static KlantService getKlantService() {
         return kService;
@@ -39,7 +40,7 @@ public class ServiceProvider {
         return mService;
     }
 
-    public static OnderhoudsService getOnderhoudsService() {
+    public static PlanningService getPlanningService() {
         return oService;
     }
     
@@ -47,6 +48,16 @@ public class ServiceProvider {
         return fService;
     }
     
+    public static ParkeerService getParkeerService(){
+        return psService;
+    }
+    
+    public static ParkeerplaatsService getParkeerPlaatsService(){
+        return ppsService;
+    }
+    
+    public static OnderhoudsService getOnderhoudsService(){
+        return ohService;
     public static PlanningService getPlanningService(){
         return pService;
     }

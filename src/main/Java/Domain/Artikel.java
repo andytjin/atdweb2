@@ -25,6 +25,11 @@ public class Artikel implements Serializable{
 	public int getMinimum() { return minimum; }
 	public double getPrijs() { return prijs; }
 	
+        public ArtikelType getHetType(){
+            return hetType;
+        }
+        
+        
 	public String toString(){
 		//Hier wordt gekeken of er wel of niet besteld moet worden. Dan wordt dit in een String gezet, deze String wordt vervolgens gereturned.
 		String s = "Van type: " + hetType.getType() + ", ";

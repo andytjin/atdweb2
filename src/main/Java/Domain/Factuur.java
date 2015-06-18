@@ -14,10 +14,10 @@ public class Factuur implements Serializable {
 
     public Factuur(int fN, String fD,String vD,double bp, boolean iB, String oS, Klant k) {
         factuurNummer = fN;
-        setBrutoPrijs(bp);
-        setFactuurDatum(fD);
-        setVervalDatum(vD);
-        setOmschrijving(oS);
+        brutoPrijs = bp;
+        factuurDatum = fD;
+        vervalDatum = vD;
+        omschrijving = oS;
         isBetaald = iB;
         betalendeKlant = k;
     }

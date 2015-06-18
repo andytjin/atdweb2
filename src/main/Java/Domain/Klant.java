@@ -1,8 +1,9 @@
 package Domain;
 
+import Security.Encrypter;
 import java.io.Serializable;
 
-public class Klant implements Serializable{
+public class Klant implements Serializable {
 
     private boolean WiltHerinnering;
     private String username, naam, password, adres, geboortedatum, telefoonnummer, postcode, emailadres;
@@ -32,18 +33,20 @@ public class Klant implements Serializable{
     }
 
     public boolean checkPassword(String pw) {
+        String encrypt = Encrypter.md5Hash(pw);
         boolean b = false;
         if (password != null) {
-            if (password.equals(pw)) {
+            if (password.equals(encrypt)) {
                 b = true;
             }
         }
         return b;
     }
 
-    public void setPassword(String ps){
+    public void setPassword(String ps) {
         password = ps;
     }
+
     public String getEmailadres() {
         return emailadres;
     }
@@ -100,7 +103,7 @@ public class Klant implements Serializable{
         username = uname;
     }
 
-    public String wiltHerinnering() {
+    public String getWiltHerinnering() {
         String s = "";
         if (WiltHerinnering == true) {
             s = "Ja";
@@ -118,13 +121,9 @@ public class Klant implements Serializable{
         return WiltHerinnering;
     }
 
-    public Klant getKlant() {
-        return this;
-    }
-   
     @Override
-   public String toString(){
-      String s = username;
-      return s;
-   }
+    public String toString() {
+        String s = username;
+        return s;
+    }
 }
