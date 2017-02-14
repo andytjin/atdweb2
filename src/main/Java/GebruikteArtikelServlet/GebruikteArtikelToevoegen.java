@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GebruikteArtikelServlet;
 
 import Domain.Artikel;
@@ -11,6 +6,7 @@ import Service.ArtikelService;
 import Service.GebruikteArtikelenService;
 import Service.ServiceProvider;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,60 +24,53 @@ public class GebruikteArtikelToevoegen extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            String knop = request.getParameter("knop");
-            String onderhoudsbeurtID = request.getParameter("onderhoudsbeurt");
-            String artikelID = request.getParameter("artikel");
-            String aantalArt = request.getParameter("ga");
-            
-            int ohID = 0;
-            int aantalGA = 0;
-            
-            if (onderhoudsbeurtID.equals("")) {
-            System.out.println("onderhoudsID = null");
-        } else {
+        String gaAantal = request.getParameter("ga");
+        String ArtikelCode = request.getParameter("artikel");
+        String onderhoudsID = request.getParameter("onderhoudsbeurt");
+        int gAantal = 0;
+        int ohID = 0;
+        boolean b = true;
 
-            ohID = Integer.parseInt(onderhoudsbeurtID);
-        }
-        
-        
-        if (aantalArt.equals("")) {
-            System.out.println("MonteurID = null");
+        if (onderhoudsID.equals("")) {
+            b = false;
         } else {
-            aantalGA = Integer.parseInt(aantalArt);
+            ohID = Integer.parseInt(onderhoudsID);
         }
-        
-        if(knop.equals("voeg toe")){
-            
+
+        if (gaAantal.equals("")) {
+            b = false;
+        } else {
+            gAantal = Integer.parseInt(gaAantal);
+        }
+        if (b) {
+
             ArtikelService aService = ServiceProvider.getArtikelService();
-            Artikel a = aService.getArtikelByCode(artikelID);
-            GebruikteArtikelen ga = new GebruikteArtikelen(aantalGA, a);
-            GebruikteArtikelenService gService = ServiceProvider.getGebruikteArtikelenService();
-            
-            gService.schrijfGebruikteArtikelNaarDatabase(ga,ohID);
-        }
-          RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
-          view.forward(request, response);  
-    }
+            GebruikteArtikelenService gaService = ServiceProvider.getGebruikteArtikelenService();
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-  
+            if (gAantal > 0) {
+                Artikel a = aService.getArtikelByCode(ArtikelCode);
+                if ((a.getAantal() - gAantal) < 0) {
+                    request.setAttribute("msgs", "Niet genoeg op voorraad");
+                } else {
+                    a.setAantal(a.getAantal() - gAantal);
+                    GebruikteArtikelen ga = new GebruikteArtikelen(gAantal, a);
+                    aService.WijzigArtikel(a);
+                    gaService.schrijfGebruikteArtikelNaarDatabase(ga, ohID);
+                }
+            }
+
+            //   List<GebruikteArtikelen> gaLijst = gaService.getGAList();
+            List<GebruikteArtikelen> gaLijst = gaService.getByID(ohID);
+            request.setAttribute("gaLijst", gaLijst);
+
+        }
+        RequestDispatcher view = request.getRequestDispatcher("/WerkzaamheidToevoegen.jsp");
+        view.forward(request, response);
+    }
 }

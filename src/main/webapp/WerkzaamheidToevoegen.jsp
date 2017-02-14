@@ -16,7 +16,7 @@
     </head>
     <body>
         <form action="WerkzaamheidToevoegen" method="post">
-            <div id="main2">
+            <div id="mainWT">
                 <table>
                     <tr>
                         <td><label>onderhoudsbeurt ID:</label></td>
@@ -66,7 +66,7 @@
                 </table>
             </div>
         </form>
-        <div id="main3">
+        <div id="mainWT2">
             <jsp:include page="/GebruikteArtikelToevoegen.jsp"/>
         </div>
     </body>

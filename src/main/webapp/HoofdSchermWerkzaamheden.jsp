@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hoofdscherm werkzaamheden</title>
     </head>
-    <body class="content">
+    <body class="content" style="top: 0.0001em;">
         <div id="mainmonteur">
             <form action="HoofdSchermWerkzaamheden" method="post">   
                 <div class="hswerkzaamheden">

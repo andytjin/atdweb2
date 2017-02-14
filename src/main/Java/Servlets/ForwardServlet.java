@@ -22,12 +22,14 @@ public class ForwardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FactuurService fService = ServiceProvider.getFactuurService();
+        
         String knop = request.getParameter("button");
         RequestDispatcher rd = null;
 
         if (knop.equals("Alle Facturen")) {
             rd = request.getRequestDispatcher("AlleFacturen.jsp");
             request.getSession().setAttribute("alleFacturen", fService.getAll());
+            System.out.println(fService.getAll());
         }
         rd.forward(request, response);
     }

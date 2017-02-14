@@ -12,14 +12,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="style.css" />
         <link rel="stylesheet" type="text/css" href="MaxStyle.css" />
-    <form action="GarageServlet" method="post">
-        Voor hoeveel uur wilt u een parkeerplek reserveren:</br>
-        <input type="number" name="aantaluur"></br>
+    <div class="tabelDivWO2" style="left: 40%; top: 2em">
+        <form action="GarageServlet" method="post">
+            Voor hoeveel uur wilt u een parkeerplek reserveren:</br>
+            <input type="number" name="aantaluur"></br>
 
-        <input type="submit" name="button" value="Reserveer">
-    </form>
-    ${msgs}</br>
-    </br>
+            <input type="submit" name="button" value="Reserveer">
+        </form>
+         ${msgs}
+    
+    </div>
+   
     <div class="parkeerplaats">
         <c:forEach var="i" begin="1" end="5">
             <c:choose>

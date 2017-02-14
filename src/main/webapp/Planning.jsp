@@ -4,6 +4,7 @@
     Author     : freekvdp
 --%>
 
+<%@page import="Domain.Onderhoudsbeurt"%>
 <%@page import="java.util.List"%>
 <%@page import="Domain.Auto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,27 +16,49 @@
         <title>Planning</title>
     </head>
     <body>
-        <div id="mainmonteur">
+        <div class="tabelDivWO2" style="left: 75%; top: 1em;">
             <h1>Planning</h1>
             Selecteer hieronder de Auto voor een Afspraak:<br/>
             <form action="PlanningServlet" method="post">
-                <div>
-                    <c:forEach var = "autos" items="${Autos}">
-                        <input type="radio" name="autos" value= "${autos.kenteken}" >${autos.kenteken} , ${autos.merk}
+                <table>
+                    <c:forEach var = "autos" items="${autos}">
+                        <tr>
+                            <td>
+                                <input type="radio" name="autoradios" value= "${autos.kenteken}" >${autos.merk} | ${autos.kenteken}
+                            </td>
+                        </tr>
                     </c:forEach>
+                </table>
+
+                <div>
+
+                    <input type="date" name ="SelectedDate" />
                     <br/>
-                    <div>
-                        <br/>
-                        <br/>
-                        <input type="date" name ="SelectedDate" />
-                        <br/>
-                        <br/>
-                        <input type="submit" name="button" value ="Terug" />
-                        <input type="submit" name="button" value ="Auto Toevoegen" />
-                        <input type="submit" name="button" value="Akkoord" />
-                    </div>
+                    <br/>
+                    <input type="submit" name="button" value ="Terug" />
+                    <input type="submit" name="button" value ="Auto Toevoegen" />
+                    <input type="submit" name="button" value="Akkoord" />
                 </div>
+
             </form>
+
+            <div>
+                <table>
+                    <tr>
+                        <td>Dienstnummer</td>
+                        <td>Datum</td>
+                        <td>Auto</td>
+                    </tr>
+                    <c:forEach var="p" items="${Planningen}">
+
+                        <tr>
+                            <td>${p.getDienstNummer()}</td>
+                            <td>${p.getCalendarNaarString()}</td>
+                            <td>${p.kenteken}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
         </div>
     </body>
 </html>

@@ -9,7 +9,7 @@ public class Bedrijf implements Serializable {
     private ArrayList<Klant> alleKlanten = new ArrayList<Klant>();
     private ArrayList<Factuur> alleFacturen = new ArrayList<Factuur>();
     private ArrayList<Dienst> alleDiensten = new ArrayList<Dienst>();
-    private ParkeerPlaats deParkeerPlaats;
+    
     private ArrayList<Artikel> alleArtikelen = new ArrayList<Artikel>();
     private ArrayList<Monteur> alleMonteurs = new ArrayList<Monteur>();
     private ArrayList<Auto> alleAutos = new ArrayList<Auto>();

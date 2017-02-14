@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <link rel="shortcut icon" href="Images/picatd.png"/>
+        <link rel="shortcut icon" href="Images/picatd2.png"/>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" charset="utf-8">
             $(document).ready(function () {

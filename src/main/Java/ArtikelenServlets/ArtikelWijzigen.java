@@ -29,11 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ArtikelWijzigen", urlPatterns = {"/ArtikelWijzigen"})
 public class ArtikelWijzigen extends HttpServlet {
 
-  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
     /**
@@ -47,19 +46,19 @@ public class ArtikelWijzigen extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String knop = request.getParameter("knop");
-            String artikelNummer = request.getParameter("artikelNummer");
-            String artikelType = request.getParameter("artikelType");
-            String aantal = request.getParameter("aantal");
-            String minimum = request.getParameter("minimum");
-            String prijs = request.getParameter("prijs");
-            String code = "";
-            String type = "";
-            
-            int aant = 0;
-            int min = 0;
-            double pr = 0.0;
-            try{
+        String knop = request.getParameter("knop");
+        String artikelNummer = request.getParameter("artikelNummer");
+        String artikelType = request.getParameter("artikelType");
+        String aantal = request.getParameter("aantal");
+        String minimum = request.getParameter("minimum");
+        String prijs = request.getParameter("prijs");
+        String code = "";
+        String type = "";
+
+        int aant = 0;
+        int min = 0;
+        double pr = 0.0;
+        try {
             Scanner sc = new Scanner(artikelNummer);
             sc.useDelimiter("\\s*,\\s*");
             code = sc.next();
@@ -68,61 +67,39 @@ public class ArtikelWijzigen extends HttpServlet {
             String m = sc.next();
             String p = sc.next();
             sc.close();
-            } catch(NoSuchElementException e){
-                e.printStackTrace();
-            }
-            System.out.println(code);
-            
-            if (artikelType.equals("")) {
-                System.out.println("artikeltype = null");
-            } else {
-                System.out.println(artikelType);
-            }
-            if (aantal.equals("")) {
-                System.out.println("aantal = null");
-            } else {
-                aant = Integer.parseInt(aantal);
-            }
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+        System.out.println(code);
 
-            if (minimum.equals("")) {
-                System.out.println("minimum = null");
-            } else {
-                min = Integer.parseInt(minimum);
-            }
+        if (!aantal.equals("")) {
+            aant = Integer.parseInt(aantal);
+        }
 
-            if (prijs.equals("")) {
-                System.out.println("prijs = null");
-            } else {
-                pr = Double.parseDouble(prijs);
-            }
-            
-            if(knop.equals("Terug")){
-             RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermArtikelen.jsp");
-            view.forward(request, response);    
-            }
-            
-            if(knop.equals("Opslaan")){
+        if (!minimum.equals("")) {
+            min = Integer.parseInt(minimum);
+        }
+
+        if (!prijs.equals("")) {
+            pr = Double.parseDouble(prijs);
+        }
+
+        if (knop.equals("Terug")) {
+            RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermArtikelen.jsp");
+            view.forward(request, response);
+        }
+
+        if (knop.equals("Opslaan")) {
             ArtikelService as = ServiceProvider.getArtikelService();
-             
-            
+
             ArtikelType hetType = new ArtikelType(artikelType);
             Artikel a = new Artikel(code, min, aant, pr, hetType);
-            
-          //  as.schrijfArtikelTypeNaarDatabase(artikelType);
-            
+
+            as.schrijfArtikelTypeNaarDatabase(artikelType);
             as.WijzigArtikel(a);
             RequestDispatcher view = request.getRequestDispatcher("/ArtikelWijzigen.jsp");
             view.forward(request, response);
         }
-        
-        
-        
-    }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-   
+    }
 }

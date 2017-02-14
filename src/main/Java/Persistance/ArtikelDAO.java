@@ -5,7 +5,6 @@ package Persistance;
 
 import Domain.Artikel;
 import Domain.ArtikelType;
-import Domain.GebruikteArtikelen;
 import static Persistance.BaseDAO.DB_URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -137,6 +136,22 @@ public class ArtikelDAO extends BaseDAO<Artikel> {
         }
 
         return results;
+    }
+
+    public void wijzigArtikel(Artikel a) {
+
+        try (Connection con = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            Statement stmt = con.createStatement();
+            // create a SQL query
+            String sql = "UPDATE atd.artikel "
+                    + "SET code = '" + a.getCode() + "', aantal = '" + a.getAantal() + "', minimum = '"
+                    + a.getMinimum() + "', prijs = '" + a.getPrijs() + "', artikeltype = '" + a.getType() + "'"
+                    + " WHERE code = '" + a.getCode() + "'";
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

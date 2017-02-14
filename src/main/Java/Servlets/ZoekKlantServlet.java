@@ -36,7 +36,7 @@ public class ZoekKlantServlet extends HttpServlet {
             if (!zkKlant.equals("")) {
                 request.setAttribute("klantFactuur", fService.getAlleFacturen(zkKlant));
                 rd = request.getRequestDispatcher("FactuurOverzichtBeheerder.jsp");
-                request.getServletContext().setAttribute("klanten", kService.getAlleKlanten());
+                getServletContext().setAttribute("klanten", kService.getAlleKlanten());
             }
         }
         rd.forward(request, response);

@@ -31,8 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ArtikelToevoegen extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -73,7 +72,7 @@ public class ArtikelToevoegen extends HttpServlet {
         }
         if (aantal.equals("")) {
             b = false;
-            System.out.println("aantal = null");
+
             message += "Aantal is niet ingevuld ";
         } else {
             aant = Integer.parseInt(aantal);
@@ -81,7 +80,7 @@ public class ArtikelToevoegen extends HttpServlet {
 
         if (minimum.equals("")) {
             b = false;
-            System.out.println("minimum = null");
+
             message += "Minimum is niet ingevuld ";
         } else {
             min = Integer.parseInt(minimum);
@@ -89,13 +88,13 @@ public class ArtikelToevoegen extends HttpServlet {
 
         if (prijs.equals("")) {
             b = false;
-            System.out.println("prijs = null");
+
             message += "Prijs is niet ingevuld ";
         } else {
             pr = Double.parseDouble(prijs);
         }
-        
-        if(knop.equals("voeg toe")){
+
+        if (knop.equals("voeg toe")) {
             ArtikelService as = ServiceProvider.getArtikelService();
             ArtikelType hetType = new ArtikelType(artikelType);
             as.schrijfArtikelTypeNaarDatabase(artikelType);
@@ -107,46 +106,37 @@ public class ArtikelToevoegen extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("/HoofdSchermArtikelen.jsp");
             view.forward(request, response);
         }
-        
+
         if (knop.equals("Opslaan")) {
-            if(b){
-            boolean c = true;
+            if (b) {
+                ArtikelService artServlet = ServiceProvider.getArtikelService();
+                String error = "";
+                ArtikelType artType = new ArtikelType(artikeltype);
+                Artikel artikel = new Artikel(artikelNummer, min, aant, pr, artType);
 
-            ArtikelService as = ServiceProvider.getArtikelService();
-            String error = "";
-            ArtikelType hetType = new ArtikelType(artikeltype);
-            Artikel a = new Artikel(artikelNummer, min, aant, pr, hetType);
-
-            
-            boolean o = false;
-            try {
-                as.schrijfArtikelNaarDatabase(a);
-                o = true;
-            } catch (SQLIntegrityConstraintViolationException e) {   
-            } catch (SQLException e) {
-                // Other SQL Exception
-            }
-            if (o) {
+                boolean saved = false;
+                try {
+                    artServlet.schrijfArtikelNaarDatabase(artikel);
+                    saved = true;
+                }catch(Exception e){
+                }
+                if (saved) {
                     message += "Artikel is met succes opgeslagen ";
-                    
+
                 } else {
                     message = "ArtikelID bestaat al";
                     System.out.println(error);
-                    
-                }
-            request.setAttribute("error", message);
-            RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
-            view.forward(request, response);
-        } else {
-            request.setAttribute("error", message);
-            RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
-            view.forward(request, response);
-        } 
-       }
 
-        
-        
-        
+                }
+                request.setAttribute("error", message);
+                RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
+                view.forward(request, response);
+            } else {
+                request.setAttribute("error", message);
+                RequestDispatcher view = request.getRequestDispatcher("/ArtikelToevoegen.jsp");
+                view.forward(request, response);
+            }
+        }
 
     }
 

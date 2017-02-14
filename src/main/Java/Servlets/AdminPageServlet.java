@@ -1,13 +1,16 @@
 package Servlets;
 
+import Domain.Artikel;
 import Domain.Klant;
 import Domain.Onderhoudsbeurt;
 import Domain.ParkeerDienst;
+import Service.ArtikelService;
 import Service.KlantService;
 import Service.OnderhoudsService;
 import Service.ParkeerService;
 import Service.ServiceProvider;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,12 +49,14 @@ public class AdminPageServlet extends HttpServlet {
             
             
             rd = request.getRequestDispatcher("FactuurOverzichtBeheerder.jsp");
-            request.getServletContext().setAttribute("klanten", ks.getAlleKlanten());
+            getServletContext().setAttribute("klanten", ks.getAlleKlanten());
             List<Onderhoudsbeurt> lijst = os.getAlleOnderhoudsbeurten();
-            System.out.println(lijst);
             List<ParkeerDienst> list = ps.getAll();
-            request.getServletContext().setAttribute("dienstNummer", lijst);
-            request.getServletContext().setAttribute("pdiensten", list);
+            getServletContext().setAttribute("dienstNummer", lijst);
+            getServletContext().setAttribute("pdiensten", list);
+        }
+        if(button.equals("Bestelling")){
+            rd = request.getRequestDispatcher("Bestelling.jsp");
         }
         if (button.equals("Klanten")) {
             rd = request.getRequestDispatcher("KlantenOverzicht.jsp");
@@ -59,6 +64,22 @@ public class AdminPageServlet extends HttpServlet {
             List<Klant> lijst = ks.getAlleKlanten();
             request.setAttribute("KlantenLijst", lijst);
         }
+        
+        ArtikelService as = ServiceProvider.getArtikelService();
+            List<Artikel> alleArtikelen = as.getAlleArtikelen();
+            List<Artikel> teBestellenArtikelen = new ArrayList<Artikel>();
+            List<Artikel> bijnaBestellenArtikelen = new ArrayList<Artikel>();
+             for (Artikel a : alleArtikelen) {
+                if (a.getAantal() < a.getMinimum()) {
+                    teBestellenArtikelen.add(a);
+                } else if (a.getAantal() <= a.getMinimum() + 2) {
+                    bijnaBestellenArtikelen.add(a);
+                }
+            }
+            
+            request.getSession().setAttribute("teBestellen", teBestellenArtikelen);
+            request.getSession().setAttribute("bijnaBestellen", bijnaBestellenArtikelen);
+
         rd.forward(request, response);
     }
 }

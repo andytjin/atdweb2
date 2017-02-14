@@ -1,7 +1,13 @@
 package Servlets.KlantSettings;
 
+import Domain.Auto;
 import Domain.Klant;
+import Service.AutoService;
+import Service.FactuurService;
+import Service.ParkeerplaatsService;
+import Service.ServiceProvider;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,8 +41,8 @@ public class KlantGegevensServlet extends HttpServlet {
         String pass1 = request.getParameter("nwachtwoord1");
         String pass2 = request.getParameter("nwachtwoord2");
         boolean passchange = false;
-        
-        RequestDispatcher rd = request.getRequestDispatcher("KlantSettings.jsp");
+
+        RequestDispatcher rd = request.getRequestDispatcher("/KlantPage.jsp");
         boolean b = true;
         String msgs = "De volgende velden zijn miet correct ingevuld<br/>";
 
@@ -83,7 +89,7 @@ public class KlantGegevensServlet extends HttpServlet {
                 k = (Klant) obj;
             }
             if (k != null) {
-                if(passchange){
+                if (passchange) {
                     k.setPassword(pass1);
                 }
                 k.setNaam(naam);
@@ -96,9 +102,18 @@ public class KlantGegevensServlet extends HttpServlet {
             }
         }
 
+        AutoService as = ServiceProvider.getAutoService();
         request.setAttribute("settingmsgs1", msgs);
-        request.setAttribute("PageName", "Klant gegevens");
-        request.setAttribute("settingpage", "KlantGegevens");
+        Klant k = (Klant) request.getSession().getAttribute("User");
+        request.getSession().setAttribute("User", k);
+        ParkeerplaatsService pps = ServiceProvider.getParkeerPlaatsService();
+        request.setAttribute("bezettePlaatsen", pps.getAantalBezet());
+        List<Auto> lijst = as.getAutoByKlant(k);
+        request.setAttribute("PageName", "Account Settings");
+        request.getSession().setAttribute("autos", lijst);
+        FactuurService fService = ServiceProvider.getFactuurService();
+        request.getSession().setAttribute("klantenfacturen", fService.getAlleFacturen(k.getUsername()));
+        request.setAttribute("PageName", "Homepage");
         rd.forward(request, response);
     }
 }

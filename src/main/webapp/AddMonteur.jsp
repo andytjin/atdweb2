@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="AdminPage.jsp" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,22 +14,7 @@
         <title>Add monteur</title>
     </head>
     <body>
-        <div id="header">
-            <h1>Homepage</h1>
-            <div class="login">
-                ingelogd als: HenkPaladijn
-            </div>
-            <div class="navbar">
-                <form action="AdminPageServlet" method="post" class="navForm">
-                    <input type="submit" name="button" value="Home" class="navbutton"/>
-                    <input type="submit" name="button" value="add monteur" class="navbutton"/>  
-                    <input type="submit" name="button" value="Factuur" class="navbutton"/>
-                    <input type="submit" name="button" value="log out" class="navbutton"/>
-                </form>
-            </div>
-        </div>
-        
-        <div>
+        <div class="position">
             <form action="AddMonteurServlet" method="post" class="content">
                 <table class="klantgegevenstable">
                     <tr>

@@ -55,8 +55,6 @@ public class AutoDAO extends BaseDAO<Auto> {
         try (Connection con = getConnection()) {
             PreparedStatement stmt = con.prepareStatement("INSERT INTO auto VALUES('" + instance.getKenteken() + "','" + instance.getKlant().getUsername() + "','" + instance.getNaam() + "','" + instance.getMerk() + "');");
             int i = stmt.executeUpdate();
-            System.out.println(i);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

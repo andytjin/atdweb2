@@ -1,18 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlets;
 
 import Domain.Auto;
 import Domain.Klant;
 import Domain.Onderhoudsbeurt;
 import Service.AutoService;
+import Service.FactuurService;
+import Service.ParkeerplaatsService;
 import Service.PlanningService;
 import Service.ServiceProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,75 +27,39 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PlanningServlet", urlPatterns = {"/PlanningServlet"})
 public class PlanningServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PlanningServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PlanningServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String error = "";
         //Auto selecteren
         AutoService as = ServiceProvider.getAutoService();
-        PlanningService os = ServiceProvider.getPlanningService();
+        PlanningService ps = ServiceProvider.getPlanningService();
         Onderhoudsbeurt ob = null;
         Auto auto = null;
         List<Auto> alleAutos = null;
 
         Klant k = (Klant) request.getSession().getAttribute("User");
         String knop = request.getParameter("button");
-        RequestDispatcher rd = request.getRequestDispatcher("Planning.jsp");
-
         String dat = request.getParameter("SelectedDate");
+        RequestDispatcher rd = request.getRequestDispatcher("/KlantPage.jsp");
+
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date.setTime(sdf.parse(dat));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (knop.equals("Akkoord")) {
             try {
-                alleAutos = null;
-                Object o = request.getSession().getAttribute("Autos");
+                Object o = request.getSession().getAttribute("autos");
                 if (o != null) {
                     alleAutos = (List<Auto>) o;
                     System.out.println("Alle autos is NIET null");
@@ -128,10 +91,12 @@ public class PlanningServlet extends HttpServlet {
                 //System.out.println(os.getHighestDNr());
                 try {
                     System.out.println(dat);
-                    dnr = os.getHighestDNr() + 1;
+                    dnr = ps.getHighestDNr() + 1;
                     System.out.println("--------dit is de try!!!!!");
-                    os.addOnderhoudsbeurt(dnr, dat, auto.getKenteken());
-                    rd = request.getRequestDispatcher("KlantPage.jsp");
+                    Onderhoudsbeurt o = new Onderhoudsbeurt(dnr, date, auto);
+                    ps.addOnderhoudsbeurt(o);
+                    System.out.println("onderhoudsbeurt toegevoegd!!!!!!");
+                    rd = request.getRequestDispatcher("PlanningOverzicht.jsp");
                 } catch (Exception e) {
                     System.out.println("dit is de catch!!!!!--------");
                     e.printStackTrace();
@@ -150,18 +115,15 @@ public class PlanningServlet extends HttpServlet {
         if (knop.equals("Terug")) {
             rd = request.getRequestDispatcher("KlantPage.jsp");
         }
-
+        request.getSession().setAttribute("User", k);
+        ParkeerplaatsService pps = ServiceProvider.getParkeerPlaatsService();
+        request.setAttribute("bezettePlaatsen", pps.getAantalBezet());
+        List<Auto> lijst = as.getAutoByKlant(k);
+        request.setAttribute("PageName", "Account Settings");
+        request.getSession().setAttribute("autos", lijst);
+        FactuurService fService = ServiceProvider.getFactuurService();
+        request.getSession().setAttribute("klantenfacturen", fService.getAlleFacturen(k.getUsername()));
+        request.setAttribute("PageName", "Homepage");
         rd.forward(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

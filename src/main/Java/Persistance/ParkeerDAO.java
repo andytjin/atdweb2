@@ -106,7 +106,7 @@ public class ParkeerDAO extends BaseDAO<ParkeerDienst> {
 
     @Override
     public List<ParkeerDienst> getAll() {
-        return selectParkeerDienst("SELET * FROM parkeerdienst");
+        return selectParkeerDienst("SELECT * FROM parkeerdienst");
     }
 
     public void checkDates() {

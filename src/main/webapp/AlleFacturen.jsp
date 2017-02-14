@@ -23,7 +23,7 @@
         <div class="main">            
             <c:forEach var="factuur" items="${alleFacturen}">
                 <form action="alleFacturenServlet" method="post">                    
-                        <table>
+                        <table >
                             <tr style="color:#ffffff; font-size: 1em;">
                                 <td>Factuurnummer</td>
                                 <td>Factuurdatum</td>
@@ -42,35 +42,35 @@
         </div>
         <div id="main3">
 
-            <table>
-                <tr>
+            <table id="tabel">
+                <tr class="head">
                     <td>Factuurnummer</td>
                     <td>Factuurdatum</td>
                     <td>Vervaldatum</td>
                 </tr>
-                <tr>
+                <tr class="info">
                     <td>${fact.factuurNummer}</td>
                     <td>${fact.factuurDatum}</td>
                     <td>${fact.vervalDatum}</td>
                 </tr>
-                <tr>
+                <tr class="head">
                     <td>Brutoprijs</td>
                     <td>Betaald?</td>
                 </tr>
-                <tr>
+                <tr class="info">
                     <td>${fact.brutoPrijs}</td>
                     <td>${fact.isBetaald()}</td>
                 </tr>
-                <tr>
+                <tr class="head">
                     <td>Omschrijving</td>
                 </tr>
-                <tr>
+                <tr class="info">
                     <td>${fact.omschrijving}</td>
                 </tr>
-                <tr>
+                <tr class="head">
                     <td>Klant</td>
                 </tr>
-                <tr>
+                <tr class="info">
                     <td>${fact.getKlantNaam()}</td>
                 </tr>
             </table>

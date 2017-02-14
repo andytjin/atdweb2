@@ -71,7 +71,7 @@
             <form action="ForwardServlet" method="post">
                 <table>
                     <tr>
-                        <td style="font-family: Arial; font-size: 1.5em; color: #ffffff">Alle facturen:</td>
+                        <td style="font-family: Arial; font-size: 1.3em;">Alle facturen:</td>
                         <td><input type="submit" name="button" value="Alle Facturen"></td>
                     </tr>
                 </table>

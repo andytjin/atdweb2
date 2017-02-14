@@ -4,11 +4,11 @@
     Author     : Max
 --%>
 
-<%-- <jsp:include page="Headers/klantheader.jsp"/> --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="shortcut icon" href="Images/picatd2.png"/>
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

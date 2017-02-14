@@ -88,46 +88,38 @@ public class FactuurServlet extends HttpServlet {
             }
         }
 
-        request.getServletContext()
-                .setAttribute("msgs", msgs);
-        RequestDispatcher rd = request.getRequestDispatcher("FactuurOverzichtBeheerder.jsp");
-
-        if (knop.equals(
-                "Bereken")) {
-            d = 0.0;
-            if (!arbeidsuren.equals("")) {
-                i = Integer.parseInt(arbeidsuren);
-            }
-            if (!dienstNummer.equals("")) {
-                dN = Integer.parseInt(dienstNummer);
-            }
-            Onderhoudsbeurt deOnderhoudsbeurt = oService.getOnderhoudsbeurt(dN);
+        Onderhoudsbeurt deOnderhoudsbeurt = null;
+        if (!arbeidsuren.equals("")) {
+            i = Integer.parseInt(arbeidsuren);
+            dN = Integer.parseInt(dienstNummer);
+            deOnderhoudsbeurt = oService.getOnderhoudsbeurt(dN);
             for (GebruikteArtikelen ga : gaService.getGebruikteArtikelByOnderhoudsbeurt(dN)) {
                 deOnderhoudsbeurt.voegArtikelToe(ga.getHetArtikel(), ga.getAantal(), dN);
-
             }
-            System.out.println(deOnderhoudsbeurt.getGebruikteArtikelen());
-            //deOnderhoudsbeurt.setDeArtikelen(gaService.getGebruikteArtikelByOnderhoudsbeurt(dN));
             deOnderhoudsbeurt.setAantalBestedeUur(i);
             d += deOnderhoudsbeurt.prijs();
+        }
+
+        if (knop.equals("Aanmaken") && b) {
+
+            if(deOnderhoudsbeurt != null){
+                System.out.print("Het aantal uren is: " + i + " en de prijs van onderhoud is: " + deOnderhoudsbeurt.prijs());
+            }
+
             if (!parkeernummer.equals("")) {
                 p = Integer.parseInt(parkeernummer);
             }
             ParkeerDienst deParkeerDienst = pService.getParkeerDienstByID(p);
+            System.out.print("De parkeer prijs is: " + deParkeerDienst.prijs());
             d += deParkeerDienst.prijs();
-            System.out.println(d);
-            request.setAttribute("prijs", d);
+            System.out.print("De totaal prijs is: " + d);
 
+            fService.addFactuur(i, d, paid, fD, vdatum, oS, fService.getKlant(knaam));
+            request.setAttribute("msgs", "Factuur toegevoegd!");
         }
 
-        if (knop.equals("Aanmaken")) {
-            if (b) {
-                fService.addFactuur(i, d, paid, fD, vdatum, oS, fService.getKlant(knaam));
-                request.setAttribute("msgs", "Factuur toegevoegd!");
-            } else {
-                request.setAttribute("msgs", msgs);
-            }
-        }
+        request.getSession().getServletContext().setAttribute("msgs", msgs);
+        RequestDispatcher rd = request.getRequestDispatcher("FactuurOverzichtBeheerder.jsp");
 
         rd.forward(request, response);
     }

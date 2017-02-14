@@ -16,32 +16,44 @@
     </head>
     <body>
         <form action="GebruikteArtikelWijzigen" method="post">
-        <label>GebruikteArtikelenID</label>
-        
-        <select name="gebruikteartikelen" id="gebruikteartikelen" onchange="fillGebruikteArtikelen()">
-            <option disabled Selected>Selecteer GebruikteArtikelID</option>
-            <c:forEach var="GebruikteArtikelen" items="${gebruikteartikelen}">
-             <option value="${GebruikteArtikelen.gebruikteArtikelId},${GebruikteArtikelen.onderhoudsBeurtId},${GebruikteArtikelen.hetArtikel.code},${GebruikteArtikelen.aantal}">${GebruikteArtikelen.gebruikteArtikelId}</option>
-            </c:forEach>
-        </select>
-            
-        <label>OnderhoudsbeurtID</label>
-        <select name="onderhoudsbeurt" id="onderhoudsbeurt">
-            <c:forEach var="Onderhoudsbeurt" items="${onderhoudsbeurt}">
-             <option value="${Onderhoudsbeurt.dienstNummer}">${Onderhoudsbeurt.dienstNummer}</option>
-            </c:forEach>
-        </select>
-        <label>ArtikelID:</label>
-        <select name="artikel" id="artikel">
-            <c:forEach var="Artikel" items="${artikel}">
-             <option value="${Artikel.code}">${Artikel.code}</option>
-            </c:forEach>
-        </select>
-        <label>aantal Gebruikte artikelen:</label>
-        <input type="text" name="ga" id="ga"><br/>
-        <button name="knop" value="Opslaan" type="submit">
-                Opslaan
-        </button>
+            <table>
+                <tr>
+                    <td><label>GebruikteArtikelenID</label></td>
+
+                    <td> <select name="gebruikteartikelen" id="gebruikteartikelen" onchange="fillGebruikteArtikelen()">
+                            <option disabled Selected>Selecteer GebruikteArtikelID</option>
+                            <c:forEach var="GebruikteArtikelen" items="${gebruikteartikelen}">
+                                <option value="${GebruikteArtikelen.gebruikteArtikelId},${GebruikteArtikelen.onderhoudsBeurtId},${GebruikteArtikelen.hetArtikel.code},${GebruikteArtikelen.aantal}">${GebruikteArtikelen.gebruikteArtikelId}</option>
+                            </c:forEach>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td><label>OnderhoudsbeurtID</label></td>
+                    <td><select name="onderhoudsbeurt" id="onderhoudsbeurt">
+                            <c:forEach var="Onderhoudsbeurt" items="${onderhoudsbeurt}">
+                                <option value="${Onderhoudsbeurt.dienstNummer}">${Onderhoudsbeurt.dienstNummer}</option>
+                            </c:forEach>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td><label>ArtikelID:</label></td>
+                    <td><select name="artikel" id="artikel">
+                            <c:forEach var="Artikel" items="${artikel}">
+                                <option value="${Artikel.code}">${Artikel.code}</option>
+                            </c:forEach>
+                        </select></td>
+                </tr>
+                <tr>                
+                    <td><label>aantal Gebruikte artikelen:</label></td>
+                    <td><input type="text" name="ga" id="ga"><br/></td>                    
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button name="knop" value="Opslaan" type="submit">
+                            Opslaan
+                        </button></td>
+                </tr>
+            </table>
         </form>
     </body>
 </html>

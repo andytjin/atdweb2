@@ -6,13 +6,16 @@ package Servlets;
 import Domain.Auto;
 import Domain.Klant;
 import Domain.Monteur;
+import Domain.Onderhoudsbeurt;
 import Service.AutoService;
 import Service.FactuurService;
 import Service.KlantService;
 import Service.MonteurService;
 import Service.ParkeerplaatsService;
+import Service.PlanningService;
 import Service.ServiceProvider;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,6 +46,8 @@ public class LoginServlet extends HttpServlet {
 
         KlantService ks = ServiceProvider.getKlantService();
         MonteurService ms = ServiceProvider.getMonteurService();
+        PlanningService ps = ServiceProvider.getPlanningService();
+        
         if (username.equals("")) {
             msgs += "- Username is niet ingevuld";
             b = false;
@@ -67,8 +72,25 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("PageName", "Account Settings");
                     request.getSession().setAttribute("autos", lijst);
                     FactuurService fService = ServiceProvider.getFactuurService();
+                    
+                    List<Onderhoudsbeurt> olijst = new ArrayList<Onderhoudsbeurt>();
+                    for(Auto a : lijst){
+                        System.out.println("--- ZoekOpdracht onderhoudsbeurten [LoginServlet line: 78]");
+                        System.out.println("- zoekend naar onderhouds beurt bij kenteken: " + a.getKenteken());
+                        List<Onderhoudsbeurt> gevonden = ps.getOnderhoudsbeurten(a.getKenteken());
+                        for(Onderhoudsbeurt o : gevonden){
+                            olijst.add(o);
+                            System.out.println("- Onderhouds beurt gevonden en toegevoegd");
+                        }
+                        System.out.println("-- Einde zoekopdracht");
+                    }
+                    
                     request.getSession().setAttribute("klantenfacturen", fService.getAlleFacturen(k.getUsername()));
                     request.setAttribute("PageName", "Homepage");
+                    for(Onderhoudsbeurt o : olijst){
+                        System.out.println("ONDERHOUDS BEURRRT" + o.getDienstNummer());
+                    }
+                    request.getSession().setAttribute("Planningen", olijst);
                 } else {
                     b = false;
                     msgs += "- Wachtwoord is onjuist";

@@ -11,7 +11,7 @@ public class ParkeerPlaats implements Serializable{
     }
      
     public void setAantalBezet(int aB){
-         
+        aantalBezet = aB;
     }
      
     public boolean isPlaats(){

@@ -99,7 +99,7 @@ public class WerkzaamheidToevoegen extends HttpServlet {
             } else {
               
                 int uur = Integer.parseInt(bestedeUur);
-                oService.schrijfOnderhoudsbeurtNaarDatabase(o,uur);
+              
                 List<Onderhoudsbeurt> oLijst = oService.getAlleOnderhoudsbeurten();
                 request.getSession().setAttribute("onderhoudsbeurt", oLijst);
             }

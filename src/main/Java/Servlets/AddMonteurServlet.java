@@ -25,60 +25,56 @@ public class AddMonteurServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
         String id = request.getParameter("ID");
         String naam = request.getParameter("Naam");
         String password = request.getParameter("Password");
         String passwordcheck = request.getParameter("PasswordCheck");
         String button = request.getParameter("button");
-        
-        int idnummer = 0;
+        String errormsgs = checkInput(id, naam, password, passwordcheck);
         String msgs = "De volgende velden zijn niet goed ingevuld<br/>";
         boolean b = true;
 
         RequestDispatcher rd = request.getRequestDispatcher("AddMonteur.jsp");
-
-        MonteurService ms = ServiceProvider.getMonteurService();
-
         if(button.equals("terug")){
             rd = request.getRequestDispatcher("/AdminPage.jsp");
             b = false;
         }
-        if (id.equals("")) {
-            msgs += "- ID<br/>";
-            b = false;
-        }
-        try {
+        MonteurService ms = ServiceProvider.getMonteurService();
+        int idnummer = 0;
+        if(!errormsgs.equals("")){
             idnummer = Integer.parseInt(id);
-        } catch (Exception e) {
-            msgs += " - Het ID moet een nummer zijn<br/>";
             b = false;
-        }
-        if (naam.equals("")) {
-            msgs += "- Naam<br/>";
-            b = false;
-        }
-        if(password.equals("") || passwordcheck.equals("")){
-            msgs += "- Wachtwoord<br/>";
-            b = false;
-        }
-        if(!password.equals(passwordcheck)){
-            msgs += "- Wachtwoorden komen niet overeen";
-        }
-        for (Monteur m : ms.getAlleMonteurs()) {
-            if (idnummer == m.getID()) {
-                msgs += "- Dit ID wordt al gebruikt.<br/>";
-                b = false;
-            }
         }
         if (b) {
             ms.voegMonteurToe(idnummer, naam, password);
             System.out.println("Monteur toegevoegd");
             msgs = "Monteur " + naam + " is toegevoegd";
+        }else{
+            msgs += errormsgs;
         }
         request.setAttribute("msgs", msgs);
-
         rd.forward(request, response);
-
+    }
+    
+    private String checkInput(String id, String naam, String password, String passwordcheck){
+        String errormsgs = "";
+        errormsgs += id.equals("") ? "- ID<br/>" : "";
+        errormsgs += naam.equals("") ? "- Naam<br/>" : "";
+        errormsgs += password.equals("") && passwordcheck.equals("") ? "- Wachtwoord<br/>" : "";
+        errormsgs += !password.equals(passwordcheck) ? "- Wachtwoorden komen niet overeen" : "";
+        int idnummer = 0;
+        try {
+            idnummer = Integer.parseInt(id);
+        } catch (Exception e) {
+            errormsgs += " - Het ID moet een nummer zijn<br/>";
+            
+        }
+        MonteurService ms = ServiceProvider.getMonteurService();
+        for (Monteur m : ms.getAlleMonteurs()) {
+            if (idnummer == m.getID()) {
+                errormsgs += "- Dit ID wordt al gebruikt.<br/>";  
+            }
+        }
+        return errormsgs;
     }
 }

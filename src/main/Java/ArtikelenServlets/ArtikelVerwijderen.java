@@ -89,19 +89,19 @@ public class ArtikelVerwijderen extends HttpServlet {
             double pr = 0.0;
             
             if (aantal.equals("")) {
-                System.out.println("aantal = null");
+                
             } else {
                 aant = Integer.parseInt(aantal);
             }
 
             if (minimum.equals("")) {
-                System.out.println("minimum = null");
+                
             } else {
                 min = Integer.parseInt(minimum);
             }
 
             if (prijs.equals("")) {
-                System.out.println("prijs = null");
+                
             } else {
                 pr = Double.parseDouble(prijs);
             }

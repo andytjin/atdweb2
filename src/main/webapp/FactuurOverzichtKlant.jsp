@@ -16,8 +16,8 @@
         <form action="/KlantPageServlet" method="post">
             <div id="main4">               
 
-                <table>
-                    <tr style="background-color:#ffffff; font-weight: bold; ">
+                <table id="tabel">
+                    <tr class="head">
                         <td>Factuurnummer</td>
                         <td>Factuurdatum</td>
                         <td>Vervaldatum</td>
@@ -27,7 +27,7 @@
                         <td>Klant</td>
                     </tr>
                     <c:forEach var="factuur" items="${klantenfacturen}">
-                        <tr style="background-color:#cccccc;">
+                        <tr class="info">
                             <td>${factuur.factuurNummer}</td>
                             <td>${factuur.factuurDatum}</td>
                             <td>${factuur.vervalDatum}</td>
