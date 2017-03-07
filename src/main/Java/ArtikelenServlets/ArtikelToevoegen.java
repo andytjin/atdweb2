@@ -62,7 +62,7 @@ public class ArtikelToevoegen extends HttpServlet {
 
         boolean b = true;
 
-        if (artikelNummer.equals("")) {
+        if ("".equals(artikelNummer)) {
             b = false;
             message += "Artikelnummer is niet ingevuld ";
         }
